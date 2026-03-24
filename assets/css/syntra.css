@@ -182,7 +182,11 @@ p  { color: var(--slate); line-height: 1.6; }
   width: 16px; height: 16px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
 }
-@media (max-width: 767px) { .site-header__nav { display: none; } }
+@media (max-width: 767px) {
+  .site-header__nav { display: none; }
+  .site-header__inner { gap: 0; }
+  .site-header__logo-text { margin-right: auto; }
+}
 
 /* Hamburger — only visible on mobile */
 .hamburger { display: none; }
