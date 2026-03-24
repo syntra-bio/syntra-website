@@ -109,9 +109,27 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
           <div class="product-info__descriptor"><?php echo esc_html( $descriptor ); ?></div>
         <?php endif; ?>
 
-        <div class="product-info__price">
+        <div class="product-info__price js-bundle-price">
           <?php echo $product->get_price_html(); ?>
         </div>
+
+        <?php if ( $p && ! empty( $p['bundles'] ) ) : ?>
+        <div class="bundle-options">
+          <?php foreach ( $p['bundles'] as $i => $bundle ) : ?>
+          <button type="button"
+            class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
+            data-qty="<?php echo esc_attr( $bundle['qty'] ); ?>"
+            data-price="<?php echo esc_attr( number_format( $bundle['price'], 2 ) ); ?>"
+            data-save="<?php echo esc_attr( $bundle['save'] ); ?>">
+            <span class="bundle-option__qty"><?php echo esc_html( $bundle['qty'] ); ?>x</span>
+            <span class="bundle-option__price">$<?php echo esc_html( number_format( $bundle['price'], 2 ) ); ?></span>
+            <?php if ( $bundle['save'] > 0 ) : ?>
+              <span class="bundle-option__save">Save $<?php echo esc_html( $bundle['save'] ); ?></span>
+            <?php endif; ?>
+          </button>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
 
         <?php if ( $formula || $cas ) : ?>
         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">

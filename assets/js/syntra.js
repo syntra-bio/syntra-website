@@ -53,6 +53,24 @@
     if (input) { input.value = next; }
   });
 
+  /* ── Bundle options ── */
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.bundle-option');
+    if (!opt) return;
+    document.querySelectorAll('.bundle-option').forEach(function (o) { o.classList.remove('bundle-option--active'); });
+    opt.classList.add('bundle-option--active');
+    var qty   = parseInt(opt.dataset.qty, 10) || 1;
+    var price = opt.dataset.price;
+    var qtyInput  = document.querySelector('.qty-input');
+    var qtyDisplay = document.querySelector('.qty-value');
+    var priceEl   = document.querySelector('.js-bundle-price');
+    var addBtn    = document.querySelector('.btn-primary[name="add-to-cart"]');
+    if (qtyInput)  { qtyInput.value = qty; }
+    if (qtyDisplay) { qtyDisplay.textContent = qty; }
+    if (priceEl)   { priceEl.textContent = '$' + price; }
+    if (addBtn)    { addBtn.textContent = 'Add to Cart — $' + price; }
+  });
+
   /* ── Animate finding bars on scroll ── */
   var barFills = document.querySelectorAll('.finding-bar-fill');
   if (barFills.length && 'IntersectionObserver' in window) {
