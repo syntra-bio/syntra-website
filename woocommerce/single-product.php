@@ -470,49 +470,61 @@ window.addEventListener('load', function () {
       </div>
 
       <!-- Right: radar chart -->
+      <?php if ( ! empty( $tr['radar'] ) ) :
+        $radar       = $tr['radar'];
+        $ds_colors   = [
+          [ 'border' => '#2FB7B3', 'bg' => 'rgba(47,183,179,0.15)',   'bw' => 2,   'pr' => 4 ],
+          [ 'border' => '#4E5F71', 'bg' => 'rgba(78,95,113,0.08)',    'bw' => 1.5, 'pr' => 3 ],
+          [ 'border' => '#97AEC8', 'bg' => 'rgba(151,174,200,0.06)',  'bw' => 1.5, 'pr' => 3 ],
+        ];
+        $legend_classes = [ 'radar-legend__item--teal', 'radar-legend__item--slate', 'radar-legend__item--muted' ];
+      ?>
       <div class="trial-card">
         <p style="font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate); margin-bottom:16px;">Comparative Activity Profile</p>
         <div style="position:relative; height:280px;">
           <canvas id="radarChart"></canvas>
         </div>
         <div class="radar-legend">
-          <span class="radar-legend__item radar-legend__item--teal">GHK-Cu</span>
-          <span class="radar-legend__item radar-legend__item--slate">Vitamin C</span>
-          <span class="radar-legend__item radar-legend__item--muted">Matrixyl®</span>
+          <?php foreach ( $radar['datasets'] as $idx => $ds ) : ?>
+          <span class="radar-legend__item <?php echo esc_attr( $legend_classes[ $idx ] ?? '' ); ?>"><?php echo esc_html( $ds['label'] ); ?></span>
+          <?php endforeach; ?>
         </div>
       </div>
+      <?php endif; ?>
 
     </div>
   </div>
 </section>
+<?php if ( ! empty( $tr['radar'] ) ) : ?>
 <script>
 window.addEventListener('load', function () {
   var ctx = document.getElementById('radarChart');
   if (!ctx || typeof Chart === 'undefined') return;
+  <?php
+    $ds_colors = [
+      [ 'border' => '#2FB7B3', 'bg' => 'rgba(47,183,179,0.15)',  'bw' => 2,   'pr' => 4 ],
+      [ 'border' => '#4E5F71', 'bg' => 'rgba(78,95,113,0.08)',   'bw' => 1.5, 'pr' => 3 ],
+      [ 'border' => '#97AEC8', 'bg' => 'rgba(151,174,200,0.06)', 'bw' => 1.5, 'pr' => 3 ],
+    ];
+    $js_datasets = [];
+    foreach ( $tr['radar']['datasets'] as $idx => $ds ) {
+      $c = $ds_colors[ $idx ] ?? $ds_colors[2];
+      $js_datasets[] = [
+        'label'            => $ds['label'],
+        'data'             => $ds['data'],
+        'borderColor'      => $c['border'],
+        'backgroundColor'  => $c['bg'],
+        'borderWidth'      => $c['bw'],
+        'pointBackgroundColor' => $c['border'],
+        'pointRadius'      => $c['pr'],
+      ];
+    }
+  ?>
   new Chart(ctx, {
     type: 'radar',
     data: {
       labels: <?php echo json_encode( $tr['radar']['labels'] ); ?>,
-      datasets: [
-        {
-          label: 'GHK-Cu',
-          data: <?php echo json_encode( $tr['radar']['datasets'][0]['data'] ); ?>,
-          borderColor: '#2FB7B3', backgroundColor: 'rgba(47,183,179,0.15)',
-          borderWidth: 2, pointBackgroundColor: '#2FB7B3', pointRadius: 4,
-        },
-        {
-          label: 'Vitamin C',
-          data: <?php echo json_encode( $tr['radar']['datasets'][1]['data'] ); ?>,
-          borderColor: '#4E5F71', backgroundColor: 'rgba(78,95,113,0.08)',
-          borderWidth: 1.5, pointBackgroundColor: '#4E5F71', pointRadius: 3,
-        },
-        {
-          label: 'Matrixyl®',
-          data: <?php echo json_encode( $tr['radar']['datasets'][2]['data'] ); ?>,
-          borderColor: '#97AEC8', backgroundColor: 'rgba(151,174,200,0.06)',
-          borderWidth: 1.5, pointBackgroundColor: '#97AEC8', pointRadius: 3,
-        },
-      ]
+      datasets: <?php echo json_encode( $js_datasets ); ?>
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -530,6 +542,7 @@ window.addEventListener('load', function () {
   });
 });
 </script>
+<?php endif; ?>
 <?php endif; ?>
 
 <!-- SAFETY PROFILE -->

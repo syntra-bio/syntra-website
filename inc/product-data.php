@@ -1108,15 +1108,32 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Ipamorelin (GHSR-1a)', 'value' => '2.8×',  'pct' => 100, 'primary' => true ],
         [ 'label' => 'GHRP-2 (GHSR-1a)',     'value' => '2.6×',  'pct' => 93,  'primary' => false ],
         [ 'label' => 'GHRP-6 (GHSR-1a)',     'value' => '2.2×',  'pct' => 79,  'primary' => false ],
+        [ 'label' => 'Untreated Baseline',   'value' => '1.0×',  'pct' => 36,  'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'GH Selectivity', 'Zero Cortisol', 'Zero Prolactin', 'IGF-1 Elevation', 'Receptor Binding' ],
+        'datasets' => [
+          [ 'label' => 'Ipamorelin', 'data' => [ 98, 100, 100, 75, 95 ] ],
+          [ 'label' => 'GHRP-6',    'data' => [ 65, 30,  40,  65, 80 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Cortisol-neutral',      'desc' => 'No measurable ACTH or cortisol elevation at effective GH-stimulating doses (Raun et al., 1998)' ],
-        [ 'icon' => '✅', 'label' => 'Prolactin-neutral',     'desc' => 'Zero prolactin elevation — key differentiator from GHRP-2 and GHRP-6' ],
-        [ 'icon' => '✅', 'label' => 'Selective mechanism',   'desc' => 'Binds exclusively GHSR-1a; does not activate ghrelin-unrelated receptor pathways' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only', 'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Ipamorelin demonstrates the cleanest safety profile of any GHRP in published preclinical models. Zero cortisol, ACTH, or prolactin elevation at effective GH-stimulating doses — a unique differentiator.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cortisol elevation',       'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Prolactin elevation',      'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Cytotoxicity at 1 nM',     'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Off-target receptor binding', 'severity' => 'None' ],
+      ],
+      'concern' => [
+        'title'  => 'GH Axis Stimulation — Expected Research Effect',
+        'desc'   => 'Ipamorelin stimulates GHSR-1a to produce pulsatile GH release. Researchers should account for downstream IGF-1 axis activation. This is the expected and intended effect — not an adverse finding.',
+        'points' => [
+          'No cortisol, ACTH, or prolactin elevation at any published effective dose — unique among all GHRPs',
+          'No cytotoxicity or off-target receptor binding in published in vitro models',
+          'Selective GHSR-1a agonism is the most extensively documented safety feature of Ipamorelin (Raun et al., 1998)',
+        ],
       ],
     ],
     'faq' => [
@@ -1125,15 +1142,15 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are typical storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 21 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg', 'label' => '1 Vial',  'price' => '$109.99', 'per' => '$109.99/vial' ],
-      [ 'qty' => '20mg', 'label' => '2 Vials', 'price' => '$199.99', 'per' => '$99.99/vial' ],
-      [ 'qty' => '30mg', 'label' => '3 Vials', 'price' => '$279.99', 'per' => '$93.33/vial' ],
-      [ 'qty' => '40mg', 'label' => '4 Vials', 'price' => '$349.99', 'per' => '$87.50/vial' ],
+      [ 'qty' => 1, 'price' => 109.99 ],
+      [ 'qty' => 2, 'price' => 199.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 279.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 349.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2609', 'purity' => '99.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2508', 'purity' => '99.5%', 'date' => 'Aug 2025', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2401', 'purity' => '99.0%', 'date' => 'Jan 2024', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2609-IPA', 'purity' => '99.2%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => true ],
+      [ 'id' => 'SYN-2508-IPA', 'purity' => '99.5%', 'date' => 'August 2025',   'labeled' => '10 mg', 'actual' => '10.05 mg', 'current' => false ],
+      [ 'id' => 'SYN-2401-IPA', 'purity' => '99.0%', 'date' => 'January 2024',  'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1228,18 +1245,35 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '×',
       'hero_label' => 'GH Pulse Amplitude Restored vs. Somatopause Baseline',
       'bars' => [
-        [ 'label' => 'Sermorelin',       'value' => '3.0×',  'pct' => 100, 'primary' => true ],
-        [ 'label' => 'GHRP-6',          'value' => '2.5×',  'pct' => 83,  'primary' => false ],
-        [ 'label' => 'Baseline decline', 'value' => '1.0×',  'pct' => 33,  'primary' => false ],
+        [ 'label' => 'Sermorelin',        'value' => '3.0×',  'pct' => 100, 'primary' => true ],
+        [ 'label' => 'CJC-1295 No DAC',  'value' => '3.0×',  'pct' => 100, 'primary' => false ],
+        [ 'label' => 'GHRP-6',           'value' => '2.5×',  'pct' => 83,  'primary' => false ],
+        [ 'label' => 'Baseline decline',  'value' => '1.0×',  'pct' => 33,  'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'GH Restoration', 'Physiological Pulsatility', 'IGF-1 Elevation', 'Sleep Architecture', 'Selectivity' ],
+        'datasets' => [
+          [ 'label' => 'Sermorelin',       'data' => [ 88, 95, 80, 85, 90 ] ],
+          [ 'label' => 'Exogenous GH',     'data' => [ 95, 20, 95, 40, 60 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Physiological mechanism',  'desc' => 'Works via endogenous GHRH-R pathway — maintains natural pituitary feedback and GH pulse regulation' ],
-        [ 'icon' => '✅', 'label' => 'No pituitary suppression', 'desc' => 'Unlike exogenous GH, Sermorelin preserves pituitary responsiveness and natural GH axis function' ],
-        [ 'icon' => '✅', 'label' => 'Self-limiting dosing',     'desc' => 'GH release governed by somatostatin counter-regulation — inherent physiological ceiling exists' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',   'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Sermorelin demonstrates a physiologically safe profile by working through the body\'s own pituitary feedback loop. Unlike exogenous GH, natural somatostatin counter-regulation limits any excessive GH release.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Pituitary suppression',    'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Cytotoxicity at 1 nM',     'severity' => 'None' ],
+        [ 'pct' => 5, 'label' => 'GH axis stimulation',      'severity' => 'Expected' ],
+        [ 'pct' => 0, 'label' => 'Off-target binding',       'severity' => 'None' ],
+      ],
+      'concern' => [
+        'title'  => 'Short Half-Life — Research Protocol Consideration',
+        'desc'   => 'Sermorelin\'s ~12-minute half-life (shorter than CJC-1295 No DAC at ~30 min) requires consideration in experimental protocol design. GH pulses are self-limiting via somatostatin counter-regulation.',
+        'points' => [
+          'No pituitary suppression — preserves natural GH/somatostatin feedback loop',
+          'No cytotoxicity or genotoxicity in published in vitro models at research concentrations',
+          'Self-limiting mechanism: somatostatin counter-regulation prevents sustained supraphysiological GH levels',
+        ],
       ],
     ],
     'faq' => [
@@ -1248,13 +1282,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are typical storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 21 days. Protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg', 'label' => '1 Vial',  'price' => '$139.99', 'per' => '$139.99/vial' ],
-      [ 'qty' => '20mg', 'label' => '2 Vials', 'price' => '$259.99', 'per' => '$129.99/vial' ],
-      [ 'qty' => '30mg', 'label' => '3 Vials', 'price' => '$369.99', 'per' => '$123.33/vial' ],
+      [ 'qty' => 1, 'price' => 139.99 ],
+      [ 'qty' => 2, 'price' => 259.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 369.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 469.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2610', 'purity' => '99.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2509', 'purity' => '99.3%', 'date' => 'Sep 2025', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2610-SERM', 'purity' => '99.0%', 'date' => 'March 2026',     'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => true ],
+      [ 'id' => 'SYN-2509-SERM', 'purity' => '99.3%', 'date' => 'September 2025', 'labeled' => '10 mg', 'actual' => '10.03 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1345,17 +1380,34 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '×',
       'hero_label' => 'Reduction in IGFBP Binding Affinity vs. Native IGF-1',
       'bars' => [
-        [ 'label' => 'IGF-LR3 IGFBP binding',   'value' => '0.1%',   'pct' => 1,   'primary' => true ],
-        [ 'label' => 'Native IGF-1 IGFBP binding','value' => '100%',  'pct' => 100, 'primary' => false ],
+        [ 'label' => 'IGF-LR3 (free active)',     'value' => '~25h t½', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'Native IGF-1 (IGFBP-bound)','value' => '~16h',    'pct' => 64,  'primary' => false ],
+        [ 'label' => 'Native IGF-1 (free)',        'value' => '~10 min', 'pct' => 1,   'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'Half-Life Extension', 'IGFBP Escape', 'Receptor Potency', 'Anabolic Signalling', 'Selectivity' ],
+        'datasets' => [
+          [ 'label' => 'IGF-LR3',    'data' => [ 98, 99, 92, 95, 85 ] ],
+          [ 'label' => 'Native IGF-1','data' => [ 30, 10, 75, 75, 90 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '⚠️', 'label' => 'Temperature-sensitive',  'desc' => 'Extremely sensitive to temperature — do not leave reconstituted solution at room temperature; degrade rapidly above 8°C' ],
-        [ 'icon' => '⚠️', 'label' => 'IGFBP disruption',       'desc' => 'Reduced IGFBP binding means less buffering of circulating IGF-1 — effects are more pronounced and less self-limiting than native IGF-1' ],
-        [ 'icon' => '✅', 'label' => 'No GH axis effect',      'desc' => 'Acts directly at IGF-1R; does not affect pituitary GH secretion or GHRH/GHRP pathways' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',  'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'IGF-LR3 acts directly at the IGF-1R without affecting pituitary GH secretion. Its primary research consideration is the dramatically reduced IGFBP buffering — effects are more pronounced and less self-limiting than native IGF-1.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'GH axis interference',      'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Cytotoxicity at 10 nM',     'severity' => 'None' ],
+        [ 'pct' => 8, 'label' => 'Amplified IGF-1R signalling','severity' => 'Expected' ],
+        [ 'pct' => 3, 'label' => 'Temperature degradation risk','severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Reduced IGFBP Buffering — Amplified Receptor Exposure',
+        'desc'   => 'The ~1000× reduction in IGFBP binding means less physiological buffering of IGF-1R activation. Researchers should account for proportionally greater and more sustained anabolic signalling vs. native IGF-1 in experimental models.',
+        'points' => [
+          'No GH axis interference — acts directly at IGF-1R independently of pituitary function',
+          'No cytotoxicity in published in vitro cell culture models at research concentrations',
+          'Temperature-sensitive: reconstituted solution degrades rapidly above 8°C — strict cold-chain handling required',
+        ],
       ],
     ],
     'faq' => [
@@ -1364,12 +1416,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Extremely temperature-sensitive — avoid leaving at room temperature.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg', 'label' => '1 Vial',  'price' => '$269.99', 'per' => '$269.99/vial' ],
-      [ 'qty' => '20mg', 'label' => '2 Vials', 'price' => '$499.99', 'per' => '$249.99/vial' ],
+      [ 'qty' => 1, 'price' => 269.99 ],
+      [ 'qty' => 2, 'price' => 499.99, 'badge' => 'Popular', 'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 699.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2611', 'purity' => '98.4%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2510', 'purity' => '98.7%', 'date' => 'Oct 2025', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2611-IGFLR3', 'purity' => '98.4%', 'date' => 'March 2026',   'labeled' => '1 mg', 'actual' => '1.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2510-IGFLR3', 'purity' => '98.7%', 'date' => 'October 2025', 'labeled' => '1 mg', 'actual' => '1.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1451,14 +1504,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'α-MSH (native)', 'value' => '3.5×',  'pct' => 39,  'primary' => false ],
         [ 'label' => 'Baseline',       'value' => '1.0×',  'pct' => 11,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'MC1R (Pigmentation)', 'MC4R (Arousal)', 'MC3R (Appetite)', 'Potency vs α-MSH', 'Receptor Selectivity' ],
+        'datasets' => [
+          [ 'label' => 'Melanotan II', 'data' => [ 95, 85, 70, 92, 45 ] ],
+          [ 'label' => 'α-MSH',        'data' => [ 60, 55, 60, 40, 75 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '⚠️', 'label' => 'Non-selective receptor binding',  'desc' => 'Binds MC1R, MC3R, MC4R, and MC5R — broader target profile than PT-141 (MC3R/MC4R selective)' ],
-        [ 'icon' => '⚠️', 'label' => 'Pigmentation research context',   'desc' => 'MC1R-driven eumelanin increases are well-characterised in melanocyte cell culture models' ],
-        [ 'icon' => '✅', 'label' => 'Extensively characterised',       'desc' => 'Developed at University of Arizona with comprehensive in vitro and Phase I/II human safety data' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',           'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Melanotan II is one of the most extensively characterised melanocortin peptides, with Phase I/II human data available. Its non-selective binding profile (MC1R, MC3R, MC4R, MC5R) is its primary research consideration versus more selective analogues.',
+      'observations' => [
+        [ 'pct' => 0,  'label' => 'Cytotoxicity in vitro',       'severity' => 'None' ],
+        [ 'pct' => 8,  'label' => 'Multi-receptor activation',   'severity' => 'Expected' ],
+        [ 'pct' => 4,  'label' => 'Pigmentation modulation',     'severity' => 'Expected' ],
+        [ 'pct' => 0,  'label' => 'Off-pathway binding',         'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Non-Selective Melanocortin Receptor Binding',
+        'desc'   => 'Melanotan II activates MC1R, MC3R, MC4R, and MC5R simultaneously. Researchers requiring isolated pathway activation should consider PT-141 (MC3R/MC4R selective) or selective MC1R agonists for clean experimental designs.',
+        'points' => [
+          'No cytotoxicity in published in vitro melanocyte and cell culture models',
+          'Multi-receptor binding profile is well-characterised — University of Arizona Phase I/II data available',
+          'Distinct from PT-141: broader receptor binding includes MC1R (pigmentation) and MC5R (exocrine)',
+        ],
       ],
     ],
     'faq' => [
@@ -1467,13 +1536,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 28 days. Protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$54.99',  'per' => '$54.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$99.99',  'per' => '$49.99/vial' ],
-      [ 'qty' => '30mg',  'label' => '3 Vials', 'price' => '$139.99', 'per' => '$46.66/vial' ],
+      [ 'qty' => 1, 'price' => 54.99 ],
+      [ 'qty' => 2, 'price' => 99.99,  'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 139.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 174.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2612', 'purity' => '98.3%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2511', 'purity' => '98.6%', 'date' => 'Nov 2025', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2612-MT2', 'purity' => '98.3%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2511-MT2', 'purity' => '98.6%', 'date' => 'November 2025', 'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1553,14 +1623,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'PT-141',  'value' => '74.7%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Placebo', 'value' => '37.0%', 'pct' => 50,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'MC4R Selectivity', 'Clinical Efficacy', 'Safety Profile', 'CNS Penetration', 'Hormone Independence' ],
+        'datasets' => [
+          [ 'label' => 'PT-141',      'data' => [ 92, 88, 90, 85, 95 ] ],
+          [ 'label' => 'Melanotan II','data' => [ 45, 75, 65, 80, 90 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'FDA Phase III validated',   'desc' => 'Approved as Vyleesi (Palatin/AMAG) in 2019 — extensive Phase II/III safety data in over 1,000 subjects' ],
-        [ 'icon' => '✅', 'label' => 'Non-vascular mechanism',    'desc' => 'Central CNS action at MC3R/MC4R — does not act on blood vessels, unlike PDE5 inhibitors' ],
-        [ 'icon' => '✅', 'label' => 'Hormone-independent',       'desc' => 'Effective independent of oestrogen, testosterone, or other hormonal status' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',    'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'PT-141 has FDA-approved status (Vyleesi, 2019) with Phase III safety data from over 1,000 subjects. Central MC3R/MC4R mechanism avoids vascular side effects associated with PDE5 inhibitors.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Vascular adverse effects',    'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Hormone axis disruption',     'severity' => 'None' ],
+        [ 'pct' => 6, 'label' => 'Nausea (Phase III reported)', 'severity' => 'Minimal' ],
+        [ 'pct' => 3, 'label' => 'Flushing (MC receptor effect)','severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Central CNS Activity — MC3R/MC4R Research Context',
+        'desc'   => 'PT-141 acts centrally via hypothalamic MC3R/MC4R pathways. Researchers should account for CNS effects in experimental designs. Nausea was the most common adverse event in Phase III trials (reported in ~40% of subjects at therapeutic doses).',
+        'points' => [
+          'FDA-approved safety data from over 1,000 women in Phase II/III RECONNECT trials',
+          'No significant cardiovascular, hepatic, or haematological adverse findings in Phase III',
+          'Central mechanism is hormone-independent — effective across oestrogen/testosterone levels',
+        ],
       ],
     ],
     'faq' => [
@@ -1569,13 +1655,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 20 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$69.99',  'per' => '$69.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$129.99', 'per' => '$64.99/vial' ],
-      [ 'qty' => '30mg',  'label' => '3 Vials', 'price' => '$179.99', 'per' => '$59.99/vial' ],
+      [ 'qty' => 1, 'price' => 69.99 ],
+      [ 'qty' => 2, 'price' => 129.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 179.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 219.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2613', 'purity' => '99.1%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2512', 'purity' => '99.4%', 'date' => 'Dec 2025', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2613-PT141', 'purity' => '99.1%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => true ],
+      [ 'id' => 'SYN-2512-PT141', 'purity' => '99.4%', 'date' => 'December 2025', 'labeled' => '10 mg', 'actual' => '10.04 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1639,18 +1726,34 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '×',
       'hero_label' => 'BDNF Elevation in Hippocampal Cultures at 24h vs. Baseline',
       'bars' => [
-        [ 'label' => 'Semax',    'value' => '10.5×', 'pct' => 100, 'primary' => true ],
-        [ 'label' => 'NGF induction', 'value' => '4.2×', 'pct' => 40, 'primary' => false ],
-        [ 'label' => 'Baseline', 'value' => '1.0×',  'pct' => 10,  'primary' => false ],
+        [ 'label' => 'Semax',         'value' => '10.5×', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'NGF induction', 'value' => '4.2×',  'pct' => 40,  'primary' => false ],
+        [ 'label' => 'Baseline',      'value' => '1.0×',  'pct' => 10,  'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'BDNF Induction', 'NGF Elevation', 'Neuroprotection', 'Cognitive Effects', 'CNS Penetration' ],
+        'datasets' => [
+          [ 'label' => 'Semax',  'data' => [ 98, 75, 88, 90, 92 ] ],
+          [ 'label' => 'Selank', 'data' => [ 55, 60, 82, 85, 88 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Approved in Russia',         'desc' => 'Approved by Roszdrav for ischaemic stroke, TIA, and cognitive impairment — clinical use since 1982' ],
-        [ 'icon' => '✅', 'label' => 'No receptor downregulation', 'desc' => 'Semax does not downregulate BDNF receptors (TrkB) at effective doses in model systems' ],
-        [ 'icon' => '✅', 'label' => 'Intranasal delivery',        'desc' => 'Nose-to-brain delivery bypasses blood-brain barrier degradation — well-characterised pharmacokinetics' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',     'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Semax has clinical approval in Russia since 1982 with an established safety profile across stroke, TIA, and cognitive impairment indications. No receptor downregulation observed at effective doses in model systems.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cytotoxicity in vitro',         'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'BDNF receptor downregulation',  'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Neurotoxicity at research doses','severity' => 'None' ],
+        [ 'pct' => 4, 'label' => 'Transient nasal irritation',    'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Intranasal Delivery — Concentration-Dependent CNS Effects',
+        'desc'   => 'Semax is designed for intranasal delivery with nose-to-brain transport. In vitro cell culture studies use aqueous solution. Researchers should account for rapid BDNF/NGF axis activation when designing hippocampal or CNS-focused experiments.',
+        'points' => [
+          'Clinically approved in Russia since 1982 — extensive safety data from ischaemic stroke populations',
+          'No TrkB (BDNF receptor) downregulation in published in vitro and rodent studies at effective doses',
+          'No cytotoxicity, genotoxicity, or neurotoxicity in published laboratory models at research concentrations',
+        ],
       ],
     ],
     'faq' => [
@@ -1659,13 +1762,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Solution: 4°C, use within 30 days. Keep upright, protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$119.99', 'per' => '$119.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$219.99', 'per' => '$109.99/vial' ],
-      [ 'qty' => '40mg',  'label' => '2×20mg',  'price' => '$409.99', 'per' => '$102.49/vial' ],
+      [ 'qty' => 1, 'price' => 119.99 ],
+      [ 'qty' => 2, 'price' => 219.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 309.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 389.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2614', 'purity' => '99.3%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2513', 'purity' => '99.6%', 'date' => 'Jan 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2614-SEMAX', 'purity' => '99.3%', 'date' => 'March 2026',   'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => true ],
+      [ 'id' => 'SYN-2513-SEMAX', 'purity' => '99.6%', 'date' => 'January 2026', 'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1748,14 +1852,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Benzodiazepine',  'value' => '−64%', 'pct' => 100, 'primary' => false ],
         [ 'label' => 'Placebo',         'value' => '−21%', 'pct' => 33,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Anxiolytic Efficacy', 'No Sedation', 'No Dependence', 'BDNF Elevation', 'CNS Safety' ],
+        'datasets' => [
+          [ 'label' => 'Selank',          'data' => [ 97, 98, 99, 90, 95 ] ],
+          [ 'label' => 'Benzodiazepine',  'data' => [ 100, 20, 15, 10, 50 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'No sedation',             'desc' => 'GABAergic modulation without hypnotic or sedative effects at therapeutic doses — unlike benzodiazepines' ],
-        [ 'icon' => '✅', 'label' => 'No dependence profile',   'desc' => 'No withdrawal symptoms or tolerance development observed in preclinical models or clinical GAD trials' ],
-        [ 'icon' => '✅', 'label' => 'Approved in Russia',      'desc' => 'Registered as an anxiolytic by Roszdrav — clinical use for anxiety and neurosis treatment' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',  'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Selank demonstrates benzodiazepine-equivalent anxiolytic efficacy without sedation, cognitive impairment, or dependence. Clinically registered in Russia by Roszdrav with established safety data from GAD trials.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Sedation at effective doses',  'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Dependence or withdrawal',     'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Cognitive impairment',         'severity' => 'None' ],
+        [ 'pct' => 2, 'label' => 'Nasal irritation (intranasal)','severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'GABA-A Modulation — Distinct from Benzodiazepine Site',
+        'desc'   => 'Selank modulates GABA-A receptors at a distinct allosteric site from benzodiazepines — avoiding the tolerance and dependence mechanisms. This is validated by absence of withdrawal in preclinical models and clinical trials.',
+        'points' => [
+          'No sedation, cognitive impairment, or dependence in published controlled clinical trials',
+          'Clinically approved in Russia for anxiety and neurosis — Phase II/III safety data available',
+          'GABA-A modulation at non-benzodiazepine site: no cross-tolerance or withdrawal observed',
+        ],
       ],
     ],
     'faq' => [
@@ -1764,13 +1884,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Solution: 4°C, use within 30 days. Do not freeze solution form.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$79.99',  'per' => '$79.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$149.99', 'per' => '$74.99/vial' ],
-      [ 'qty' => '30mg',  'label' => '3 Vials', 'price' => '$209.99', 'per' => '$69.99/vial' ],
+      [ 'qty' => 1, 'price' => 79.99 ],
+      [ 'qty' => 2, 'price' => 149.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 209.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 259.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2615', 'purity' => '99.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2514', 'purity' => '99.5%', 'date' => 'Feb 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2615-SELANK', 'purity' => '99.2%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => true ],
+      [ 'id' => 'SYN-2514-SELANK', 'purity' => '99.5%', 'date' => 'February 2026', 'labeled' => '10 mg', 'actual' => '10.04 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1851,15 +1972,32 @@ const SYNTRA_PRODUCTS = [
       'bars' => [
         [ 'label' => 'DSIP',     'value' => '+42%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Placebo',  'value' => '+8%',  'pct' => 19,  'primary' => false ],
+        [ 'label' => 'Cortisol reduction (DSIP)', 'value' => '−35%', 'pct' => 83, 'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'Delta Sleep Increase', 'Cortisol Reduction', 'ACTH Suppression', 'Non-Sedating', 'Endogenous Safety' ],
+        'datasets' => [
+          [ 'label' => 'DSIP',     'data' => [ 92, 85, 80, 95, 98 ] ],
+          [ 'label' => 'Melatonin','data' => [ 40, 20, 15, 90, 90 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous peptide',        'desc' => 'Naturally occurring in brain, cerebrospinal fluid, and peripheral blood — not a synthetic novel compound' ],
-        [ 'icon' => '✅', 'label' => 'Non-sedating mechanism',    'desc' => 'Works by modulating neuroendocrine sleep regulation rather than direct sedation (GABA-A suppression)' ],
-        [ 'icon' => '⚠️', 'label' => 'Degradation-sensitive',    'desc' => 'Highly sensitive to enzymatic degradation — avoid repeated freeze-thaw cycles after reconstitution' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',    'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'DSIP is an endogenous nonapeptide naturally found in brain, CSF, and peripheral blood. Its neuroendocrine mechanism avoids direct CNS depression, preserving sleep architecture quality without sedation.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cytotoxicity in vitro',      'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Direct CNS sedation',        'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Dependence or tolerance',    'severity' => 'None' ],
+        [ 'pct' => 4, 'label' => 'Enzymatic degradation risk', 'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Stability — Enzymatic Degradation Sensitivity',
+        'desc'   => 'DSIP is highly susceptible to peptidase degradation, both in solution and in biological matrices. Repeated freeze-thaw cycles significantly reduce bioactive peptide concentration. Strict cold-chain handling required for experimental validity.',
+        'points' => [
+          'Endogenous peptide — naturally occurring in brain, CSF, and blood; not a novel synthetic compound',
+          'Non-sedating mechanism: neuroendocrine modulation rather than direct GABA-A suppression',
+          'Avoid repeated freeze-thaw cycles — enzymatic degradation occurs rapidly at temperatures above 4°C',
+        ],
       ],
     ],
     'faq' => [
@@ -1868,13 +2006,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Highly sensitive to degradation — avoid repeated freeze-thaw cycles.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$79.99',  'per' => '$79.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$149.99', 'per' => '$74.99/vial' ],
-      [ 'qty' => '15mg',  'label' => '15mg',    'price' => '$109.99', 'per' => '$109.99/vial' ],
+      [ 'qty' => 1, 'price' => 109.99 ],
+      [ 'qty' => 2, 'price' => 199.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 279.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 349.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2616', 'purity' => '99.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2515', 'purity' => '99.3%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2616-DSIP', 'purity' => '99.0%', 'date' => 'March 2026',     'labeled' => '5 mg', 'actual' => '5.02 mg', 'current' => true ],
+      [ 'id' => 'SYN-2515-DSIP', 'purity' => '99.3%', 'date' => 'March 2026',     'labeled' => '5 mg', 'actual' => '5.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1943,14 +2082,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'MitoQ',    'value' => '−41%', 'pct' => 55,  'primary' => false ],
         [ 'label' => 'Untreated','value' => '0%',   'pct' => 0,   'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'ROS Reduction', 'ATP Recovery', 'Cardiolipin Protection', 'IMM Targeting', 'No Depolarisation' ],
+        'datasets' => [
+          [ 'label' => 'SS-31', 'data' => [ 95, 90, 98, 99, 98 ] ],
+          [ 'label' => 'MitoQ', 'data' => [ 55, 60, 45, 80, 50 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Phase II human data',       'desc' => 'HFPEF and mitochondrial myopathy Phase II trials — extensive safety database across multiple indications' ],
-        [ 'icon' => '✅', 'label' => 'No membrane depolarisation','desc' => 'Unlike other mitochondria-targeted compounds, SS-31 does not alter mitochondrial membrane potential' ],
-        [ 'icon' => '✅', 'label' => 'Selectively IMM-targeted',  'desc' => '1000× concentration in inner mitochondrial membrane — minimises off-target cytoplasmic effects' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',    'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'SS-31 has Phase II human safety data from HFPEF and primary mitochondrial myopathy trials. Uniquely, it does not alter mitochondrial membrane potential — avoiding the depolarisation risk of other cationic mitochondria-targeted compounds.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Mitochondrial depolarisation', 'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Cytotoxicity in vitro',        'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Off-target cytoplasmic effects','severity' => 'None' ],
+        [ 'pct' => 3, 'label' => 'Injection site reactions',     'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Cardiolipin Binding Specificity — IMM Research Context',
+        'desc'   => 'SS-31 selectively binds cardiolipin in the inner mitochondrial membrane. Researchers should account for its potent modulation of electron transport chain efficiency (complexes I and III) in mitochondrial function experimental designs.',
+        'points' => [
+          'Phase II safety data from HFPEF trial and primary mitochondrial myopathy program',
+          'No mitochondrial membrane depolarisation — a key advantage over cationic targeting strategies (MitoQ, SkQ)',
+          '1000× IMM concentration selectivity minimises off-target cytoplasmic and nuclear effects',
+        ],
       ],
     ],
     'faq' => [
@@ -1959,13 +2114,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Avoid light and oxidative conditions.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$79.99',  'per' => '$79.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$144.99', 'per' => '$144.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$269.99', 'per' => '$134.99/vial' ],
+      [ 'qty' => 1, 'price' => 144.99 ],
+      [ 'qty' => 2, 'price' => 269.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 379.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 469.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2617', 'purity' => '98.5%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2516', 'purity' => '98.8%', 'date' => 'Apr 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2617-SS31', 'purity' => '98.5%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2516-SS31', 'purity' => '98.8%', 'date' => 'April 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2044,17 +2200,33 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '%',
       'hero_label' => 'Body Weight Reduction in Obese Mouse Model (10 wks)',
       'bars' => [
-        [ 'label' => '5-Amino-1MQ',  'value' => '−20%', 'pct' => 100, 'primary' => true ],
-        [ 'label' => 'Control',      'value' => '−4%',  'pct' => 20,  'primary' => false ],
+        [ 'label' => '5-Amino-1MQ', 'value' => '−20%', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'Control',     'value' => '−4%',  'pct' => 20,  'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'NAD+ Elevation', 'SIRT1 Activation', 'Adipose Reduction', 'Oral Bioavailability', 'Metabolic Rate' ],
+        'datasets' => [
+          [ 'label' => '5-Amino-1MQ', 'data' => [ 85, 90, 88, 95, 82 ] ],
+          [ 'label' => 'NMN (precursor)', 'data' => [ 80, 60, 30, 85, 55 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Orally active',            'desc' => 'Small molecule NNMT inhibitor with confirmed oral bioavailability in preclinical models — no injection required' ],
-        [ 'icon' => '✅', 'label' => 'Selective NNMT target',    'desc' => 'Designed for selectivity at nicotinamide N-methyltransferase — not a broad SAM-e depleter' ],
-        [ 'icon' => '⚠️', 'label' => 'Preclinical data only',   'desc' => 'All data from in vitro adipocyte cultures and mouse models — no human clinical trial data yet' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',   'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => '5-Amino-1MQ is a selective NNMT inhibitor with confirmed oral bioavailability. All published safety data derives from in vitro adipocyte cultures and rodent models — no human clinical trials have been completed.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cytotoxicity in vitro',       'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Off-target methyltransferase', 'severity' => 'None' ],
+        [ 'pct' => 4, 'label' => 'SAM-e pathway modulation',    'severity' => 'Expected' ],
+        [ 'pct' => 0, 'label' => 'Hepatotoxicity markers',      'severity' => 'None' ],
+      ],
+      'concern' => [
+        'title'  => 'Preclinical Data Only — No Human Clinical Trials Completed',
+        'desc'   => 'All published 5-Amino-1MQ efficacy and safety data is from in vitro cell culture and rodent models. Researchers should note the absence of human pharmacokinetic or safety data in study design and interpretation.',
+        'points' => [
+          'No cytotoxicity, genotoxicity, or hepatotoxicity in published in vitro models',
+          'Selective for NNMT — not a broad methyltransferase inhibitor; SAM-e pathway effects are targeted',
+          'All preclinical data: no human clinical trial data available — this is a research compound with limited translational context',
+        ],
       ],
     ],
     'faq' => [
@@ -2063,13 +2235,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Capsules: Room temperature 15–25°C, away from moisture and light, up to 24 months. Do not refrigerate.' ],
     ],
     'bundles' => [
-      [ 'qty' => '60×50mg',  'label' => '60 Caps (50mg)', 'price' => '$64.99',  'per' => '$1.08/cap' ],
-      [ 'qty' => '60×100mg', 'label' => '60 Caps (100mg)','price' => '$109.99', 'per' => '$1.83/cap' ],
-      [ 'qty' => '120×50mg', 'label' => '2× 60 Caps',     'price' => '$119.99', 'per' => '$0.99/cap' ],
+      [ 'qty' => 1, 'price' => 109.99 ],
+      [ 'qty' => 2, 'price' => 199.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 279.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 349.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2618', 'purity' => '99.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2517', 'purity' => '99.4%', 'date' => 'May 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2618-5A1MQ', 'purity' => '99.2%', 'date' => 'March 2026', 'labeled' => '100 mg/cap', 'actual' => '100.2 mg', 'current' => true ],
+      [ 'id' => 'SYN-2517-5A1MQ', 'purity' => '99.4%', 'date' => 'May 2026',   'labeled' => '100 mg/cap', 'actual' => '100.4 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2141,19 +2314,35 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '×',
       'hero_label' => 'Synergistic Repair Pathways — Full-Spectrum Coverage vs. Single-Peptide Protocols',
       'bars' => [
-        [ 'label' => 'GHK-Cu (collagen synthesis)',    'value' => '+70%', 'pct' => 100, 'primary' => true ],
-        [ 'label' => 'BPC-157 (wound healing)',        'value' => '3.2×', 'pct' => 100, 'primary' => true ],
-        [ 'label' => 'TB-500 (systemic repair)',       'value' => '2.8×', 'pct' => 88,  'primary' => false ],
-        [ 'label' => 'KPV (NF-κB inhibition)',        'value' => '−58%', 'pct' => 83,  'primary' => false ],
+        [ 'label' => 'GHK-Cu (collagen synthesis)', 'value' => '+70%', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'BPC-157 (wound healing)',      'value' => '3.2×', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'TB-500 (systemic repair)',     'value' => '2.8×', 'pct' => 88,  'primary' => false ],
+        [ 'label' => 'KPV (NF-κB inhibition)',      'value' => '−58%', 'pct' => 83,  'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'Anti-Inflammatory', 'Collagen Synthesis', 'Local Tissue Repair', 'Systemic Healing', 'Gene Modulation' ],
+        'datasets' => [
+          [ 'label' => 'KLOW (Stack)',  'data' => [ 95, 95, 95, 92, 98 ] ],
+          [ 'label' => 'BPC-157 alone','data' => [ 85, 30, 95, 40, 20 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'All components individually validated', 'desc' => 'GHK-Cu, BPC-157, TB-500, and KPV each have independent safety data from separate in vitro and in vivo research programs' ],
-        [ 'icon' => '✅', 'label' => 'Complementary mechanisms',             'desc' => 'Four peptides targeting distinct receptor pathways — no known receptor competition or antagonism between components' ],
-        [ 'icon' => '✅', 'label' => 'Lyophilised co-formulation',           'desc' => 'Components are co-lyophilised for stability and reconstitute as a single solution — no separate vials required' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',               'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'All four KLOW components (GHK-Cu, KPV, BPC-157, TB-500) have independent safety data from separate research programs. No receptor competition or known antagonism between components has been identified in published literature.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cytotoxicity (any component)',  'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Component antagonism',          'severity' => 'None' ],
+        [ 'pct' => 4, 'label' => 'Combined angiogenic activity',  'severity' => 'Expected' ],
+        [ 'pct' => 2, 'label' => 'NF-κB pathway inhibition',     'severity' => 'Expected' ],
+      ],
+      'concern' => [
+        'title'  => 'Combined Angiogenic Activity — Additive Effect',
+        'desc'   => 'Both BPC-157 (VEGF pathway) and TB-500 (eNOS/SDF-1) promote angiogenesis through independent mechanisms. Combined, this angiogenic activity is additive. Researchers using angiogenesis-sensitive models should account for this combined effect.',
+        'points' => [
+          'No cytotoxicity for any of the four components in published in vitro studies at research concentrations',
+          'GHK-Cu, BPC-157, and TB-500 have independent comprehensive safety data — KPV has established anti-inflammatory safety profile',
+          'Combined angiogenic promotion (BPC-157 + TB-500) is consistent with intended wound-healing research applications',
+        ],
       ],
     ],
     'faq' => [
@@ -2162,14 +2351,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '80mg',  'label' => '1 Vial',  'price' => '$89.99',  'per' => '$89.99/vial' ],
-      [ 'qty' => '160mg', 'label' => '2 Vials', 'price' => '$164.99', 'per' => '$82.49/vial' ],
-      [ 'qty' => '240mg', 'label' => '3 Vials', 'price' => '$234.99', 'per' => '$78.33/vial' ],
-      [ 'qty' => '320mg', 'label' => '4 Vials', 'price' => '$299.99', 'per' => '$74.99/vial' ],
+      [ 'qty' => 1, 'price' => 89.99 ],
+      [ 'qty' => 2, 'price' => 164.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 234.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
+      [ 'qty' => 4, 'price' => 299.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2619', 'purity' => '99.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2518', 'purity' => '99.3%', 'date' => 'Jun 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2619-KLOW', 'purity' => '99.0%', 'date' => 'March 2026', 'labeled' => '80 mg', 'actual' => '80.1 mg', 'current' => true ],
+      [ 'id' => 'SYN-2518-KLOW', 'purity' => '99.3%', 'date' => 'June 2026',  'labeled' => '80 mg', 'actual' => '80.2 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2252,18 +2441,36 @@ const SYNTRA_PRODUCTS = [
       'hero_unit'  => '%',
       'hero_label' => 'Mean Body Weight Reduction at 48 Weeks (Maximum Dose Cohort)',
       'bars' => [
-        [ 'label' => 'Retatrutide 12mg',        'value' => '−24.2%', 'pct' => 100, 'primary' => true ],
-        [ 'label' => 'Tirzepatide 15mg (SRMNT)', 'value' => '−22.5%', 'pct' => 93,  'primary' => false ],
-        [ 'label' => 'Semaglutide 2.4mg',        'value' => '−14.9%', 'pct' => 62,  'primary' => false ],
+        [ 'label' => 'Retatrutide 12mg',  'value' => '−24.2%', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'Tirzepatide 15mg',  'value' => '−22.5%', 'pct' => 93,  'primary' => false ],
+        [ 'label' => 'Semaglutide 2.4mg', 'value' => '−14.9%', 'pct' => 62,  'primary' => false ],
+        [ 'label' => 'Placebo',           'value' => '−2.1%',  'pct' => 9,   'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'Weight Loss', 'GLP-1 Activity', 'GIP Activity', 'Glucagon Activity', 'Receptor Coverage' ],
+        'datasets' => [
+          [ 'label' => 'Retatrutide',  'data' => [ 98, 95, 92, 90, 99 ] ],
+          [ 'label' => 'Tirzepatide',  'data' => [ 93, 92, 88, 0,  67 ] ],
+          [ 'label' => 'Semaglutide',  'data' => [ 65, 95, 0,  0,  33 ] ],
+        ],
       ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Phase III active (Eli Lilly)', 'desc' => 'Phase III trials ongoing — Phase II safety profile consistent with GLP-1 class (GI effects dose-dependent)' ],
-        [ 'icon' => '✅', 'label' => 'Triple receptor mechanism',    'desc' => 'Glucagon receptor agonism adds thermogenic energy expenditure and hepatic fat mobilisation beyond GLP-1 alone' ],
-        [ 'icon' => '⚠️', 'label' => 'Investigational compound',    'desc' => 'Not yet FDA-approved — Phase III data and regulatory review still in progress at time of publication' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',       'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Retatrutide\'s Phase II safety profile is consistent with the GLP-1 receptor agonist class. GI adverse events (nausea, vomiting) are dose-dependent and typical of the incretin mechanism class. Phase III trials ongoing.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cardiovascular adverse events',  'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Hepatotoxicity markers',         'severity' => 'None' ],
+        [ 'pct' => 7, 'label' => 'Nausea (GLP-1 class effect)',    'severity' => 'Minimal' ],
+        [ 'pct' => 4, 'label' => 'Vomiting (dose-dependent)',      'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'Investigational Status — Phase III Ongoing (Not Yet Approved)',
+        'desc'   => 'Retatrutide (LY3437943) is an investigational compound in Phase III trials as of 2024. Regulatory approval has not been granted. Phase II safety data is available but long-term safety profile is not yet fully characterised.',
+        'points' => [
+          'GI adverse events (nausea, vomiting) are consistent with GLP-1 class and dose-dependent — not unique to triple agonism',
+          'No significant cardiovascular, hepatic, or pancreatic adverse findings in Phase II safety data',
+          'Investigational status: full regulatory safety review pending — Phase III data required for approval',
+        ],
       ],
     ],
     'faq' => [
@@ -2272,13 +2479,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 28 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$159.99', 'per' => '$159.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$289.99', 'per' => '$289.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$549.99', 'per' => '$274.99/vial' ],
+      [ 'qty' => 1, 'price' => 289.99 ],
+      [ 'qty' => 2, 'price' => 549.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 799.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2620', 'purity' => '98.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2519', 'purity' => '98.6%', 'date' => 'Jul 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2620-RETAT', 'purity' => '98.2%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2519-RETAT', 'purity' => '98.6%', 'date' => 'July 2026',  'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2345,14 +2552,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Semaglutide 2.4mg', 'value' => '−14.9%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Placebo',           'value' => '−2.4%',  'pct' => 16,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Weight Loss', 'CV Protection', 'GLP-1 Potency', 'Half-Life', 'Clinical Data Depth' ],
+        'datasets' => [
+          [ 'label' => 'Semaglutide', 'data' => [ 75, 90, 98, 85, 98 ] ],
+          [ 'label' => 'Tirzepatide', 'data' => [ 95, 75, 88, 78, 92 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'FDA-approved (Ozempic/Wegovy)', 'desc' => 'Approved for type 2 diabetes (Ozempic) and chronic weight management (Wegovy) — extensive Phase III safety database' ],
-        [ 'icon' => '✅', 'label' => 'Cardiovascular benefit',        'desc' => 'SELECT trial: 20% reduction in major adverse cardiovascular events in overweight/obese subjects without diabetes' ],
-        [ 'icon' => '✅', 'label' => 'C18 fatty acid modification',   'desc' => 'C18 diacid modification enables albumin binding, extending half-life to ~7 days and allowing once-weekly dosing' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',         'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Semaglutide has FDA approval for both T2D (Ozempic) and obesity (Wegovy) with the most extensive GLP-1 safety database in the class. The SELECT trial additionally demonstrated a 20% MACE reduction — a cardiovascular benefit beyond weight management.',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cardiovascular adverse events',  'severity' => 'None' ],
+        [ 'pct' => 0, 'label' => 'Hepatotoxicity',                 'severity' => 'None' ],
+        [ 'pct' => 7, 'label' => 'Nausea (GLP-1 class effect)',    'severity' => 'Minimal' ],
+        [ 'pct' => 3, 'label' => 'Injection site reactions',       'severity' => 'Minimal' ],
+      ],
+      'concern' => [
+        'title'  => 'GLP-1 Class GI Effects — Dose-Dependent Nausea',
+        'desc'   => 'Nausea and GI discomfort are the primary adverse events associated with semaglutide, consistent across all GLP-1 receptor agonists. These effects are dose-dependent, typically transient during dose escalation, and do not represent hepatic or cardiovascular risk.',
+        'points' => [
+          'FDA-approved with extensive Phase III safety data from STEP-1, STEP-2, STEP-3, STEP-4, and SELECT trials',
+          'SELECT trial (N=17,604): 20% MACE reduction — positive cardiovascular safety profile confirmed',
+          'GI adverse events are class-specific and transient — no serious organ toxicity identified in Phase III database',
+        ],
       ],
     ],
     'faq' => [
@@ -2361,14 +2584,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 28 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',  'label' => '1 Vial',  'price' => '$139.99', 'per' => '$139.99/vial' ],
-      [ 'qty' => '10mg', 'label' => '1 Vial',  'price' => '$249.99', 'per' => '$249.99/vial' ],
-      [ 'qty' => '20mg', 'label' => '2 Vials', 'price' => '$469.99', 'per' => '$234.99/vial' ],
-      [ 'qty' => '30mg', 'label' => '3 Vials', 'price' => '$674.99', 'per' => '$224.99/vial' ],
+      [ 'qty' => 1, 'price' => 249.99 ],
+      [ 'qty' => 2, 'price' => 469.99, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 674.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2621', 'purity' => '98.1%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2520', 'purity' => '98.5%', 'date' => 'Aug 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2621-SEMA', 'purity' => '98.1%', 'date' => 'March 2026',  'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2520-SEMA', 'purity' => '98.5%', 'date' => 'August 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2451,14 +2673,32 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Semaglutide 2.4mg (STEP-1)', 'value' => '−14.9%', 'pct' => 66, 'primary' => false ],
         [ 'label' => 'Placebo',          'value' => '−2.4%',  'pct' => 11,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Weight Loss', 'GIP Activity', 'GLP-1 Activity', 'Half-Life', 'Clinical Evidence' ],
+        'datasets' => [
+          [ 'label' => 'Tirzepatide',  'data' => [ 95, 95, 85, 80, 90 ] ],
+          [ 'label' => 'Semaglutide', 'data' => [ 75, 0,  95, 90, 88 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'FDA-approved (Mounjaro/Zepbound)', 'desc' => 'FDA-approved for T2D (Mounjaro, 2022) and obesity (Zepbound, 2023) — extensive Phase III safety database' ],
-        [ 'icon' => '✅', 'label' => 'Dual receptor mechanism',          'desc' => 'GIP receptor agonism amplifies insulin secretion and shifts fat distribution; GLP-1 component reduces appetite and gastric emptying' ],
-        [ 'icon' => '✅', 'label' => 'C20 fatty diacid modification',    'desc' => 'Extends half-life to ~5 days via albumin binding — enables once-weekly subcutaneous dosing' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',           'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Tirzepatide carries the full Phase III safety dataset from SURMOUNT-1/2/3/4 and SURPASS trials (combined N>10,000). GI adverse events are the primary tolerability concern, consistent with the GLP-1 mechanism component. The GIP component appears to mitigate nausea severity vs. GLP-1 monotherapy.',
+      'observations' => [
+        [ 'pct' => 37, 'label' => 'Nausea (any grade)',          'severity' => 'moderate' ],
+        [ 'pct' => 21, 'label' => 'Diarrhoea',                   'severity' => 'low' ],
+        [ 'pct' => 16, 'label' => 'Vomiting',                    'severity' => 'moderate' ],
+        [ 'pct' =>  5, 'label' => 'Serious adverse events',      'severity' => 'low' ],
+        [ 'pct' =>  4, 'label' => 'Discontinuation due to AEs',  'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Research Use & Regulatory Context',
+        'desc'   => 'Tirzepatide (Mounjaro/Zepbound) holds full FDA approval for T2D and obesity with an established Phase III safety database. All in vitro observations must remain within laboratory research parameters.',
+        'points' => [
+          'FDA-approved (Mounjaro 2022 for T2D; Zepbound 2023 for obesity) — most comprehensive approval dataset of any GLP-1 class agent',
+          'GI adverse events dose-dependent and typically transient; peak incidence during dose-escalation phase',
+          'Pancreatitis signal monitored per class labelling — incidence not elevated vs. GLP-1 monotherapy in Phase III',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2467,14 +2707,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 28 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',  'label' => '1 Vial',  'price' => '$149.99', 'per' => '$149.99/vial' ],
-      [ 'qty' => '10mg', 'label' => '1 Vial',  'price' => '$269.99', 'per' => '$269.99/vial' ],
-      [ 'qty' => '15mg', 'label' => '1 Vial',  'price' => '$369.99', 'per' => '$369.99/vial' ],
-      [ 'qty' => '20mg', 'label' => '2×10mg',  'price' => '$519.99', 'per' => '$259.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' => 149.99, 'per' => '$149.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 269.99, 'per' => '$269.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (15mg)',  'price' => 369.99, 'per' => '$369.99/vial' ],
+      [ 'qty' => 2, 'label' => '2×10mg Vials',   'price' => 519.99, 'per' => '$259.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2622', 'purity' => '98.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2521', 'purity' => '98.4%', 'date' => 'Sep 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2622-TIRZ', 'labeled' => '98.0%', 'actual' => '98.0%', 'current' => true  ],
+      [ 'id' => 'SYN-2521-TIRZ', 'labeled' => '98.0%', 'actual' => '98.4%', 'current' => false ],
     ],
     'research' => [
       [
@@ -2543,14 +2783,31 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Age 20–30',  'value' => '100%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Age 60–70',  'value' => '50%',  'pct' => 50,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Mitochondrial Support', 'SIRT Activation', 'DNA Repair (PARP)', 'Redox Balance', 'Cellular Longevity' ],
+        'datasets' => [
+          [ 'label' => 'NAD+ (Direct)', 'data' => [ 95, 90, 92, 90, 88 ] ],
+          [ 'label' => 'NMN (Precursor)', 'data' => [ 75, 72, 70, 72, 72 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous coenzyme',        'desc' => 'Present in all living cells — essential for mitochondrial function, DNA repair, and redox reactions' ],
-        [ 'icon' => '✅', 'label' => 'Extensive human data',       'desc' => 'IV NAD+ used clinically in addiction medicine for decades; oral/injectable research well-characterised' ],
-        [ 'icon' => '⚠️', 'label' => 'Oxidation-sensitive',       'desc' => 'Extremely sensitive to oxidation and light — store reconstituted solution in amber vials and use promptly' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',     'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'NAD+ is an endogenous coenzyme present in all living cells and is a required cofactor for over 500 enzymatic reactions. IV NAD+ has been used in clinical settings for decades. Primary research considerations relate to oxidative stability and storage handling rather than intrinsic toxicity.',
+      'observations' => [
+        [ 'pct' => 12, 'label' => 'Flushing (IV administration)',    'severity' => 'low' ],
+        [ 'pct' =>  8, 'label' => 'Transient GI discomfort',        'severity' => 'low' ],
+        [ 'pct' =>  3, 'label' => 'Mild headache',                  'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported', 'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Stability & Research Handling Notes',
+        'desc'   => 'NAD+ is intrinsically safe as an endogenous molecule. The primary research consideration is its extreme sensitivity to oxidation and light degradation after reconstitution.',
+        'points' => [
+          'Endogenous coenzyme — present in all living cells, no xenobiotic toxicity profile',
+          'IV NAD+ used clinically in addiction medicine for decades without serious adverse events',
+          'Oxidation-sensitive post-reconstitution — store in amber vials at 4°C, use within 14 days',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2559,14 +2816,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 36 months. Reconstituted: 4°C, use within 14 days. Extremely sensitive to oxidation and light — store reconstituted solution in amber vials.' ],
     ],
     'bundles' => [
-      [ 'qty' => '250mg',  'label' => '250mg',   'price' => '$44.99',  'per' => '$44.99/vial' ],
-      [ 'qty' => '500mg',  'label' => '500mg',   'price' => '$79.99',  'per' => '$79.99/vial' ],
-      [ 'qty' => '1000mg', 'label' => '1000mg',  'price' => '$139.99', 'per' => '$139.99/vial' ],
-      [ 'qty' => '2×500mg','label' => '2×500mg', 'price' => '$149.99', 'per' => '$74.99/vial' ],
+      [ 'qty' => 1, 'label' => '250mg Vial',  'price' =>  44.99, 'per' => '$44.99/vial' ],
+      [ 'qty' => 1, 'label' => '500mg Vial',  'price' =>  79.99, 'per' => '$79.99/vial' ],
+      [ 'qty' => 1, 'label' => '1000mg Vial', 'price' => 139.99, 'per' => '$139.99/vial' ],
+      [ 'qty' => 2, 'label' => '2×500mg',     'price' => 149.99, 'per' => '$74.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2623', 'purity' => '99.3%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2522', 'purity' => '99.6%', 'date' => 'Oct 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2623-NAD', 'labeled' => '99.3%', 'actual' => '99.3%', 'current' => true  ],
+      [ 'id' => 'SYN-2522-NAD', 'labeled' => '99.3%', 'actual' => '99.6%', 'current' => false ],
     ],
     'research' => [
       [
@@ -2634,14 +2891,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Epithalon cohort', 'value' => '−33%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Control cohort',   'value' => '0%',   'pct' => 0,   'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Telomerase Activation', 'Longevity Signal', 'Anti-Neoplastic', 'Melatonin Restoration', 'Pineal Bioregulation' ],
+        'datasets' => [
+          [ 'label' => 'Epithalon', 'data' => [ 88, 85, 78, 82, 90 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Extensive longitudinal data', 'desc' => '15-year human follow-up study plus multiple shorter-duration trials from the St. Petersburg Institute — one of the longest peptide safety datasets available' ],
-        [ 'icon' => '✅', 'label' => 'Pineal-derived tetrapeptide', 'desc' => 'Derived from the natural bioregulator peptide pool produced by the pineal gland — not a synthetic novel compound' ],
-        [ 'icon' => '✅', 'label' => 'Tumour suppression data',     'desc' => 'Multiple studies show anti-neoplastic activity in animal tumour models — no pro-neoplastic effects observed' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',      'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Epithalon has one of the longest human safety datasets of any research peptide — 15-year prospective follow-up in elderly subjects (Khavinson et al.) with no serious adverse events reported. Its derivation from the natural pineal bioregulator peptide pool and absence of pro-neoplastic activity distinguish it from many synthetic compounds.',
+      'observations' => [
+        [ 'pct' =>  3, 'label' => 'Transient injection-site erythema', 'severity' => 'low' ],
+        [ 'pct' =>  2, 'label' => 'Mild fatigue (short-term)',         'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported',   'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Pro-neoplastic effects observed',   'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Research Context & Long-Term Safety Data',
+        'desc'   => 'Epithalon is one of the most extensively studied research peptides in terms of longitudinal follow-up, with a 15-year mortality cohort study and multiple shorter-term trials available through the St. Petersburg Institute of Bioregulation.',
+        'points' => [
+          '15-year human prospective cohort — no serious adverse events; 33% all-cause mortality reduction',
+          'Pineal-derived tetrapeptide (Ala-Glu-Asp-Gly) — not a novel synthetic xenobiotic compound',
+          'Anti-neoplastic activity in multiple animal tumour models — no pro-neoplastic effects observed in any study',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2650,13 +2923,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'Is Epithalon the same as Epitalon?', 'a' => 'Yes — Epithalon and Epitalon are the same compound (Ala-Glu-Asp-Gly). The alternate spelling is commonly used in Russian literature. CAS: 307297-39-8.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$54.99',  'per' => '$54.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$99.99',  'per' => '$49.99/vial' ],
-      [ 'qty' => '50mg',  'label' => '50mg',    'price' => '$219.99', 'per' => '$219.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' =>  54.99, 'per' => '$54.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' =>  99.99, 'per' => '$49.99/vial' ],
+      [ 'qty' => 1, 'label' => '50mg Vial',       'price' => 219.99, 'per' => '$219.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2624', 'purity' => '99.1%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2523', 'purity' => '99.4%', 'date' => 'Nov 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2624-EPITH', 'labeled' => '99.1%', 'actual' => '99.1%', 'current' => true  ],
+      [ 'id' => 'SYN-2523-EPITH', 'labeled' => '99.1%', 'actual' => '99.4%', 'current' => false ],
     ],
     'research' => [
       [
@@ -2753,14 +3026,29 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'MOTS-c (HFD model)',   'value' => 'Normalised', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'HFD control (untreated)', 'value' => '−62% sensitivity', 'pct' => 38, 'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'AMPK Activation', 'Insulin Sensitivity', 'Adipose Regulation', 'Mitochondrial Biogenesis', 'Longevity Association' ],
+        'datasets' => [
+          [ 'label' => 'MOTS-c', 'data' => [ 90, 92, 80, 85, 88 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous mitochondrial peptide', 'desc' => 'Encoded in mtDNA — a naturally produced regulatory peptide present in human circulation' ],
-        [ 'icon' => '✅', 'label' => 'Centenarian enrichment data',      'desc' => 'MOTS-c gene variants enriched in Japanese centenarians — genetic association with extreme longevity' ],
-        [ 'icon' => '✅', 'label' => 'Tissue-specific AMPK activation',  'desc' => 'Primarily acts in skeletal muscle, adipose, and liver — the key metabolic tissues for insulin sensitivity' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',           'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'MOTS-c is an endogenous mitochondria-encoded peptide present in human circulation — not a synthetic xenobiotic. It has been associated with extreme longevity in genetic studies (centenarian enrichment). Preclinical and early research datasets show a favourable safety profile consistent with an endogenous regulatory peptide.',
+      'observations' => [
+        [ 'pct' =>  5, 'label' => 'Transient injection-site reaction', 'severity' => 'low' ],
+        [ 'pct' =>  2, 'label' => 'Mild fatigue post-administration',  'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported',   'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Endogenous Origin & Research Safety Context',
+        'desc'   => 'MOTS-c is encoded in the 12S rRNA gene of mitochondrial DNA and circulates endogenously. Its safety profile is supported by both preclinical data and genetic longevity association studies.',
+        'points' => [
+          'Endogenous mtDNA-encoded peptide — present in human blood; not a novel xenobiotic compound',
+          'Gene variants enriched in Japanese centenarians — genetic evidence for longevity association without toxicity',
+          'Tissue-specific AMPK activation in muscle, adipose, and liver — metabolic effect localised to relevant tissues',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2769,13 +3057,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Protect from light and heat.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$74.99',  'per' => '$74.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$139.99', 'per' => '$139.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$259.99', 'per' => '$129.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  74.99, 'per' => '$74.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 139.99, 'per' => '$139.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 259.99, 'per' => '$129.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2625', 'purity' => '98.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2524', 'purity' => '98.5%', 'date' => 'Dec 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2625-MOTSC', 'labeled' => '98.2%', 'actual' => '98.2%', 'current' => true  ],
+      [ 'id' => 'SYN-2524-MOTSC', 'labeled' => '98.2%', 'actual' => '98.5%', 'current' => false ],
     ],
     'research' => [
       [
@@ -2844,14 +3132,29 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Untreated (Aβ)',       'value' => '38%',  'pct' => 44,  'primary' => false ],
         [ 'label' => 'Baseline (no Aβ)',     'value' => '100%', 'pct' => 100, 'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Neuroprotection', 'Cardioprotection', 'Insulin Sensitisation', 'Anti-Apoptotic', 'Longevity Signal' ],
+        'datasets' => [
+          [ 'label' => 'Humanin', 'data' => [ 90, 78, 72, 88, 82 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous mitochondrial peptide', 'desc' => 'Encoded in mtDNA 12S rRNA — circulates in human blood and declines with age' ],
-        [ 'icon' => '✅', 'label' => 'Longevity association data',       'desc' => 'Elevated humanin levels associated with human extreme longevity and reduced cardiovascular risk markers' ],
-        [ 'icon' => '✅', 'label' => 'Multi-system protective effects',  'desc' => 'Documented protective effects in neurons, cardiomyocytes, reproductive cells, and metabolic tissues' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',           'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Humanin is an endogenous mitochondrial peptide circulating in human blood at physiologically meaningful concentrations. It is elevated in centenarians and their offspring, with no adverse events documented in preclinical or early human studies. Its anti-apoptotic mechanism (inhibiting BAX/IGFBP3) is protective rather than pro-proliferative.',
+      'observations' => [
+        [ 'pct' =>  4, 'label' => 'Transient injection-site erythema', 'severity' => 'low' ],
+        [ 'pct' =>  2, 'label' => 'Mild fatigue (transient)',          'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported',   'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Endogenous Profile & Research Safety Context',
+        'desc'   => 'Humanin is encoded in mitochondrial 12S rRNA and declines with age — providing a natural mechanistic rationale for research investigation. Its protective effects span multiple tissue types without observed pro-neoplastic activity.',
+        'points' => [
+          'Endogenous mtDNA-encoded peptide circulating in human blood — not a synthetic novel molecule',
+          'Elevated in centenarians and their offspring — genetic and physiological longevity association',
+          'Anti-apoptotic via BAX suppression and IGFBP3 antagonism — protective, not pro-proliferative mechanism',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2860,13 +3163,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$84.99',  'per' => '$84.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$154.99', 'per' => '$154.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$289.99', 'per' => '$144.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  84.99, 'per' => '$84.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 154.99, 'per' => '$154.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 289.99, 'per' => '$144.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2626', 'purity' => '98.1%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2525', 'purity' => '98.4%', 'date' => 'Jan 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2626-HUMAN', 'labeled' => '98.1%', 'actual' => '98.1%', 'current' => true  ],
+      [ 'id' => 'SYN-2525-HUMAN', 'labeled' => '98.1%', 'actual' => '98.4%', 'current' => false ],
     ],
     'research' => [
       [
@@ -2932,14 +3235,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'TA-1 + Standard care', 'value' => '−38%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Standard care only',   'value' => '0%',   'pct' => 0,   'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'T-Cell Activation', 'Dendritic Cell Maturation', 'Anti-Viral Efficacy', 'Anti-Tumour Immune', 'Safety Profile' ],
+        'datasets' => [
+          [ 'label' => 'Thymosin Alpha-1', 'data' => [ 90, 85, 80, 78, 95 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => '35+ country approval (Zadaxin)', 'desc' => 'Approved by regulatory agencies in Asia, Europe, and Latin America — extensive Phase II/III clinical safety data' ],
-        [ 'icon' => '✅', 'label' => 'Broad immune applications',      'desc' => 'Used in HBV, HCV, cancer adjunct immunotherapy, and sepsis immunosuppression across multiple completed trials' ],
-        [ 'icon' => '✅', 'label' => 'Endogenous thymic peptide',      'desc' => 'Derived from natural thymosin fraction 5 — first described by Goldstein et al. from calf thymus extract' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',         'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Thymosin Alpha-1 has one of the most comprehensive clinical safety records of any research peptide — approved as Zadaxin in 35+ countries with Phase II/III trial data across hepatitis B, hepatitis C, cancer immunotherapy, and sepsis. Its thymic-derived origin and broad regulatory approval base establish a well-characterised tolerability profile.',
+      'observations' => [
+        [ 'pct' => 15, 'label' => 'Injection-site erythema/mild pain', 'severity' => 'low' ],
+        [ 'pct' =>  8, 'label' => 'Transient fatigue',                 'severity' => 'low' ],
+        [ 'pct' =>  3, 'label' => 'Mild flu-like symptoms',            'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events (Zadaxin trials)', 'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Regulatory Approval & Clinical Safety Context',
+        'desc'   => 'TA-1 (Zadaxin) is one of the best-studied research peptides in terms of regulatory review — approved in over 35 countries with established Phase II/III safety datasets in immunocompromised patient populations.',
+        'points' => [
+          'Approved as Zadaxin in 35+ countries — most comprehensive regulatory safety database of any research peptide',
+          'Phase II/III HBV trials: minimal adverse events, no dose-limiting toxicity at therapeutic doses',
+          'Endogenous thymic peptide origin — derived from natural thymosin fraction 5, not a novel xenobiotic',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -2948,13 +3267,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 36 months. Reconstituted: 4°C, use within 21 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$64.99',  'per' => '$64.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$119.99', 'per' => '$119.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$219.99', 'per' => '$109.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  64.99, 'per' => '$64.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 119.99, 'per' => '$119.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 219.99, 'per' => '$109.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2627', 'purity' => '99.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2526', 'purity' => '99.5%', 'date' => 'Feb 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2627-TA1', 'labeled' => '99.2%', 'actual' => '99.2%', 'current' => true  ],
+      [ 'id' => 'SYN-2526-TA1', 'labeled' => '99.2%', 'actual' => '99.5%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3024,14 +3343,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'LL-37 (Influenza H1N1)',  'value' => '97%',  'pct' => 97,  'primary' => false ],
         [ 'label' => 'Untreated control',        'value' => '0%',   'pct' => 0,   'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Anti-Bacterial', 'Anti-Viral', 'Anti-Fungal', 'Wound Healing', 'Immune Modulation' ],
+        'datasets' => [
+          [ 'label' => 'LL-37', 'data' => [ 92, 95, 78, 85, 80 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous human peptide',      'desc' => 'Produced naturally by neutrophils, keratinocytes, and epithelial cells — part of the innate immune system' ],
-        [ 'icon' => '✅', 'label' => 'Wound healing activity',        'desc' => 'Promotes keratinocyte migration, re-epithelialisation, and angiogenesis at wound sites in addition to antimicrobial action' ],
-        [ 'icon' => '⚠️', 'label' => 'Broad membrane disruption',    'desc' => 'The amphipathic helix mechanism is relatively non-selective — higher concentrations can affect host cell membranes' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',         'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'LL-37 is an endogenous human cathelicidin produced by neutrophils, keratinocytes, and epithelial cells as part of the innate immune system. Its key research consideration is concentration-dependent membrane activity — at supra-physiological concentrations the amphipathic helix mechanism can affect host cell membranes.',
+      'observations' => [
+        [ 'pct' => 18, 'label' => 'Transient injection-site erythema', 'severity' => 'low' ],
+        [ 'pct' =>  8, 'label' => 'Local burning sensation',           'severity' => 'low' ],
+        [ 'pct' =>  2, 'label' => 'Mild systemic inflammation markers', 'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported',   'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Concentration-Dependent Activity & Research Context',
+        'desc'   => 'LL-37 exhibits concentration-dependent selectivity. At physiological concentrations its activity is directed at pathogen membranes; at higher concentrations, host membrane effects have been observed in vitro.',
+        'points' => [
+          'Endogenous innate immune peptide — produced naturally by neutrophils and keratinocytes in human tissues',
+          'Wound healing dual action via EGFR/FPRL1 activation — keratinocyte migration and VEGF-driven angiogenesis',
+          'Amphipathic helix mechanism is concentration-dependent — selectivity greatest at physiological concentrations',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3040,13 +3375,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 36 months. Reconstituted: 4°C, use within 14 days. Avoid repeated freeze-thaw cycles.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$89.99',  'per' => '$89.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$164.99', 'per' => '$164.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$309.99', 'per' => '$154.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  89.99, 'per' => '$89.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 164.99, 'per' => '$164.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 309.99, 'per' => '$154.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2628', 'purity' => '98.3%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2527', 'purity' => '98.7%', 'date' => 'Mar 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2628-LL37', 'labeled' => '98.3%', 'actual' => '98.3%', 'current' => true  ],
+      [ 'id' => 'SYN-2527-LL37', 'labeled' => '98.3%', 'actual' => '98.7%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3115,14 +3450,31 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'GnRH (native)', 'value' => '6×',   'pct' => 60,  'primary' => false ],
         [ 'label' => 'Baseline',      'value' => '1×',   'pct' => 10,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'LH Stimulation', 'GnRH Pulsatility', 'HPG Axis Activation', 'IVF Trigger Safety', 'OHSS Risk Reduction' ],
+        'datasets' => [
+          [ 'label' => 'Kisspeptin-10', 'data' => [ 95, 90, 92, 90, 88 ] ],
+          [ 'label' => 'hCG (standard)', 'data' => [ 85, 30, 80, 40, 20 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Phase II IVF validation',    'desc' => 'Phase II IVF trials confirmed equivalent oocyte yield to hCG trigger with significantly lower OHSS risk' ],
-        [ 'icon' => '✅', 'label' => 'Natural GnRH pulse mimicry', 'desc' => 'Works via endogenous GnRH pulse mechanism — preserves natural HPG axis feedback unlike exogenous LH/hCG' ],
-        [ 'icon' => '✅', 'label' => 'Self-limiting duration',     'desc' => 'Short half-life produces a defined LH surge that terminates naturally — unlike hCG\'s prolonged LH-like activity' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',     'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Kisspeptin-10 has been validated in Phase II IVF trials with an excellent tolerability profile. Its mechanism via endogenous GnRH pulsatility preserves HPG axis feedback and produces a self-terminating LH surge — avoiding the prolonged LH-receptor stimulation and associated OHSS risk of hCG triggers.',
+      'observations' => [
+        [ 'pct' => 12, 'label' => 'Transient injection-site reaction', 'severity' => 'low' ],
+        [ 'pct' =>  5, 'label' => 'Mild pelvic discomfort (IVF context)', 'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'OHSS events (vs. 3–8% with hCG)',    'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events reported',    'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'HPG Axis Modulation & IVF Research Context',
+        'desc'   => 'Kisspeptin-10 modulates the HPG axis at the level of hypothalamic GnRH pulsatility — the most physiologically appropriate point for reproductive research. Phase II IVF trials confirm safety and efficacy equivalence to hCG.',
+        'points' => [
+          'Phase II IVF validation — equivalent oocyte yield to hCG trigger; significantly lower OHSS incidence',
+          'Endogenous GnRH pulse mechanism — preserves natural HPG axis feedback regulation',
+          'Self-terminating LH surge via short half-life — no prolonged LH-receptor overstimulation',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3131,13 +3483,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Protect from light.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$59.99',  'per' => '$59.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$109.99', 'per' => '$109.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$199.99', 'per' => '$99.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  59.99, 'per' => '$59.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 109.99, 'per' => '$109.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 199.99, 'per' => '$99.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2629', 'purity' => '99.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2528', 'purity' => '99.3%', 'date' => 'Apr 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2629-KISS10', 'labeled' => '99.0%', 'actual' => '99.0%', 'current' => true  ],
+      [ 'id' => 'SYN-2528-KISS10', 'labeled' => '99.0%', 'actual' => '99.3%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3204,14 +3556,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Oxytocin (intranasal)', 'value' => '−34%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Placebo',              'value' => '−8%',  'pct' => 24,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Social Anxiety Reduction', 'Amygdala Inhibition', 'PTSD Symptoms', 'Social Cognition', 'Bonding/Trust' ],
+        'datasets' => [
+          [ 'label' => 'Oxytocin (IN)', 'data' => [ 85, 88, 72, 80, 90 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Endogenous hypothalamic peptide', 'desc' => 'Produced naturally in the paraventricular nucleus — the same molecule used in clinical Pitocin/Syntocinon' ],
-        [ 'icon' => '✅', 'label' => '40+ published RCTs',              'desc' => 'One of the most extensively studied neuropeptides in neuropsychiatric research — broad safety data across anxiety, PTSD, ASD, and social cognition' ],
-        [ 'icon' => '✅', 'label' => 'CNS-specific delivery',           'desc' => 'Intranasal route bypasses peripheral oxytocin receptor activation — delivers direct CNS action on amygdala and hippocampus' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',          'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Oxytocin has one of the largest intranasal neuropeptide research safety databases — 40+ published RCTs across anxiety, PTSD, ASD, and social cognition conditions. As an endogenous hypothalamic peptide and approved obstetric agent (Pitocin/Syntocinon), its tolerability profile is well-characterised at research-relevant concentrations.',
+      'observations' => [
+        [ 'pct' => 10, 'label' => 'Mild nasal irritation (intranasal)', 'severity' => 'low' ],
+        [ 'pct' =>  5, 'label' => 'Transient headache',                 'severity' => 'low' ],
+        [ 'pct' =>  3, 'label' => 'Mild nausea',                       'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events in RCTs',    'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Endogenous Origin & Research Safety Context',
+        'desc'   => 'Oxytocin is an endogenous hypothalamic nonapeptide and FDA-approved clinical agent. Intranasal delivery provides CNS-targeted action via olfactory/trigeminal pathways, bypassing peripheral receptor activation.',
+        'points' => [
+          'Endogenous hypothalamic peptide — the same molecule used clinically as Pitocin/Syntocinon for labour induction',
+          '40+ published RCTs: no serious adverse events across neuropsychiatric research populations',
+          'Intranasal route delivers CNS-targeted action without peripheral cardiovascular effects of IV administration',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3220,13 +3588,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Solution: 4°C, use within 60 days. Do not freeze spray formulation. Keep upright and protect from heat.' ],
     ],
     'bundles' => [
-      [ 'qty' => '3ml / 1200 IU',  'label' => '1 Bottle',  'price' => '$54.99',  'per' => '$54.99/bottle' ],
-      [ 'qty' => '6ml / 2400 IU',  'label' => '6ml Bottle','price' => '$99.99',  'per' => '$99.99/bottle' ],
-      [ 'qty' => '6ml / 2×3ml',    'label' => '2 Bottles', 'price' => '$99.99',  'per' => '$49.99/bottle' ],
+      [ 'qty' => 1, 'label' => '1 Bottle (3ml / 1200 IU)', 'price' =>  54.99, 'per' => '$54.99/bottle' ],
+      [ 'qty' => 1, 'label' => '6ml Bottle (2400 IU)',     'price' =>  99.99, 'per' => '$99.99/bottle' ],
+      [ 'qty' => 2, 'label' => '2 Bottles (6ml total)',    'price' =>  99.99, 'per' => '$49.99/bottle' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2630', 'purity' => '99.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2529', 'purity' => '99.5%', 'date' => 'May 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2630-OXY', 'labeled' => '99.2%', 'actual' => '99.2%', 'current' => true  ],
+      [ 'id' => 'SYN-2529-OXY', 'labeled' => '99.2%', 'actual' => '99.5%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3295,14 +3663,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'VIP (IL-6)',    'value' => '−58%', 'pct' => 94,  'primary' => false ],
         [ 'label' => 'Control',       'value' => '0%',   'pct' => 0,   'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'TNF-α Suppression', 'IL-6 Suppression', 'Treg Induction', 'Mast Cell Stabilisation', 'VPAC2 Selectivity' ],
+        'datasets' => [
+          [ 'label' => 'VIP', 'data' => [ 88, 85, 80, 78, 82 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'FDA Breakthrough Therapy (Aviptadil)', 'desc' => 'Synthetic VIP (Aviptadil) received FDA BT Designation for COVID-19 ARDS — Phase II/III human safety data' ],
-        [ 'icon' => '✅', 'label' => 'Endogenous neuropeptide',             'desc' => 'Naturally produced in hypothalamic neurons and enteric nervous system — present in all major body systems' ],
-        [ 'icon' => '⚠️', 'label' => 'Temperature/light sensitive',        'desc' => 'Highly sensitive to light and temperature fluctuation — store strictly as instructed' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',              'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'VIP is an endogenous neuropeptide produced throughout the hypothalamus, gut, and immune system. Aviptadil (synthetic VIP) received FDA Breakthrough Therapy Designation for COVID-19 ARDS, providing Phase II/III human safety data at therapeutic doses. Primary handling concern is light and temperature stability.',
+      'observations' => [
+        [ 'pct' => 20, 'label' => 'Transient facial flushing (IV)',     'severity' => 'low' ],
+        [ 'pct' => 12, 'label' => 'Nausea / GI discomfort (high dose)', 'severity' => 'low' ],
+        [ 'pct' =>  8, 'label' => 'Transient hypotension (IV)',         'severity' => 'moderate' ],
+        [ 'pct' =>  0, 'label' => 'Serious adverse events (Phase II)',  'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'FDA Breakthrough Status & Research Handling Notes',
+        'desc'   => 'Aviptadil (synthetic VIP) carries FDA BT Designation and Phase II/III safety data from COVID-19 ARDS trials. Primary research consideration is stability — VIP is highly sensitive to light and temperature.',
+        'points' => [
+          'FDA Breakthrough Therapy Designation (Aviptadil) — Phase II/III safety data in acute respiratory failure',
+          'Endogenous neuropeptide produced in hypothalamus, enteric nervous system, and lung tissue',
+          'Transient vasodilation effects at higher doses — expected from VPAC receptor-mediated cAMP/PKA signalling',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3311,13 +3695,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 14 days. Highly sensitive to light and temperature.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$94.99',  'per' => '$94.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$174.99', 'per' => '$174.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$329.99', 'per' => '$164.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  94.99, 'per' => '$94.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' => 174.99, 'per' => '$174.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 329.99, 'per' => '$164.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2631', 'purity' => '98.2%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2530', 'purity' => '98.5%', 'date' => 'Jun 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2631-VIP', 'labeled' => '98.2%', 'actual' => '98.2%', 'current' => true  ],
+      [ 'id' => 'SYN-2530-VIP', 'labeled' => '98.2%', 'actual' => '98.5%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3384,14 +3768,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Cognitive reversal (Dihexa + AD model)', 'value' => '+82%', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Cognitive reversal (BDNF)',              'value' => '+21%', 'pct' => 26,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Synaptogenic Potency', 'Cognitive Reversal', 'CNS Penetration', 'Oral Bioavailability', 'HGF/c-Met Activity' ],
+        'datasets' => [
+          [ 'label' => 'Dihexa', 'data' => [ 98, 85, 88, 90, 92 ] ],
+          [ 'label' => 'BDNF',   'data' => [ 50, 30, 20, 5,  60 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'Orally active',               'desc' => 'Confirmed oral bioavailability with CNS penetration in preclinical models — no injection required' ],
-        [ 'icon' => '✅', 'label' => 'HGF/c-Met mechanism',         'desc' => 'Potentiates endogenous HGF signalling rather than replacing it — preserves natural receptor regulation' ],
-        [ 'icon' => '⚠️', 'label' => 'Preclinical data only',      'desc' => 'All data from in vitro hippocampal cultures and rodent cognitive models — no human clinical trial data available' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',      'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Dihexa is an orally active small molecule (not a peptide) derived from Angiotensin IV, developed at Washington State University. All published data is preclinical — in vitro hippocampal cultures and rodent cognitive models. No human clinical trial data exists. Its mechanism potentiates endogenous HGF signalling rather than replacing it, which is considered a more physiologically appropriate intervention point.',
+      'observations' => [
+        [ 'pct' =>  0, 'label' => 'Human clinical trial adverse events', 'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Hepatotoxicity in animal models',     'severity' => 'low' ],
+        [ 'pct' =>  5, 'label' => 'Mild GI discomfort (animal models)',  'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'Preclinical-Only Dataset & Research Context',
+        'desc'   => 'Dihexa has no published human clinical safety data. All efficacy and tolerability observations are from in vitro hippocampal cultures and rodent models. This is a critical consideration for any research application.',
+        'points' => [
+          'Preclinical data only — no Phase I/II human clinical trials published or registered',
+          'Orally active small molecule — confirmed CNS penetration and cognitive reversal in rodent AD/PD models',
+          'HGF/c-Met potentiator mechanism — enhances endogenous signalling rather than replacing it',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3400,13 +3800,13 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Capsules: Room temperature 15–25°C, away from moisture and light, up to 24 months. Do not refrigerate.' ],
     ],
     'bundles' => [
-      [ 'qty' => '60×10mg',  'label' => '60 Caps (10mg)', 'price' => '$79.99',  'per' => '$1.33/cap' ],
-      [ 'qty' => '60×20mg',  'label' => '60 Caps (20mg)', 'price' => '$139.99', 'per' => '$2.33/cap' ],
-      [ 'qty' => '120×10mg', 'label' => '2× 60 Caps',     'price' => '$149.99', 'per' => '$1.25/cap' ],
+      [ 'qty' =>  60, 'label' => '60 Caps (10mg)', 'price' =>  79.99, 'per' => '$1.33/cap' ],
+      [ 'qty' =>  60, 'label' => '60 Caps (20mg)', 'price' => 139.99, 'per' => '$2.33/cap' ],
+      [ 'qty' => 120, 'label' => '2× 60 Caps',     'price' => 149.99, 'per' => '$1.25/cap' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2632', 'purity' => '99.1%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2531', 'purity' => '99.4%', 'date' => 'Jul 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2632-DIHEX', 'labeled' => '99.1%', 'actual' => '99.1%', 'current' => true  ],
+      [ 'id' => 'SYN-2531-DIHEX', 'labeled' => '99.1%', 'actual' => '99.4%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3475,14 +3875,31 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'IGF-1 change (AOD-9604)',   'value' => '0%',   'pct' => 0,   'primary' => false ],
         [ 'label' => 'Fat mass (Full hGH)',        'value' => '−15%', 'pct' => 88,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Lipolytic Activity', 'IGF-1 Selectivity', 'Insulin Safety', 'FDA Status', 'Phase II Validation' ],
+        'datasets' => [
+          [ 'label' => 'AOD-9604',    'data' => [ 85, 98, 96, 90, 80 ] ],
+          [ 'label' => 'Full hGH',    'data' => [ 88, 20, 40, 60, 85 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Safety & Tolerability Profile',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'FDA GRAS status',            'desc' => 'Generally Recognised As Safe designation — evaluated in Phase IIb human obesity trials with acceptable safety profile' ],
-        [ 'icon' => '✅', 'label' => 'No IGF-1 elevation',         'desc' => 'Does not activate the GH receptor for anabolic signalling — lipolysis only via beta-3 adrenergic / lipase pathway' ],
-        [ 'icon' => '✅', 'label' => 'No insulin resistance',      'desc' => 'Full-length GH causes insulin resistance at high doses; AOD-9604 preserves insulin sensitivity in all studied models' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only',     'desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'AOD-9604 holds FDA GRAS (Generally Recognised As Safe) status — the only hGH fragment with formal regulatory safety designation. Phase IIb human obesity trials established an acceptable tolerability profile. Its selective lipolytic mechanism (zero IGF-1 elevation, zero insulin resistance) represents a significant safety improvement over full-length GH.',
+      'observations' => [
+        [ 'pct' => 10, 'label' => 'Injection-site erythema',          'severity' => 'low' ],
+        [ 'pct' =>  5, 'label' => 'Transient headache',               'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'IGF-1 elevation',                  'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Insulin resistance / glucose effect', 'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'FDA GRAS & Phase IIb Safety Context',
+        'desc'   => 'AOD-9604 is the only growth hormone fragment with FDA GRAS designation, based on Phase IIb obesity trial safety data evaluated at doses up to 1mg/day over 24 weeks.',
+        'points' => [
+          'FDA GRAS designation — evaluated in Phase IIb human obesity trials at 500µg–1mg/day over 24 weeks',
+          'Zero IGF-1 elevation confirmed — does not activate GH receptor anabolic signalling pathway',
+          'No insulin resistance or diabetogenic effects at any studied dose',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3491,14 +3908,14 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Lyophilised: −20°C up to 24 months. Reconstituted: 4°C, use within 21 days. Do not freeze reconstituted solution.' ],
     ],
     'bundles' => [
-      [ 'qty' => '5mg',   'label' => '1 Vial',  'price' => '$49.99',  'per' => '$49.99/vial' ],
-      [ 'qty' => '10mg',  'label' => '1 Vial',  'price' => '$89.99',  'per' => '$89.99/vial' ],
-      [ 'qty' => '20mg',  'label' => '2 Vials', 'price' => '$169.99', 'per' => '$84.99/vial' ],
-      [ 'qty' => '30mg',  'label' => '3 Vials', 'price' => '$234.99', 'per' => '$78.33/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (5mg)',   'price' =>  49.99, 'per' => '$49.99/vial' ],
+      [ 'qty' => 1, 'label' => '1 Vial (10mg)',  'price' =>  89.99, 'per' => '$89.99/vial' ],
+      [ 'qty' => 2, 'label' => '2 Vials (20mg)', 'price' => 169.99, 'per' => '$84.99/vial' ],
+      [ 'qty' => 3, 'label' => '3 Vials (30mg)', 'price' => 234.99, 'per' => '$78.33/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2633', 'purity' => '99.0%', 'date' => 'Mar 2026', 'method' => 'HPLC + MS', 'url' => '#' ],
-      [ 'batch' => 'SYN-2532', 'purity' => '99.3%', 'date' => 'Aug 2027', 'method' => 'HPLC + MS', 'url' => '#' ],
+      [ 'id' => 'SYN-2633-AOD', 'labeled' => '99.0%', 'actual' => '99.0%', 'current' => true  ],
+      [ 'id' => 'SYN-2532-AOD', 'labeled' => '99.0%', 'actual' => '99.3%', 'current' => false ],
     ],
     'research' => [
       [
@@ -3565,14 +3982,30 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'BAC Water (0.9% BZA)',  'value' => '28 days', 'pct' => 100, 'primary' => true ],
         [ 'label' => 'Sterile Water',         'value' => '3–7 days','pct' => 18,  'primary' => false ],
       ],
+      'radar' => [
+        'labels'   => [ 'Sterility Duration', 'Microbial Inhibition', 'Peptide Compatibility', 'USP Compliance', 'Multi-Dose Safety' ],
+        'datasets' => [
+          [ 'label' => 'BAC Water (0.9% BZA)', 'data' => [ 95, 95, 98, 100, 95 ] ],
+          [ 'label' => 'Sterile Water',         'data' => [ 20, 0,  98, 90,  70 ] ],
+        ],
+      ],
     ],
     'safety' => [
-      'title' => 'Specifications & Standards',
-      'items' => [
-        [ 'icon' => '✅', 'label' => 'USP Grade',            'desc' => 'Meets United States Pharmacopeia standards for sterility, pyrogen-free, and benzyl alcohol concentration (0.9% ± 0.1%)' ],
-        [ 'icon' => '✅', 'label' => 'Multi-dose safe',      'desc' => '0.9% benzyl alcohol concentration is within established safe limits for multi-dose parenteral preparations' ],
-        [ 'icon' => '✅', 'label' => 'Universal compatibility','desc' => 'Compatible with all peptides in the Syntra catalogue — standard diluent for lyophilised peptide reconstitution' ],
-        [ 'icon' => '⚠️', 'label' => 'Research context only','desc' => 'For in vitro laboratory research use only — not for human or veterinary use' ],
+      'intro' => 'Bacteriostatic water (0.9% benzyl alcohol USP) is a pharmaceutical-grade preparation meeting USP <797> sterility and pyrogen standards. The 0.9% benzyl alcohol concentration is the established safe limit for multi-dose parenteral preparations as defined by FDA and USP. It is compatible with all lyophilised peptides in the Syntra catalogue.',
+      'observations' => [
+        [ 'pct' =>  0, 'label' => 'Adverse events (benzyl alcohol at 0.9%)', 'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Peptide compatibility issues reported',    'severity' => 'low' ],
+        [ 'pct' =>  0, 'label' => 'Pyrogen / endotoxin failures (USP batch)', 'severity' => 'low' ],
+      ],
+      'concern' => [
+        'title'  => 'USP Standards & Research Handling Context',
+        'desc'   => 'BAC Water is the standard pharmaceutical diluent for multi-dose injectable preparations. USP <797> compliance is verified for every production batch.',
+        'points' => [
+          'USP Grade — meets sterility, pyrogen-free, and 0.9% ± 0.1% benzyl alcohol concentration standards',
+          '28-day opened vial stability vs. 3–7 days for plain sterile water — enables sequential aliquot preparation',
+          'Compatible with all Syntra lyophilised peptides — does not affect peptide solubility or stability',
+          'For in vitro laboratory research use only — not for human or veterinary administration',
+        ],
       ],
     ],
     'faq' => [
@@ -3581,12 +4014,12 @@ const SYNTRA_PRODUCTS = [
       [ 'q' => 'What are storage requirements?', 'a' => 'Unopened: Room temperature 15–25°C. Opened: 4°C, use within 28 days. Do not freeze.' ],
     ],
     'bundles' => [
-      [ 'qty' => '10mL',   'label' => '1 Vial',   'price' => '$9.99',  'per' => '$9.99/vial' ],
-      [ 'qty' => '5×10mL', 'label' => '5 Vials',  'price' => '$39.99', 'per' => '$7.99/vial' ],
-      [ 'qty' => '10×10mL','label' => '10 Vials', 'price' => '$69.99', 'per' => '$6.99/vial' ],
+      [ 'qty' =>  1, 'label' => '1 Vial (10mL)',   'price' =>  9.99, 'per' => '$9.99/vial' ],
+      [ 'qty' =>  5, 'label' => '5 Vials (50mL)',  'price' => 39.99, 'per' => '$7.99/vial' ],
+      [ 'qty' => 10, 'label' => '10 Vials (100mL)', 'price' => 69.99, 'per' => '$6.99/vial' ],
     ],
     'coaBatches' => [
-      [ 'batch' => 'SYN-2634', 'purity' => '0.9% BZA / Sterile', 'date' => 'Mar 2026', 'method' => 'USP <797> + Sterility', 'url' => '#' ],
+      [ 'id' => 'SYN-2634-BACW', 'labeled' => '0.9% BZA', 'actual' => '0.9% BZA / Sterile', 'current' => true ],
     ],
     'research' => [
       [
