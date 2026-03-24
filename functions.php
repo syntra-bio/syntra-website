@@ -1,6 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+require_once get_template_directory() . '/inc/product-data.php';
+
 /* ─────────────────────────────────────────────────────────
    THEME SETUP
 ───────────────────────────────────────────────────────── */
@@ -139,6 +141,5 @@ add_action( 'save_post', 'syntra_save_product_meta' );
    Falls back to the static data array if meta not set
 ───────────────────────────────────────────────────────── */
 function syntra_get_product_data( $slug = '' ) {
-    require_once get_template_directory() . '/inc/product-data.php';
     return isset( SYNTRA_PRODUCTS[ $slug ] ) ? SYNTRA_PRODUCTS[ $slug ] : null;
 }
