@@ -12,9 +12,6 @@ if ( ! $product ) {
 
 $slug       = $product->get_slug();
 $p          = syntra_get_product_data( $slug );
-if ( current_user_can('manage_options') ) {
-    echo '<div style="background:#ff0;color:#000;padding:10px;font-family:monospace;font-size:13px;position:fixed;bottom:0;left:0;right:0;z-index:99999;">DEBUG — slug: <strong>' . esc_html($slug) . '</strong> | data found: <strong>' . ($p ? 'YES' : 'NO') . '</strong></div>';
-}
 $batch      = $p ? $p['batch']       : get_post_meta( $product->get_id(), 'syntra_batch',      true );
 $purity     = $p ? $p['purity']      : get_post_meta( $product->get_id(), 'syntra_purity',     true );
 $cas        = $p ? $p['cas']         : get_post_meta( $product->get_id(), 'syntra_cas',        true );
@@ -119,22 +116,27 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
         <?php if ( $p && ! empty( $p['bundles'] ) ) : ?>
         <div class="bundle-options">
           <?php foreach ( $p['bundles'] as $i => $bundle ) :
-            $per_vial   = $bundle['price'] / $bundle['qty'];
-            $base_price = $p['bundles'][0]['price'];
-            $saving     = ( $base_price * $bundle['qty'] ) - $bundle['price'];
+            // Normalise price — handle both 79.99 (float) and '$79.99' (string)
+            $price_num  = is_numeric( $bundle['price'] ) ? (float) $bundle['price'] : (float) str_replace( [ '$', ',' ], '', $bundle['price'] );
+            // Normalise qty — handle both 2 (int) and '2 Vials' / '10mg' (string)
+            $qty_num    = is_numeric( $bundle['qty'] ) ? (int) $bundle['qty'] : ( $i + 1 );
+            $qty_label  = $bundle['label'] ?? ( $qty_num . ' Vial' . ( $qty_num > 1 ? 's' : '' ) );
+            $base_price = is_numeric( $p['bundles'][0]['price'] ) ? (float) $p['bundles'][0]['price'] : (float) str_replace( [ '$', ',' ], '', $p['bundles'][0]['price'] );
+            $per_vial   = $qty_num > 0 ? $price_num / $qty_num : $price_num;
+            $saving     = $qty_num > 1 ? round( ( $base_price * $qty_num ) - $price_num, 2 ) : 0;
             $badge      = $bundle['badge'] ?? '';
             $badge_type = $bundle['badgeType'] ?? '';
           ?>
           <button type="button"
             class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
-            data-qty="<?php echo esc_attr( $bundle['qty'] ); ?>"
-            data-price="<?php echo esc_attr( number_format( $bundle['price'], 2 ) ); ?>">
+            data-qty="<?php echo esc_attr( $qty_num ); ?>"
+            data-price="<?php echo esc_attr( number_format( $price_num, 2 ) ); ?>">
             <?php if ( $badge ) : ?>
               <div class="bundle-option__badge <?php echo $badge_type === 'navy' ? 'bundle-option__badge--navy' : ''; ?>"><?php echo esc_html( $badge ); ?></div>
             <?php endif; ?>
-            <div class="bundle-option__qty"><?php echo esc_html( $bundle['qty'] ); ?> vial<?php echo $bundle['qty'] > 1 ? 's' : ''; ?></div>
-            <div class="bundle-option__price">$<?php echo esc_html( number_format( $bundle['price'], 2 ) ); ?></div>
-            <div class="bundle-option__per <?php echo $saving <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $saving > 0 ? ' · ' . round( ( $saving / ( $base_price * $bundle['qty'] ) ) * 100 ) . '% off' : ''; ?></div>
+            <div class="bundle-option__qty"><?php echo esc_html( $qty_label ); ?></div>
+            <div class="bundle-option__price">$<?php echo esc_html( number_format( $price_num, 2 ) ); ?></div>
+            <div class="bundle-option__per <?php echo $saving <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $saving > 0 ? ' · ' . round( ( $saving / ( $base_price * $qty_num ) ) * 100 ) . '% off' : ''; ?></div>
             <?php if ( $saving > 0 ) : ?>
               <div class="bundle-option__save">You save $<?php echo esc_html( number_format( $saving, 2 ) ); ?></div>
             <?php endif; ?>
