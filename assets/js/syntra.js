@@ -44,7 +44,7 @@
     var btn = e.target.closest('.qty-btn');
     if (!btn) return;
     var wrap  = btn.closest('.product-info__qty');
-    var input = wrap && wrap.querySelector('input[type="number"].qty-input');
+    var input = wrap && wrap.querySelector('.qty-input');
     var display = wrap && wrap.querySelector('.qty-value');
     if (!display) return;
     var current = parseInt(display.textContent, 10) || 1;
