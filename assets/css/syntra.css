@@ -668,6 +668,7 @@ p  { color: var(--slate); line-height: 1.6; }
   background: var(--white); border: 1px solid var(--mist); border-radius: var(--radius-md);
   padding: 32px; max-width: 600px;
 }
+.purity-chart-card canvas { display: block; width: 100% !important; height: 200px !important; }
 
 /* Citations */
 .citations-section { background: var(--white); padding: 80px 0; border-top: 1px solid var(--mist); }
