@@ -1,8 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-ini_set( 'display_errors', 1 );
-error_reporting( E_ALL );
 
 require_once get_template_directory() . '/inc/product-data.php';
 require_once get_template_directory() . '/inc/blog-data.php';
@@ -160,4 +158,50 @@ add_action( 'save_post', 'syntra_save_product_meta' );
 ───────────────────────────────────────────────────────── */
 function syntra_get_product_data( $slug = '' ) {
     return isset( SYNTRA_PRODUCTS[ $slug ] ) ? SYNTRA_PRODUCTS[ $slug ] : null;
+}
+
+/* ─────────────────────────────────────────────────────────
+   BLOG POST GENERATOR — Admin Tool
+───────────────────────────────────────────────────────── */
+function syntra_blog_generator_menu() {
+    add_posts_page( 'Generate Blog Posts', 'Generate Blog Posts', 'manage_options', 'syntra-blog-generator', 'syntra_blog_generator_page' );
+}
+add_action( 'admin_menu', 'syntra_blog_generator_menu' );
+
+function syntra_blog_generator_page() {
+    $results = [];
+
+    if ( isset( $_POST['syntra_generate_nonce'] ) && wp_verify_nonce( $_POST['syntra_generate_nonce'], 'syntra_generate_posts' ) ) {
+        foreach ( SYNTRA_BLOG as $slug => $data ) {
+            $existing = get_page_by_path( $slug, OBJECT, 'post' );
+            if ( $existing ) {
+                $results[] = '⏭ Already exists: ' . esc_html( $data['title'] );
+                continue;
+            }
+            $id = wp_insert_post( [
+                'post_title'   => $data['title'],
+                'post_name'    => $slug,
+                'post_content' => '',
+                'post_status'  => 'publish',
+                'post_type'    => 'post',
+            ] );
+            if ( is_wp_error( $id ) ) {
+                $results[] = '❌ Failed: ' . esc_html( $data['title'] );
+            } else {
+                $results[] = '✅ Created: ' . esc_html( $data['title'] );
+            }
+        }
+    }
+
+    echo '<div class="wrap"><h1>Syntra Blog Post Generator</h1>';
+    if ( $results ) {
+        echo '<div class="notice notice-success"><ul>';
+        foreach ( $results as $r ) echo '<li>' . esc_html( $r ) . '</li>';
+        echo '</ul></div>';
+    }
+    echo '<form method="post">';
+    wp_nonce_field( 'syntra_generate_posts', 'syntra_generate_nonce' );
+    echo '<p>This will create all 20 peptide blog posts with the correct slugs. Already-existing posts are skipped.</p>';
+    echo '<p><input type="submit" class="button button-primary button-large" value="Generate All 20 Blog Posts"></p>';
+    echo '</form></div>';
 }
