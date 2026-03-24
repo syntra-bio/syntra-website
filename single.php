@@ -41,13 +41,13 @@ $has_data = ( $p !== null );
 <!-- ═══ STICKY SUB-NAV ═══ -->
 <nav class="product-subnav" aria-label="Article sections">
     <div class="container">
-        <ul class="product-subnav__list">
-            <li><a class="product-subnav__link active" href="#introduction">Introduction</a></li>
-            <li><a class="product-subnav__link" href="#mechanisms">Mechanisms</a></li>
-            <li><a class="product-subnav__link" href="#research">Research</a></li>
-            <li><a class="product-subnav__link" href="#safety">Safety</a></li>
-            <li><a class="product-subnav__link" href="#citations">Citations</a></li>
-        </ul>
+        <div class="product-subnav__inner">
+            <a class="product-subnav__link active" href="#introduction">Introduction</a>
+            <a class="product-subnav__link" href="#mechanisms">Mechanisms</a>
+            <a class="product-subnav__link" href="#research">Research</a>
+            <a class="product-subnav__link" href="#safety">Safety</a>
+            <a class="product-subnav__link" href="#citations">Citations</a>
+        </div>
     </div>
 </nav>
 
