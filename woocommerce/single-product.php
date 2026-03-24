@@ -437,7 +437,7 @@ window.addEventListener('load', function () {
       <div>
         <p class="mono-label" style="margin-bottom:4px;">What Research Has Shown</p>
         <h2>TRIAL RESULTS</h2>
-        <p style="color:var(--slate); margin-top:8px; font-size:14px;"><?php echo esc_html( $tr['label'] ); ?></p>
+        <p class="section-sub"><?php echo esc_html( $tr['label'] ); ?></p>
       </div>
     </div>
     <div class="trial-grid">
@@ -538,7 +538,7 @@ window.addEventListener('load', function () {
       <div>
         <p class="mono-label" style="margin-bottom:4px;">In Vitro Safety Data</p>
         <h2>SAFETY PROFILE</h2>
-        <p style="color:var(--slate); margin-top:8px; font-size:14px; max-width:560px;"><?php echo esc_html( $sf['intro'] ); ?></p>
+        <p class="section-sub"><?php echo esc_html( $sf['intro'] ); ?></p>
       </div>
     </div>
     <div class="safety-grid">
