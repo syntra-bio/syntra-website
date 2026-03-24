@@ -1,6 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+ini_set( 'display_errors', 1 );
+error_reporting( E_ALL );
+
 require_once get_template_directory() . '/inc/product-data.php';
 
 /* ─────────────────────────────────────────────────────────
