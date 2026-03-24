@@ -23,20 +23,104 @@ function syntra_product_setup_page() {
     if ( isset( $_POST['syntra_create_products'] ) && check_admin_referer( 'syntra_setup' ) ) {
         $results = syntra_create_all_products();
     }
+    if ( isset( $_POST['syntra_fix_slugs'] ) && check_admin_referer( 'syntra_setup' ) ) {
+        $results = syntra_fix_product_slugs();
+    }
     ?>
     <div class="wrap">
-        <h1>Create Syntra Products</h1>
-        <p>This tool creates all Syntra products in WooCommerce with correct slugs, prices, categories, and descriptions. It skips products that already exist.</p>
+        <h1>Syntra Product Setup</h1>
         <?php if ( $results ) : ?>
-            <div class="notice notice-success"><p><?php echo implode( '<br>', array_map( 'esc_html', $results ) ); ?></p></div>
+            <div class="notice notice-success is-dismissible"><p><?php echo implode( '<br>', array_map( 'esc_html', $results ) ); ?></p></div>
         <?php endif; ?>
+
+        <h2>Step 1 — Create Products</h2>
+        <p>Creates any missing products. Skips products that already exist.</p>
         <form method="post">
             <?php wp_nonce_field( 'syntra_setup' ); ?>
             <input type="hidden" name="syntra_create_products" value="1">
-            <?php submit_button( 'Create All Products', 'primary large' ); ?>
+            <?php submit_button( 'Create Missing Products', 'primary large' ); ?>
+        </form>
+
+        <hr>
+        <h2>Step 2 — Fix Slugs</h2>
+        <p><strong>Run this if product pages show no data.</strong> Forces each product's URL slug to exactly match the product-data.php lookup key (e.g. <code>tb-500</code>, <code>bpc-157</code>).</p>
+        <form method="post">
+            <?php wp_nonce_field( 'syntra_setup' ); ?>
+            <input type="hidden" name="syntra_fix_slugs" value="1">
+            <?php submit_button( 'Fix All Product Slugs', 'secondary large' ); ?>
         </form>
     </div>
     <?php
+}
+
+function syntra_fix_product_slugs() {
+    $log = [];
+
+    // Map SKU → desired slug
+    $sku_slug_map = [
+        'GHKCU-100MG'       => 'ghk-cu',
+        'GHKCU-50MG'        => 'ghk-cu',
+        'BPC157-10MG'       => 'bpc-157',
+        'TB500-10MG'        => 'tb-500',
+        'BPC157-TB500-10MG' => 'bpc-157-tb500-stack',
+        'CJC1295NODAC-10MG' => 'cjc-1295-no-dac',
+        'CJC1295DAC-5MG'    => 'cjc-1295-dac',
+        'CJC1295-IPA-10MG'  => 'cjc-1295-ipamorelin-stack',
+        'IPA-10MG'          => 'ipamorelin',
+        'SERM-10MG'         => 'sermorelin',
+        'IGFLR3-10MG'       => 'igf-lr3',
+        'MT2-10MG'          => 'melanotan-ii',
+        'PT141-10MG'        => 'pt-141',
+        'SEMAX-10MG'        => 'semax',
+        'SELANK-10MG'       => 'selank',
+        'DSIP-15MG'         => 'dsip',
+        'SS31-10MG'         => 'ss-31',
+        '5A1MQ-60CAPS'      => '5-amino-1mq',
+        'KLOW-80MG'         => 'klow',
+        'RETAT-10MG'        => 'retatrutide',
+        'SEMA-10MG'         => 'semaglutide',
+        'TIRZ-10MG'         => 'tirzepatide',
+        'NAD-500MG'         => 'nad-plus',
+        'EPITH-10MG'        => 'epithalon',
+        'MOTSC-10MG'        => 'mots-c',
+        'HUMAN-10MG'        => 'humanin',
+        'TA1-10MG'          => 'thymosin-alpha-1',
+        'LL37-10MG'         => 'll-37',
+        'KISS10-10MG'       => 'kisspeptin-10',
+        'OXY-SPRAY-3ML'     => 'oxytocin',
+        'VIP-10MG'          => 'vip',
+        'DIHEX-60CAPS'      => 'dihexa',
+        'AOD9604-10MG'      => 'aod-9604',
+        'BACWATER-10ML'     => 'bac-water',
+    ];
+
+    foreach ( $sku_slug_map as $sku => $desired_slug ) {
+        $product_id = wc_get_product_id_by_sku( $sku );
+        if ( ! $product_id ) {
+            $log[] = "NOT FOUND (SKU: {$sku})";
+            continue;
+        }
+        $product     = wc_get_product( $product_id );
+        $current_slug = $product->get_slug();
+
+        if ( $current_slug === $desired_slug ) {
+            $log[] = "OK — {$desired_slug} (slug already correct)";
+            continue;
+        }
+
+        // Force the slug
+        wp_update_post( [
+            'ID'        => $product_id,
+            'post_name' => $desired_slug,
+        ] );
+
+        // Verify
+        $updated = wc_get_product( $product_id );
+        $new_slug = $updated->get_slug();
+        $log[] = "FIXED — {$sku}: '{$current_slug}' → '{$new_slug}'";
+    }
+
+    return $log;
 }
 
 function syntra_create_all_products() {
