@@ -596,7 +596,7 @@ p  { color: var(--slate); line-height: 1.6; }
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .coa-card:hover { border-color: var(--teal); background: rgba(47,183,179,0.06); }
-.coa-card--current { border-color: var(--teal); }
+.coa-card--current {  }
 .coa-card__purity { font-family: var(--font-mono); font-size: 28px; font-weight: 500; color: var(--teal); }
 .coa-card__purity-label {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
