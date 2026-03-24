@@ -375,6 +375,7 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
 </section>
 
 <script>
+window.addEventListener('load', function () {
 (function () {
   var ctx = document.getElementById('purityChart');
   if (!ctx || typeof Chart === 'undefined') return;
@@ -421,6 +422,7 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
     }
   });
 })();
+});
 </script>
 <?php endif; ?>
 
