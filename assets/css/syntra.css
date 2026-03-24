@@ -532,18 +532,28 @@ p  { color: var(--slate); line-height: 1.6; }
   text-transform: uppercase; color: var(--pkg-blue); margin-bottom: 24px;
 }
 .product-info__price { font-size: 28px; font-weight: 600; color: var(--navy); margin-bottom: 16px; }
-.bundle-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.bundle-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
 .bundle-option {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 10px 16px; border: 1px solid var(--mist); border-radius: 8px;
-  background: var(--white); cursor: pointer; transition: border-color 0.2s, background 0.2s;
-  min-width: 80px;
+  position: relative; border: 1.5px solid var(--mist);
+  border-radius: 10px; padding: 14px 14px 12px;
+  cursor: pointer; transition: all 0.2s ease;
+  background: var(--white); user-select: none; text-align: left;
 }
-.bundle-option:hover { border-color: var(--teal); }
-.bundle-option--active { border-color: var(--teal); background: rgba(47,183,179,0.06); }
-.bundle-option__qty { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--navy); }
-.bundle-option__price { font-size: 15px; font-weight: 600; color: var(--navy); }
-.bundle-option__save { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em; color: var(--teal); text-transform: uppercase; }
+.bundle-option:hover { border-color: var(--pkg-blue); }
+.bundle-option--active { border-color: var(--teal); background: rgba(47,183,179,0.04); }
+.bundle-option__badge {
+  position: absolute; top: -1px; right: 10px;
+  font-family: var(--font-mono); font-size: 8px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--teal); color: var(--white);
+  padding: 3px 8px; border-radius: 0 0 6px 6px;
+}
+.bundle-option__badge--navy { background: var(--navy); }
+.bundle-option__qty { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-bottom: 5px; }
+.bundle-option__price { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 2px; line-height: 1; }
+.bundle-option__per { font-family: var(--font-mono); font-size: 9px; color: var(--teal); letter-spacing: 0.04em; }
+.bundle-option__per--base { color: var(--slate); }
+.bundle-option__save { font-family: var(--font-mono); font-size: 9px; color: var(--pkg-blue); margin-top: 4px; letter-spacing: 0.03em; }
 .product-info__qty { display: flex; align-items: center; margin-bottom: 20px; width: fit-content; }
 .qty-btn {
   width: 44px; height: 44px; border: 1px solid var(--mist);

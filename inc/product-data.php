@@ -43,9 +43,9 @@ const SYNTRA_PRODUCTS = [
       ],
     ],
     'bundles' => [
-      [ 'qty' => 1, 'price' => 68.00,  'save' => 0 ],
-      [ 'qty' => 2, 'price' => 120.00, 'save' => 16 ],
-      [ 'qty' => 3, 'price' => 170.00, 'save' => 34 ],
+      [ 'qty' => 1, 'price' => 68.00  ],
+      [ 'qty' => 2, 'price' => 120.00, 'badge' => 'Popular',    'badgeType' => '' ],
+      [ 'qty' => 3, 'price' => 170.00, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
       [ 'id' => 'SYN-2601-GHK', 'purity' => '99.1%', 'date' => 'March 2025',    'labeled' => '5 mg', 'actual' => '5.03 mg', 'current' => true ],

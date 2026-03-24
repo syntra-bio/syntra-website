@@ -115,16 +115,25 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
 
         <?php if ( $p && ! empty( $p['bundles'] ) ) : ?>
         <div class="bundle-options">
-          <?php foreach ( $p['bundles'] as $i => $bundle ) : ?>
+          <?php foreach ( $p['bundles'] as $i => $bundle ) :
+            $per_vial   = $bundle['price'] / $bundle['qty'];
+            $base_price = $p['bundles'][0]['price'];
+            $saving     = ( $base_price * $bundle['qty'] ) - $bundle['price'];
+            $badge      = $bundle['badge'] ?? '';
+            $badge_type = $bundle['badgeType'] ?? '';
+          ?>
           <button type="button"
             class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
             data-qty="<?php echo esc_attr( $bundle['qty'] ); ?>"
-            data-price="<?php echo esc_attr( number_format( $bundle['price'], 2 ) ); ?>"
-            data-save="<?php echo esc_attr( $bundle['save'] ); ?>">
-            <span class="bundle-option__qty"><?php echo esc_html( $bundle['qty'] ); ?>x</span>
-            <span class="bundle-option__price">$<?php echo esc_html( number_format( $bundle['price'], 2 ) ); ?></span>
-            <?php if ( $bundle['save'] > 0 ) : ?>
-              <span class="bundle-option__save">Save $<?php echo esc_html( $bundle['save'] ); ?></span>
+            data-price="<?php echo esc_attr( number_format( $bundle['price'], 2 ) ); ?>">
+            <?php if ( $badge ) : ?>
+              <div class="bundle-option__badge <?php echo $badge_type === 'navy' ? 'bundle-option__badge--navy' : ''; ?>"><?php echo esc_html( $badge ); ?></div>
+            <?php endif; ?>
+            <div class="bundle-option__qty"><?php echo esc_html( $bundle['qty'] ); ?> vial<?php echo $bundle['qty'] > 1 ? 's' : ''; ?></div>
+            <div class="bundle-option__price">$<?php echo esc_html( number_format( $bundle['price'], 2 ) ); ?></div>
+            <div class="bundle-option__per <?php echo $saving <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $saving > 0 ? ' · ' . round( ( $saving / ( $base_price * $bundle['qty'] ) ) * 100 ) . '% off' : ''; ?></div>
+            <?php if ( $saving > 0 ) : ?>
+              <div class="bundle-option__save">You save $<?php echo esc_html( number_format( $saving, 2 ) ); ?></div>
             <?php endif; ?>
           </button>
           <?php endforeach; ?>
