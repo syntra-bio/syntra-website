@@ -237,6 +237,66 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
 </section>
 <?php endif; ?>
 
+<!-- RESEARCH BENEFIT CARDS -->
+<?php if ( $p && ! empty( $p['research'] ) ) : ?>
+<section class="research-section">
+  <div class="container">
+    <p class="mono-label">Mechanisms of Action</p>
+    <h2>IN VITRO RESEARCH OVERVIEW</h2>
+    <p style="color:var(--slate); margin-top:12px; max-width:560px; margin-bottom:40px;">Data presented from peer-reviewed in vitro studies. All findings are laboratory observations only.</p>
+    <div class="research-cards">
+      <?php foreach ( $p['research'] as $rc ) : ?>
+      <div class="research-card">
+        <div class="research-card__cat">
+          <span><?php echo $rc['emoji']; ?></span>
+          <span><?php echo esc_html( $rc['category'] ); ?></span>
+        </div>
+        <h3 class="research-card__title"><?php echo esc_html( $rc['title'] ); ?></h3>
+        <p class="research-card__desc"><?php echo esc_html( $rc['desc'] ); ?></p>
+
+        <?php if ( ! empty( $rc['bars'] ) ) : ?>
+        <div class="research-card__bars">
+          <?php foreach ( $rc['bars'] as $bar ) : ?>
+          <div class="research-bar">
+            <div class="research-bar__header">
+              <span><?php echo esc_html( $bar['label'] ); ?></span>
+              <span class="research-bar__val"><?php echo esc_html( $bar['value'] ); ?></span>
+            </div>
+            <div class="research-bar__track">
+              <div class="research-bar__fill" style="width:<?php echo esc_attr( $bar['pct'] ); ?>%"></div>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( ! empty( $rc['rows'] ) ) : ?>
+        <div class="research-card__table">
+          <?php foreach ( $rc['rows'] as $row ) : ?>
+          <div class="research-table-row">
+            <span><?php echo esc_html( $row['label'] ); ?></span>
+            <span class="research-table-row__val"><?php echo esc_html( $row['value'] ); ?></span>
+          </div>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+
+        <div class="research-card__highlight">
+          <span>🔬</span>
+          <span><?php echo esc_html( $rc['highlight'] ); ?></span>
+        </div>
+
+        <a href="<?php echo esc_url( $rc['link_url'] ); ?>" target="_blank" rel="noopener noreferrer" class="research-card__link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <?php echo esc_html( $rc['link_label'] ); ?>
+        </a>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- KEY FINDING CHART -->
 <?php if ( $p && ! empty( $p['finding'] ) ) :
   $f = $p['finding'];
@@ -372,14 +432,21 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
     <h2>RESEARCH CITATIONS</h2>
     <div class="citation-cards">
       <?php foreach ( $p['citations'] as $cit ) : ?>
-      <div class="citation-card">
+      <?php $has_link = ! empty( $cit['url'] ); ?>
+      <?php echo $has_link ? '<a href="' . esc_url( $cit['url'] ) . '" target="_blank" rel="noopener noreferrer" class="citation-card citation-card--link">' : '<div class="citation-card">'; ?>
         <div class="citation-card__journal"><?php echo esc_html( $cit['journal'] ); ?></div>
         <div class="citation-card__title"><?php echo esc_html( $cit['title'] ); ?></div>
         <div class="citation-card__meta">
           <span class="citation-card__year"><?php echo esc_html( $cit['year'] ); ?></span>
           <span class="citation-card__author"><?php echo esc_html( $cit['author'] ); ?></span>
         </div>
-      </div>
+        <?php if ( ! empty( $cit['pmid'] ) ) : ?>
+        <div class="citation-card__pmid">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <?php echo esc_html( $cit['pmid'] ); ?> — View on PubMed
+        </div>
+        <?php endif; ?>
+      <?php echo $has_link ? '</a>' : '</div>'; ?>
       <?php endforeach; ?>
     </div>
     <p class="compliance-text" style="margin-top:32px; opacity:0.6;">
