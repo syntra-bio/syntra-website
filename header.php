@@ -31,7 +31,7 @@
       $current_url = ( is_shop() || is_product_category() || is_product() ) ? 'active' : '';
       ?>
       <a href="<?php echo esc_url( $shop_url ); ?>" class="site-header__nav-link <?php echo esc_attr( $current_url ); ?>">Products</a>
-      <a href="<?php echo esc_url( home_url( '/#research' ) ); ?>" class="site-header__nav-link">Research</a>
+      <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="site-header__nav-link <?php echo is_home() || is_singular( 'post' ) ? 'active' : ''; ?>">Research</a>
       <a href="#" class="site-header__nav-link">COA Library</a>
       <a href="#" class="site-header__nav-link">About</a>
       <a href="#" class="site-header__nav-link">Contact</a>
