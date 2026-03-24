@@ -64,6 +64,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="cart-count js-cart-count"<?php echo $count === 0 ? ' style="display:none"' : ''; ?>><?php echo $count; ?></span>
         </a>
       <?php endif; ?>
+      <!-- Hamburger — mobile only -->
+      <button class="hamburger icon-btn" id="mobileMenuBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav">
+        <svg class="hamburger__icon hamburger__icon--open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <line x1="3" y1="6"  x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg class="hamburger__icon hamburger__icon--close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="display:none">
+          <line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <nav aria-label="Mobile navigation">
+    <?php
+    $shop_url    = class_exists( 'WooCommerce' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#';
+    ?>
+    <a href="<?php echo esc_url( $shop_url ); ?>" class="mobile-nav__link">Products</a>
+    <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="mobile-nav__link">Research</a>
+    <a href="#" class="mobile-nav__link">COA Library</a>
+    <a href="#" class="mobile-nav__link">About</a>
+    <a href="#" class="mobile-nav__link">Contact</a>
+  </nav>
+  <div class="mobile-nav__footer">
+    <span class="compliance-text">FOR RESEARCH USE ONLY · IN VITRO LABORATORY USE</span>
+  </div>
+</div>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
