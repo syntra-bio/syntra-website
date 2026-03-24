@@ -426,6 +426,191 @@ window.addEventListener('load', function () {
 </script>
 <?php endif; ?>
 
+<!-- TRIAL RESULTS -->
+<?php if ( $p && ! empty( $p['trial'] ) ) :
+  $tr = $p['trial'];
+?>
+<section class="trial-section">
+  <div class="container">
+    <div class="trial-section__header">
+      <div class="trial-section__icon">📊</div>
+      <div>
+        <p class="mono-label" style="margin-bottom:4px;">What Research Has Shown</p>
+        <h2>TRIAL RESULTS</h2>
+        <p style="color:var(--slate); margin-top:8px; font-size:14px;"><?php echo esc_html( $tr['label'] ); ?></p>
+      </div>
+    </div>
+    <div class="trial-grid">
+
+      <!-- Left: hero number + comparison bars -->
+      <div class="trial-card">
+        <div class="trial-hero">
+          <span class="trial-hero__num"><?php echo esc_html( $tr['hero_num'] ); ?></span>
+          <span class="trial-hero__unit"><?php echo esc_html( $tr['hero_unit'] ); ?></span>
+        </div>
+        <p class="trial-hero__label"><?php echo esc_html( $tr['hero_label'] ); ?></p>
+        <div class="trial-bars" style="margin-top:24px;">
+          <?php foreach ( $tr['bars'] as $bar ) : ?>
+          <div class="trial-bar-row">
+            <div class="trial-bar-header">
+              <span><?php echo esc_html( $bar['label'] ); ?></span>
+              <span class="trial-bar-val <?php echo $bar['primary'] ? 'trial-bar-val--primary' : ''; ?>"><?php echo esc_html( $bar['value'] ); ?></span>
+            </div>
+            <div class="trial-bar-track">
+              <div class="trial-bar-fill <?php echo $bar['primary'] ? 'trial-bar-fill--primary' : ''; ?>" style="--tw:<?php echo esc_attr( $bar['pct'] ); ?>%"></div>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <!-- Right: radar chart -->
+      <div class="trial-card">
+        <p style="font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate); margin-bottom:16px;">Comparative Activity Profile</p>
+        <div style="position:relative; height:280px;">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <div class="radar-legend">
+          <span class="radar-legend__item radar-legend__item--teal">GHK-Cu</span>
+          <span class="radar-legend__item radar-legend__item--slate">Vitamin C</span>
+          <span class="radar-legend__item radar-legend__item--muted">Matrixyl®</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<script>
+window.addEventListener('load', function () {
+  var ctx = document.getElementById('radarChart');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: <?php echo json_encode( $tr['radar']['labels'] ); ?>,
+      datasets: [
+        {
+          label: 'GHK-Cu',
+          data: <?php echo json_encode( $tr['radar']['datasets'][0]['data'] ); ?>,
+          borderColor: '#2FB7B3', backgroundColor: 'rgba(47,183,179,0.15)',
+          borderWidth: 2, pointBackgroundColor: '#2FB7B3', pointRadius: 4,
+        },
+        {
+          label: 'Vitamin C',
+          data: <?php echo json_encode( $tr['radar']['datasets'][1]['data'] ); ?>,
+          borderColor: '#4E5F71', backgroundColor: 'rgba(78,95,113,0.08)',
+          borderWidth: 1.5, pointBackgroundColor: '#4E5F71', pointRadius: 3,
+        },
+        {
+          label: 'Matrixyl®',
+          data: <?php echo json_encode( $tr['radar']['datasets'][2]['data'] ); ?>,
+          borderColor: '#97AEC8', backgroundColor: 'rgba(151,174,200,0.06)',
+          borderWidth: 1.5, pointBackgroundColor: '#97AEC8', pointRadius: 3,
+        },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { display: false, stepSize: 25 },
+          grid: { color: '#E6EBF0' },
+          angleLines: { color: '#E6EBF0' },
+          pointLabels: { font: { family: "'IBM Plex Mono', monospace", size: 9 }, color: '#4E5F71' }
+        }
+      }
+    }
+  });
+});
+</script>
+<?php endif; ?>
+
+<!-- SAFETY PROFILE -->
+<?php if ( $p && ! empty( $p['safety'] ) ) :
+  $sf = $p['safety'];
+?>
+<section class="safety-section">
+  <div class="container">
+    <div class="trial-section__header">
+      <div class="trial-section__icon">🛡️</div>
+      <div>
+        <p class="mono-label" style="margin-bottom:4px;">In Vitro Safety Data</p>
+        <h2>SAFETY PROFILE</h2>
+        <p style="color:var(--slate); margin-top:8px; font-size:14px; max-width:560px;"><?php echo esc_html( $sf['intro'] ); ?></p>
+      </div>
+    </div>
+    <div class="safety-grid">
+
+      <!-- Observation rings -->
+      <div class="safety-card">
+        <p class="safety-card__label">Observed Adverse Indicators</p>
+        <div class="safety-rings">
+          <?php foreach ( $sf['observations'] as $obs ) :
+            $deg = round( $obs['pct'] / 100 * 360 );
+            $fill_pct = $obs['pct'];
+          ?>
+          <div class="safety-ring-item">
+            <div class="safety-ring" style="background: conic-gradient(var(--teal) 0% <?php echo $fill_pct; ?>%, var(--mist) <?php echo $fill_pct; ?>% 100%); padding: 3px;">
+              <div class="safety-ring__inner">
+                <span class="safety-ring__num"><?php echo esc_html( $obs['pct'] ); ?>%</span>
+              </div>
+            </div>
+            <p class="safety-ring__label"><?php echo esc_html( $obs['label'] ); ?></p>
+            <span class="safety-ring__badge"><?php echo esc_html( $obs['severity'] ); ?></span>
+          </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <!-- Concern card -->
+      <div class="safety-card safety-card--concern">
+        <p class="safety-concern__cat">⚠️ Theoretical Concern</p>
+        <h3 class="safety-concern__title"><?php echo esc_html( $sf['concern']['title'] ); ?></h3>
+        <p class="safety-concern__desc"><?php echo esc_html( $sf['concern']['desc'] ); ?></p>
+        <ul class="safety-concern__list">
+          <?php foreach ( $sf['concern']['points'] as $pt ) : ?>
+          <li><?php echo esc_html( $pt ); ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- FAQ -->
+<?php if ( $p && ! empty( $p['faq'] ) ) : ?>
+<section class="faq-section">
+  <div class="container">
+    <div class="trial-section__header">
+      <div class="trial-section__icon">❓</div>
+      <div>
+        <p class="mono-label" style="margin-bottom:4px;">Researcher Reference</p>
+        <h2>FREQUENTLY ASKED QUESTIONS</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <?php foreach ( $p['faq'] as $i => $item ) : ?>
+      <div class="faq-item">
+        <button class="faq-item__btn" aria-expanded="false" aria-controls="faq-<?php echo $i; ?>">
+          <span><?php echo esc_html( $item['q'] ); ?></span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer" id="faq-<?php echo $i; ?>" hidden>
+          <p><?php echo esc_html( $item['a'] ); ?></p>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- CITATIONS -->
 <?php if ( $p && ! empty( $p['citations'] ) ) : ?>
 <section class="citations-section" id="citations">

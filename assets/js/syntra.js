@@ -71,6 +71,17 @@
     if (addBtn)    { addBtn.textContent = 'Add to Cart — $' + price; }
   });
 
+  /* ── FAQ accordion ── */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faq-item__btn');
+    if (!btn) return;
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    var answerId = btn.getAttribute('aria-controls');
+    var answer   = document.getElementById(answerId);
+    btn.setAttribute('aria-expanded', !expanded);
+    if (answer) { answer.hidden = expanded; }
+  });
+
   /* ── Animate finding bars on scroll ── */
   var barFills = document.querySelectorAll('.finding-bar-fill');
   if (barFills.length && 'IntersectionObserver' in window) {

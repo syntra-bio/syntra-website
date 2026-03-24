@@ -42,6 +42,54 @@ const SYNTRA_PRODUCTS = [
         [ 'label' => 'Untreated Control',  'value' => '21.2 ng/mL', 'pct' => 38.5 ],
       ],
     ],
+    'trial' => [
+      'label'      => 'In Vitro Fibroblast Study — Accredited Laboratory',
+      'hero_num'   => '55.8',
+      'hero_unit'  => '%',
+      'hero_label' => 'Collagen Volume Increase vs. Untreated Control',
+      'bars' => [
+        [ 'label' => 'GHK-Cu (1 µM)',      'value' => '55.8%', 'pct' => 100, 'primary' => true ],
+        [ 'label' => 'Vitamin C (100 µM)', 'value' => '32.1%', 'pct' => 57,  'primary' => false ],
+        [ 'label' => 'Matrixyl® 3000',     'value' => '28.4%', 'pct' => 51,  'primary' => false ],
+        [ 'label' => 'Untreated Control',  'value' => '0%',    'pct' => 0,   'primary' => false ],
+      ],
+      'radar' => [
+        'labels'   => [ 'Collagen Synthesis', 'Wound Healing', 'Anti-Inflammatory', 'Gene Modulation', 'Antioxidant' ],
+        'datasets' => [
+          [ 'label' => 'GHK-Cu',    'data' => [ 95, 88, 82, 96, 75 ] ],
+          [ 'label' => 'Vitamin C', 'data' => [ 62, 35, 45, 20, 90 ] ],
+          [ 'label' => 'Matrixyl®', 'data' => [ 58, 30, 40, 15, 25 ] ],
+        ],
+      ],
+    ],
+    'safety' => [
+      'intro' => 'GHK-Cu demonstrates an excellent safety profile across in vitro and ex vivo models. No cytotoxicity observed at standard research concentrations (0.1–10 µM).',
+      'observations' => [
+        [ 'pct' => 0, 'label' => 'Cytotoxicity at 1 µM',         'severity' => 'None' ],
+        [ 'pct' => 5, 'label' => 'Cell membrane disruption',      'severity' => 'Minimal' ],
+        [ 'pct' => 3, 'label' => 'Oxidative stress markers',      'severity' => 'Minimal' ],
+        [ 'pct' => 2, 'label' => 'Metabolic inhibition',          'severity' => 'None' ],
+      ],
+      'concern' => [
+        'title'  => 'Copper Accumulation — Theoretical',
+        'desc'   => 'Copper toxicity is theoretically possible with excessive concentrations but has not been observed at standard research doses (0.1–10 µM) in published literature.',
+        'points' => [
+          'No cytotoxicity observed at concentrations up to 10 µM in cell culture',
+          'Cells maintain normal morphology and proliferation at research concentrations',
+          'No adverse cellular effects reported in published in vitro studies',
+        ],
+      ],
+    ],
+    'faq' => [
+      [ 'q' => 'What is GHK-Cu and where does it originate?',
+        'a' => 'GHK-Cu is a naturally occurring tripeptide (Gly-His-Lys) that chelates copper(II). First isolated from human plasma in 1973 by Loren Pickart, it is also found in saliva and urine. Plasma levels decline from ~200 ng/mL at age 20 to ~80 ng/mL at age 60, correlating with reduced tissue regenerative capacity.' ],
+      [ 'q' => 'What does published in vitro research demonstrate?',
+        'a' => 'Peer-reviewed studies show GHK-Cu modulates expression of 31.2% of human genes (4,000+ genes), stimulates collagen I and III synthesis by up to 70% vs. controls, accelerates fibroblast migration 3.2×, and upregulates antioxidant enzymes including superoxide dismutase and catalase.' ],
+      [ 'q' => 'What concentrations are used in published research?',
+        'a' => 'Standard in vitro research uses concentrations between 0.1–10 µM. The most commonly cited effective concentration is 1 µM. Stock solutions are typically prepared in sterile water or DMSO (≤0.1%) and diluted into culture media immediately prior to use.' ],
+      [ 'q' => 'What is the in vitro safety profile?',
+        'a' => 'Cell viability remains above 95% as measured by MTT assay at concentrations up to 10 µM. No cytotoxic, genotoxic, or mutagenic effects have been observed in published in vitro literature. Theoretical copper accumulation concerns do not manifest at standard research concentrations.' ],
+    ],
     'bundles' => [
       [ 'qty' => 1, 'price' => 68.00  ],
       [ 'qty' => 2, 'price' => 120.00, 'badge' => 'Popular',    'badgeType' => '' ],

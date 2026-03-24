@@ -716,6 +716,67 @@ p  { color: var(--slate); line-height: 1.6; }
 .research-card__link { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 10px; color: var(--pkg-blue); letter-spacing: 0.04em; text-decoration: none; transition: color 0.2s; }
 .research-card__link:hover { color: var(--teal); }
 
+/* Trial Results */
+.trial-section { background: var(--white); padding: 80px 0; border-top: 1px solid var(--mist); }
+.trial-section__header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 40px; }
+.trial-section__icon { width: 44px; height: 44px; border-radius: 10px; background: var(--mist); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.trial-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 1024px) { .trial-grid { grid-template-columns: 1fr 1fr; } }
+.trial-card { background: var(--off-white); border: 1px solid var(--mist); border-radius: 12px; padding: 28px; }
+.trial-hero { display: flex; align-items: baseline; gap: 4px; }
+.trial-hero__num { font-size: 64px; font-weight: 700; color: var(--navy); line-height: 1; letter-spacing: -2px; }
+.trial-hero__unit { font-size: 28px; font-weight: 500; color: var(--slate); }
+.trial-hero__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 8px; }
+.trial-bars { display: flex; flex-direction: column; gap: 14px; }
+.trial-bar-row { display: flex; flex-direction: column; gap: 6px; }
+.trial-bar-header { display: flex; justify-content: space-between; font-size: 13px; color: var(--slate); }
+.trial-bar-val { font-family: var(--font-mono); font-weight: 600; color: var(--slate); }
+.trial-bar-val--primary { color: var(--teal); }
+.trial-bar-track { height: 7px; background: var(--mist); border-radius: 99px; overflow: hidden; }
+.trial-bar-fill { height: 100%; width: var(--tw); background: var(--pkg-blue); border-radius: 99px; transition: width 1s ease; }
+.trial-bar-fill--primary { background: var(--teal); }
+.radar-legend { display: flex; justify-content: center; gap: 20px; margin-top: 16px; }
+.radar-legend__item { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; }
+.radar-legend__item::before { content: ''; width: 10px; height: 2px; border-radius: 99px; display: inline-block; }
+.radar-legend__item--teal::before { background: var(--teal); }
+.radar-legend__item--slate::before { background: var(--slate); }
+.radar-legend__item--muted::before { background: var(--pkg-blue); }
+
+/* Safety Profile */
+.safety-section { background: var(--off-white); padding: 80px 0; border-top: 1px solid var(--mist); }
+.safety-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 1024px) { .safety-grid { grid-template-columns: 1fr 1fr; } }
+.safety-card { background: var(--white); border: 1px solid var(--mist); border-radius: 12px; padding: 28px; }
+.safety-card__label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); margin-bottom: 24px; }
+.safety-rings { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.safety-ring-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.safety-ring { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.safety-ring__inner { width: calc(100% - 8px); height: calc(100% - 8px); border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; }
+.safety-ring__num { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--navy); }
+.safety-ring__label { font-size: 11px; color: var(--slate); text-align: center; line-height: 1.3; }
+.safety-ring__badge { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(47,183,179,0.1); color: var(--teal); padding: 2px 8px; border-radius: 99px; }
+.safety-card--concern { border-left: 3px solid var(--pkg-blue); }
+.safety-concern__cat { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pkg-blue); margin-bottom: 10px; }
+.safety-concern__title { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 12px; }
+.safety-concern__desc { font-size: 13px; color: var(--slate); line-height: 1.6; margin-bottom: 16px; }
+.safety-concern__list { list-style: none; display: flex; flex-direction: column; gap: 8px; background: var(--off-white); border-radius: 8px; padding: 16px; }
+.safety-concern__list li { font-size: 13px; color: var(--slate); display: flex; gap: 10px; line-height: 1.5; }
+.safety-concern__list li::before { content: '·'; color: var(--pkg-blue); font-weight: 700; flex-shrink: 0; }
+
+/* FAQ */
+.faq-section { background: var(--white); padding: 80px 0; border-top: 1px solid var(--mist); }
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--mist); }
+.faq-item__btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; background: none; border: none; cursor: pointer; text-align: left; }
+.faq-item__btn span:first-child { font-size: 15px; font-weight: 500; color: var(--navy); line-height: 1.4; }
+.faq-item__btn:hover span:first-child { color: var(--teal); }
+.faq-item__icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--mist); display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.3s; }
+.faq-item__icon svg { color: var(--navy); }
+.faq-item__btn[aria-expanded="true"] .faq-item__icon { background: var(--teal); transform: rotate(180deg); }
+.faq-item__btn[aria-expanded="true"] .faq-item__icon svg { color: var(--white); }
+.faq-item__answer { padding-bottom: 20px; }
+.faq-item__answer p { font-size: 14px; color: var(--slate); line-height: 1.7; }
+
 /* Mobile sticky CTA */
 .mobile-sticky-cta {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
