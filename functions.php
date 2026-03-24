@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once get_template_directory() . '/inc/product-data.php';
 require_once get_template_directory() . '/inc/blog-data.php';
+require_once get_template_directory() . '/inc/setup-wc-products.php';
 
 /* ─────────────────────────────────────────────────────────
    THEME SETUP
