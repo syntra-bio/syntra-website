@@ -12,6 +12,9 @@ if ( ! $product ) {
 
 $slug       = $product->get_slug();
 $p          = syntra_get_product_data( $slug );
+if ( current_user_can('manage_options') ) {
+    echo '<div style="background:#ff0;color:#000;padding:10px;font-family:monospace;font-size:13px;position:fixed;bottom:0;left:0;right:0;z-index:99999;">DEBUG — slug: <strong>' . esc_html($slug) . '</strong> | data found: <strong>' . ($p ? 'YES' : 'NO') . '</strong></div>';
+}
 $batch      = $p ? $p['batch']       : get_post_meta( $product->get_id(), 'syntra_batch',      true );
 $purity     = $p ? $p['purity']      : get_post_meta( $product->get_id(), 'syntra_purity',     true );
 $cas        = $p ? $p['cas']         : get_post_meta( $product->get_id(), 'syntra_cas',        true );
