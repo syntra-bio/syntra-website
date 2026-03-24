@@ -2,7 +2,7 @@
 
 <?php
 global $product;
-if ( ! $product ) {
+if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
     $product = wc_get_product( get_the_ID() );
 }
 if ( ! $product ) {
