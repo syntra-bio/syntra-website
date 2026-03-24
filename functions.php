@@ -205,3 +205,143 @@ function syntra_blog_generator_page() {
     echo '<p><input type="submit" class="button button-primary button-large" value="Generate All 20 Blog Posts"></p>';
     echo '</form></div>';
 }
+
+/* ─────────────────────────────────────────────────────────
+   GTM — WOOCOMMERCE DATALAYER EVENTS
+───────────────────────────────────────────────────────── */
+
+// view_item — fires on single product page
+function syntra_gtm_view_item() {
+    if ( ! is_product() ) return;
+    global $product;
+    if ( ! is_a( $product, 'WC_Product' ) ) return;
+    ?>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'view_item',
+        ecommerce: {
+            currency: '<?php echo get_woocommerce_currency(); ?>',
+            value: <?php echo (float) $product->get_price(); ?>,
+            items: [{
+                item_id: '<?php echo esc_js( $product->get_sku() ?: $product->get_id() ); ?>',
+                item_name: '<?php echo esc_js( $product->get_name() ); ?>',
+                price: <?php echo (float) $product->get_price(); ?>,
+                quantity: 1
+            }]
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'syntra_gtm_view_item' );
+
+// add_to_cart — fires via WooCommerce AJAX fragment
+function syntra_gtm_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id ) {
+    $product = wc_get_product( $product_id );
+    if ( ! $product ) return;
+    WC()->session->set( 'syntra_gtm_add_to_cart', [
+        'item_id'   => $product->get_sku() ?: $product_id,
+        'item_name' => $product->get_name(),
+        'price'     => (float) $product->get_price(),
+        'quantity'  => $quantity,
+        'currency'  => get_woocommerce_currency(),
+    ]);
+}
+add_action( 'woocommerce_add_to_cart', 'syntra_gtm_add_to_cart', 10, 4 );
+
+function syntra_gtm_add_to_cart_script() {
+    if ( ! WC()->session ) return;
+    $data = WC()->session->get( 'syntra_gtm_add_to_cart' );
+    if ( ! $data ) return;
+    WC()->session->set( 'syntra_gtm_add_to_cart', null );
+    ?>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+            currency: '<?php echo esc_js( $data['currency'] ); ?>',
+            value: <?php echo (float) ( $data['price'] * $data['quantity'] ); ?>,
+            items: [{
+                item_id: '<?php echo esc_js( $data['item_id'] ); ?>',
+                item_name: '<?php echo esc_js( $data['item_name'] ); ?>',
+                price: <?php echo (float) $data['price']; ?>,
+                quantity: <?php echo (int) $data['quantity']; ?>
+            }]
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'syntra_gtm_add_to_cart_script' );
+
+// begin_checkout — fires on checkout page
+function syntra_gtm_begin_checkout() {
+    if ( ! is_checkout() || is_order_received_page() ) return;
+    $cart = WC()->cart;
+    if ( ! $cart || $cart->is_empty() ) return;
+    $items = [];
+    foreach ( $cart->get_cart() as $item ) {
+        $product = $item['data'];
+        $items[] = [
+            'item_id'   => $product->get_sku() ?: $product->get_id(),
+            'item_name' => $product->get_name(),
+            'price'     => (float) $product->get_price(),
+            'quantity'  => (int) $item['quantity'],
+        ];
+    }
+    ?>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'begin_checkout',
+        ecommerce: {
+            currency: '<?php echo get_woocommerce_currency(); ?>',
+            value: <?php echo (float) $cart->get_total( 'edit' ); ?>,
+            items: <?php echo wp_json_encode( $items ); ?>
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'syntra_gtm_begin_checkout' );
+
+// purchase — fires on order confirmation page
+function syntra_gtm_purchase() {
+    if ( ! is_order_received_page() ) return;
+    $order_id = get_query_var( 'order-received' );
+    if ( ! $order_id ) return;
+    // Only fire once per order
+    if ( get_post_meta( $order_id, '_syntra_gtm_purchase_fired', true ) ) return;
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) return;
+    $items = [];
+    foreach ( $order->get_items() as $item ) {
+        $product = $item->get_product();
+        $items[] = [
+            'item_id'   => $product ? ( $product->get_sku() ?: $product->get_id() ) : $item->get_product_id(),
+            'item_name' => $item->get_name(),
+            'price'     => (float) ( $item->get_total() / $item->get_quantity() ),
+            'quantity'  => (int) $item->get_quantity(),
+        ];
+    }
+    update_post_meta( $order_id, '_syntra_gtm_purchase_fired', true );
+    ?>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+            transaction_id: '<?php echo esc_js( $order->get_order_number() ); ?>',
+            currency: '<?php echo esc_js( $order->get_currency() ); ?>',
+            value: <?php echo (float) $order->get_total(); ?>,
+            tax: <?php echo (float) $order->get_total_tax(); ?>,
+            shipping: <?php echo (float) $order->get_shipping_total(); ?>,
+            items: <?php echo wp_json_encode( $items ); ?>
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'syntra_gtm_purchase' );
