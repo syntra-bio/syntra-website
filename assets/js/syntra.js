@@ -112,3 +112,15 @@
   });
 
 })();
+
+/* ── Blog category filter ── */
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.blog-filter-btn');
+  if (!btn) return;
+  var cat = btn.dataset.cat;
+  document.querySelectorAll('.blog-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.blog-card').forEach(function(card) {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+});
