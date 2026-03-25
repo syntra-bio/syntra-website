@@ -1,14 +1,13 @@
 <?php get_header(); ?>
 
 <?php
-global $product;
-if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-    $product = wc_get_product( get_the_ID() );
-}
+// Always force-load from current post ID — prevents stale WC global causing wrong product
+$product = wc_get_product( get_the_ID() );
 if ( ! $product ) {
     wp_redirect( home_url() );
     exit;
 }
+global $product;
 
 $slug       = $product->get_slug();
 $p          = syntra_get_product_data( $slug );
