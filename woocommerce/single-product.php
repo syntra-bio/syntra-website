@@ -1,9 +1,9 @@
 <?php get_header(); ?>
 
 <?php
-// Declare global first, then overwrite — ensures WC global is updated to current page product
+// Use get_queried_object_id() — always returns the main page product, never affected by loops
 global $product;
-$product = wc_get_product( get_the_ID() );
+$product = wc_get_product( get_queried_object_id() );
 if ( ! $product ) {
     wp_redirect( home_url() );
     exit;
