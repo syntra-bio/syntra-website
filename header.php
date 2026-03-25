@@ -10,6 +10,9 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-59V8GGQX');</script>
   <!-- End Google Tag Manager -->
+  <link rel="icon" type="image/jpeg" href="<?php echo esc_url( get_template_directory_uri() ); ?>/SYNTRA favicon .jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="<?php echo esc_url( get_template_directory_uri() ); ?>/SYNTRA favicon .jpg">
+  <link rel="apple-touch-icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/SYNTRA favicon .jpg">
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
