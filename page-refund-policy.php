@@ -35,10 +35,10 @@ get_header();
       <div class="legal-address-block">
         <strong>Syntra Global Pty Ltd</strong><br>
         ABN: 22 694 777 494<br>
-        1/83 Glen Ayr Drive<br>
-        Banora Point NSW 2486<br>
+        442 The Esplanade<br>
+        Palm Beach QLD 4221<br>
         Australia<br>
-        Email: <a href="mailto:admin@syntra.bio">admin@syntra.bio</a>
+        Email: <a href="mailto:support@syntra.bio">support@syntra.bio</a>
       </div>
     </div>
 
@@ -81,7 +81,7 @@ get_header();
       <h2 class="legal-section__heading">5. How to Initiate a Return</h2>
       <p>To lodge a return or refund claim, follow these steps:</p>
       <ol class="legal-list legal-list--numbered">
-        <li>Email <a href="mailto:admin@syntra.bio">admin@syntra.bio</a> with the subject line
+        <li>Email <a href="mailto:support@syntra.bio">support@syntra.bio</a> with the subject line
         <strong>"Return Request — Order #[your order number]"</strong>.</li>
         <li>Include your full name, order number, and a clear description of the issue.</li>
         <li>Attach photographs clearly showing the damage, defect, or incorrect item.</li>
@@ -90,7 +90,7 @@ get_header();
         <li>Do not send any items back until you have received a Return Authorisation — unauthorised
         returns will not be processed.</li>
         <li>Once authorised, return the item in its original packaging to:<br>
-          <strong>Syntra Global Pty Ltd, 1/83 Glen Ayr Drive, Banora Point NSW 2486</strong>
+          <strong>Syntra Global Pty Ltd, 442 The Esplanade, Palm Beach QLD 4221</strong>
         </li>
       </ol>
       <p>Return shipping costs for approved claims (incorrect item or damaged in transit) will be
@@ -128,9 +128,9 @@ get_header();
       <p>For all returns, refund enquiries, or questions about this policy:</p>
       <div class="legal-address-block">
         <strong>Syntra Global Pty Ltd</strong><br>
-        1/83 Glen Ayr Drive, Banora Point NSW 2486, Australia<br>
+        442 The Esplanade, Palm Beach QLD 4221, Australia<br>
         ABN: 22 694 777 494<br>
-        Email: <a href="mailto:admin@syntra.bio">admin@syntra.bio</a>
+        Email: <a href="mailto:support@syntra.bio">support@syntra.bio</a>
       </div>
     </div>
 

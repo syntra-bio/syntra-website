@@ -16,8 +16,8 @@
         <div class="footer-entity">
           <p class="footer-entity__name">Syntra Global Pty Ltd</p>
           <p class="footer-entity__detail">ABN 22 694 777 494</p>
-          <p class="footer-entity__detail">1/83 Glen Ayr Drive<br>Banora Point NSW 2486<br>Australia</p>
-          <p class="footer-entity__detail"><a href="mailto:admin@syntra.bio" class="footer-entity__email">admin@syntra.bio</a></p>
+          <p class="footer-entity__detail">442 The Esplanade<br>Palm Beach QLD 4221<br>Australia</p>
+          <p class="footer-entity__detail"><a href="mailto:support@syntra.bio" class="footer-entity__email">support@syntra.bio</a></p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
 
     <div class="footer-bottom">
       <p class="compliance-text">© <?php echo date( 'Y' ); ?> Syntra Global Pty Ltd (ABN 22 694 777 494). All rights reserved.</p>
-      <p class="compliance-text">For In Vitro Research Use Only — Not For Human Consumption &nbsp;·&nbsp; Banora Point NSW 2486, Australia</p>
+      <p class="compliance-text">For In Vitro Research Use Only — Not For Human Consumption &nbsp;·&nbsp; Palm Beach QLD 4221, Australia</p>
     </div>
   </div>
 </footer>

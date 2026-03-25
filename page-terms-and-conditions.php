@@ -37,10 +37,10 @@ get_header();
       <div class="legal-address-block">
         <strong>Syntra Global Pty Ltd</strong><br>
         ABN: 22 694 777 494<br>
-        1/83 Glen Ayr Drive<br>
-        Banora Point NSW 2486<br>
+        442 The Esplanade<br>
+        Palm Beach QLD 4221<br>
         Australia<br>
-        Email: <a href="mailto:admin@syntra.bio">admin@syntra.bio</a>
+        Email: <a href="mailto:support@syntra.bio">support@syntra.bio</a>
       </div>
     </div>
 
@@ -96,14 +96,14 @@ get_header();
       formed only upon dispatch of the goods and issuance of a tax invoice.</p>
       <p>Payment is processed securely at the time of order. Syntra Global Pty Ltd does not store
       card details. All payment processing is handled by our authorised payment gateway provider.</p>
-      <p>Orders may be cancelled before dispatch by contacting <a href="mailto:admin@syntra.bio">admin@syntra.bio</a>.
+      <p>Orders may be cancelled before dispatch by contacting <a href="mailto:support@syntra.bio">support@syntra.bio</a>.
       Once dispatched, the order cannot be cancelled and must follow the Returns &amp; Refunds process.</p>
     </div>
 
     <!-- 6 -->
     <div class="legal-section">
       <h2 class="legal-section__heading">6. Shipping &amp; Delivery</h2>
-      <p>Syntra Global Pty Ltd ships from <strong>Banora Point NSW 2486, Australia</strong>.
+      <p>Syntra Global Pty Ltd ships from <strong>Palm Beach QLD 4221, Australia</strong>.
       Domestic orders within Australia are typically dispatched within 1–3 business days.</p>
       <p>Delivery timeframes are estimates only and Syntra Global Pty Ltd does not guarantee
       delivery by a specific date. We are not responsible for delays caused by third-party
@@ -167,9 +167,9 @@ get_header();
     <!-- 11 -->
     <div class="legal-section">
       <h2 class="legal-section__heading">11. Governing Law</h2>
-      <p>These Terms and Conditions are governed by the laws of <strong>New South Wales,
+      <p>These Terms and Conditions are governed by the laws of <strong>Queensland,
       Australia</strong>. Any disputes arising from these terms or your use of the website
-      shall be subject to the exclusive jurisdiction of the courts of New South Wales.</p>
+      shall be subject to the exclusive jurisdiction of the courts of Queensland.</p>
     </div>
 
     <!-- 12 -->
@@ -178,9 +178,9 @@ get_header();
       <p>For any questions regarding these Terms and Conditions, please contact us:</p>
       <div class="legal-address-block">
         <strong>Syntra Global Pty Ltd</strong><br>
-        1/83 Glen Ayr Drive, Banora Point NSW 2486, Australia<br>
+        442 The Esplanade, Palm Beach QLD 4221, Australia<br>
         ABN: 22 694 777 494<br>
-        Email: <a href="mailto:admin@syntra.bio">admin@syntra.bio</a>
+        Email: <a href="mailto:support@syntra.bio">support@syntra.bio</a>
       </div>
     </div>
 
