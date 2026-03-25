@@ -11,6 +11,13 @@
         <div class="footer-badges">
           <span class="verified-badge">99%+ Purity</span>
           <span class="verified-badge">COA Verified</span>
+          <span class="verified-badge">🇦🇺 Australian Company</span>
+        </div>
+        <div class="footer-entity">
+          <p class="footer-entity__name">Syntra Global Pty Ltd</p>
+          <p class="footer-entity__detail">ABN 22 694 777 494</p>
+          <p class="footer-entity__detail">1/83 Glen Ayr Drive<br>Banora Point NSW 2486<br>Australia</p>
+          <p class="footer-entity__detail"><a href="mailto:admin@syntra.bio" class="footer-entity__email">admin@syntra.bio</a></p>
         </div>
       </div>
 
@@ -25,10 +32,10 @@
 
       <div>
         <p class="mono-label mono-label--dark" style="margin-bottom:20px;">Legal</p>
-        <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'terms' ) ) ); ?>" class="footer-nav-link">Terms of Service</a>
+        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="footer-nav-link">Terms &amp; Conditions</a>
+        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="footer-nav-link">Returns &amp; Refund Policy</a>
         <a href="#" class="footer-nav-link">Privacy Policy</a>
         <a href="#" class="footer-nav-link">Shipping Policy</a>
-        <a href="#" class="footer-nav-link">Returns</a>
         <div class="footer-compliance">
           <p class="compliance-text">All products sold strictly for in vitro laboratory research use only. Not for human consumption.</p>
         </div>
@@ -50,8 +57,8 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="compliance-text">© <?php echo date( 'Y' ); ?> Syntra. All rights reserved.</p>
-      <p class="compliance-text">For In Vitro Research Use Only — Not For Human Consumption</p>
+      <p class="compliance-text">© <?php echo date( 'Y' ); ?> Syntra Global Pty Ltd (ABN 22 694 777 494). All rights reserved.</p>
+      <p class="compliance-text">For In Vitro Research Use Only — Not For Human Consumption &nbsp;·&nbsp; Banora Point NSW 2486, Australia</p>
     </div>
   </div>
 </footer>

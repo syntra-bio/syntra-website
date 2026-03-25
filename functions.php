@@ -41,12 +41,12 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.3.4' );
+        [ 'syntra-fonts' ], '1.3.5' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
         get_template_directory_uri() . '/assets/js/syntra.js',
-        [], '1.3.4', true );
+        [], '1.3.5', true );
 
     // Pass cart count to JS
     if ( class_exists( 'WooCommerce' ) ) {

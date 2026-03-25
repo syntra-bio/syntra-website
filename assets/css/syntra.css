@@ -1729,6 +1729,120 @@ p  { color: var(--slate); line-height: 1.6; }
 }
 
 /* ══════════════════════════════════════════════════════════
+   FOOTER ENTITY BLOCK
+══════════════════════════════════════════════════════════ */
+.footer-entity { margin-top: 20px; }
+.footer-entity__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.footer-entity__detail {
+  font-size: 12px;
+  color: var(--pkg-blue);
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+.footer-entity__email {
+  color: var(--teal);
+  text-decoration: none;
+}
+.footer-entity__email:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════════════════════════
+   LEGAL PAGES (T&C, Refund Policy)
+══════════════════════════════════════════════════════════ */
+.legal-page__hero {
+  background: var(--navy);
+  padding: 64px 0 48px;
+  border-bottom: 1px solid rgba(151,174,200,0.15);
+}
+.legal-page__title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  margin-top: 12px;
+}
+.legal-page__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pkg-blue);
+  letter-spacing: 0.06em;
+  margin-top: 12px;
+}
+.legal-page__body {
+  padding-top: 56px;
+  padding-bottom: 96px;
+  max-width: 820px;
+}
+.legal-notice {
+  background: rgba(47,183,179,0.07);
+  border: 1px solid rgba(47,183,179,0.25);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--navy);
+  margin-bottom: 48px;
+}
+.legal-section {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--mist);
+}
+.legal-section:last-child { border-bottom: none; }
+.legal-section__heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+.legal-section p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--slate);
+  margin-bottom: 12px;
+}
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section a { color: var(--teal); }
+.legal-section a:hover { text-decoration: underline; }
+.legal-list {
+  padding-left: 20px;
+  margin: 12px 0;
+}
+.legal-list li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+.legal-list--numbered { list-style: decimal; }
+.legal-address-block {
+  margin-top: 12px;
+  padding: 16px 20px;
+  background: var(--off-white);
+  border: 1px solid var(--mist);
+  border-left: 3px solid var(--navy);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--navy);
+}
+.legal-address-block a { color: var(--teal); text-decoration: none; }
+.legal-address-block a:hover { text-decoration: underline; }
+
+@media (max-width: 767px) {
+  .legal-page__hero { padding: 48px 0 32px; }
+  .legal-page__body { padding-top: 40px; padding-bottom: 64px; }
+  .legal-section { margin-bottom: 28px; padding-bottom: 28px; }
+}
+
+/* ══════════════════════════════════════════════════════════
    STOCK STATUS — badge, sold out, backorder, notify form
 ══════════════════════════════════════════════════════════ */
 .stock-badge {
