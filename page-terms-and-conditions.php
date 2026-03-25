@@ -103,14 +103,32 @@ get_header();
     <!-- 6 -->
     <div class="legal-section">
       <h2 class="legal-section__heading">6. Shipping &amp; Delivery</h2>
-      <p>Syntra Global Pty Ltd ships from <strong>Palm Beach QLD 4221, Australia</strong>.
-      Domestic orders within Australia are typically dispatched within 1–3 business days.</p>
-      <p>Delivery timeframes are estimates only and Syntra Global Pty Ltd does not guarantee
-      delivery by a specific date. We are not responsible for delays caused by third-party
-      carriers or customs authorities.</p>
+      <p>Syntra Global Pty Ltd ships from <strong>Palm Beach QLD 4221, Australia</strong>.</p>
+
+      <p><strong>Same-Day Dispatch:</strong> Orders placed before <strong>2:00 PM AEST Monday–Friday</strong>
+      will be dispatched the same business day. Orders placed after 2:00 PM, on weekends, or on
+      Queensland public holidays will be dispatched the next available business day.</p>
+
+      <p><strong>Queensland Public Holidays:</strong> Dispatch does not occur on Queensland public
+      holidays as gazetted, including but not limited to New Year's Day, Australia Day, Good Friday,
+      Easter Saturday, Easter Sunday, Easter Monday, Anzac Day, Labour Day, King's Birthday,
+      Christmas Day, and Boxing Day. Orders received on these days will be dispatched on the
+      next business day.</p>
+
+      <p><strong>Christmas &amp; New Year Period:</strong> During the Christmas and New Year period,
+      orders placed between <strong>24 December and 1 January inclusive</strong> will be dispatched
+      from <strong>2 January</strong> (or the next available business day thereafter). Customers
+      placing orders during this period will receive an automated confirmation and should allow
+      additional time for delivery.</p>
+
+      <p>Delivery timeframes after dispatch are estimates only and dependent on the carrier.
+      Syntra Global Pty Ltd does not guarantee delivery by a specific date and is not responsible
+      for delays caused by third-party carriers or customs authorities.</p>
+
       <p>Risk of loss and title for products passes to the purchaser upon dispatch. Syntra Global
       Pty Ltd is not liable for lost or damaged goods once in the possession of the carrier,
       however we will assist in lodging claims where possible.</p>
+
       <p>International orders are the sole responsibility of the purchaser with respect to import
       regulations, customs duties, and legality in the destination country.</p>
     </div>

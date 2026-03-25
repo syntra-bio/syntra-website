@@ -114,12 +114,18 @@ get_header();
     <div class="legal-section">
       <h2 class="legal-section__heading">7. Australian Consumer Law</h2>
       <p>Our products come with guarantees that cannot be excluded under the
-      <strong>Australian Consumer Law</strong>. You are entitled to a replacement or refund for a
-      major failure and compensation for any other reasonably foreseeable loss or damage.
-      You are also entitled to have the goods repaired or replaced if the goods fail to be of
-      acceptable quality and the failure does not amount to a major failure.</p>
-      <p>For more information about your consumer rights, visit
-      <a href="https://www.accc.gov.au" target="_blank" rel="noopener noreferrer">accc.gov.au</a>.</p>
+      <strong>Australian Consumer Law (Schedule 2 of the Competition and Consumer Act 2010 (Cth))</strong>.
+      You are entitled to a replacement or refund for a major failure and compensation for any
+      other reasonably foreseeable loss or damage. You are also entitled to have the goods
+      repaired or replaced if the goods fail to be of acceptable quality and the failure does
+      not amount to a major failure.</p>
+      <p>As a Queensland-based business, Syntra Global Pty Ltd is also subject to the oversight
+      of the <strong>Queensland Office of Fair Trading</strong>. For consumer rights enquiries
+      or complaints you may contact:</p>
+      <ul class="legal-list">
+        <li>Australian Competition &amp; Consumer Commission (ACCC): <a href="https://www.accc.gov.au" target="_blank" rel="noopener noreferrer">accc.gov.au</a></li>
+        <li>Queensland Office of Fair Trading: <a href="https://www.qld.gov.au/law/fair-trading" target="_blank" rel="noopener noreferrer">qld.gov.au/law/fair-trading</a></li>
+      </ul>
     </div>
 
     <!-- 8 -->
