@@ -168,7 +168,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Growth Hormone & IGF Research', 'title' => 'Effects of ipamorelin on bone density in estrogen-deficient rats', 'year' => '2000', 'author' => 'Svensson J et al.', 'pmid' => '10960845', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/10960845/' ],
             [ 'journal' => 'Expert Opin Investig Drugs',  'title' => 'Ipamorelin for postoperative ileus: Phase IIb clinical review', 'year' => '2009', 'author' => 'Greenhalgh CJ', 'pmid' => '19715396', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/19715396/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'ipamorelin',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -252,7 +252,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'JAMA',                 'title' => 'Age-related changes in slow wave sleep and REM sleep and relationship with growth hormone and cortisol levels', 'year' => '2000', 'author' => 'Van Cauter E et al.', 'pmid' => '11004768', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/11004768/' ],
             [ 'journal' => 'J Alzheimers Dis',     'title' => 'Sermorelin treatment reduces amyloid-beta plaque load in a mouse model of Alzheimer\'s disease', 'year' => '2019', 'author' => 'Donahue JE et al.', 'pmid' => '30775986', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/30775986/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'sermorelin',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -462,7 +462,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Urology', 'title' => 'MT-II and penile erection in men — unexpected tanning trial finding', 'year' => '1998', 'author' => 'Wessells H et al.', 'pmid' => '9836550', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/9836550/' ],
             [ 'journal' => 'Nature',  'title' => 'Melanocortin agonist reduces food intake and body weight in ob/ob mice', 'year' => '1997', 'author' => 'Fan W et al.', 'pmid' => 'N/A', 'url' => 'https://www.nature.com/articles/385165a0' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'melanotan-ii',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -504,7 +504,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'J Endocrinol', 'title' => 'AOD-9604 does not stimulate IGF-1 or glucose intolerance in humans', 'year' => '2000', 'author' => 'Ng FM et al.', 'pmid' => '10657012', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/10657012/' ],
             [ 'journal' => 'Growth Horm IGF Res', 'title' => 'AOD-9604 stimulates cartilage repair in rat osteoarthritis model', 'year' => '2009', 'author' => 'Siu MK et al.', 'pmid' => '19010074', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/19010074/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'aod-9604',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -588,7 +588,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Biomolecules',   'title' => 'LL-37 inhibits SARS-CoV-2 replication and cytokine storm in human airway cells', 'year' => '2022', 'author' => 'Hsieh IN, Hartshorn KL', 'pmid' => 'N/A', 'url' => 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8774521/' ],
             [ 'journal' => 'J Immunol',      'title' => 'LL-37 and cathelicidin analogues prevent LPS-induced sepsis in murine models', 'year' => '2006', 'author' => 'Mookherjee N et al.', 'pmid' => '16547303', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/16547303/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'll-37',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -630,7 +630,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Aging Cell',   'title' => 'Elevated humanin in IGF-1-deficient Laron dwarf humans with exceptional longevity', 'year' => '2009', 'author' => 'Muzumdar R et al.', 'pmid' => '19843177', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/19843177/' ],
             [ 'journal' => 'Sci Transl Med', 'title' => 'S14G-Humanin preserves oocytes from cisplatin-induced death in mice', 'year' => '2013', 'author' => 'Tilly JL, Bharat V', 'pmid' => '23390245', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/23390245/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'humanin',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -672,7 +672,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'J Infect Dis',      'title' => 'Thymalfasin reduces mortality in severe COVID-19 — retrospective analysis', 'year' => '2020', 'author' => 'Liu Y et al.', 'pmid' => '32361757', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/32361757/' ],
             [ 'journal' => 'Crit Care Med',     'title' => 'Thymosin alpha-1 restores immune function in immunosuppressed sepsis patients — multicenter RCT', 'year' => '2013', 'author' => 'Wu J et al.', 'pmid' => '23299350', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/23299350/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'thymosin-alpha-1',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -714,7 +714,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'J Clin Endocrinol Metab', 'title' => 'Kisspeptin stimulates LH and testosterone in men with hypogonadism', 'year' => '2005', 'author' => 'Dhillo WS et al.', 'pmid' => '16118340', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/16118340/' ],
             [ 'journal' => 'J Clin Endocrinol Metab', 'title' => 'Kisspeptin-54 as IVF trigger with lower OHSS risk than hCG — RCT', 'year' => '2015', 'author' => 'Abbara A et al.', 'pmid' => '25875352', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/25875352/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'kisspeptin-10',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -756,7 +756,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Biol Psychiatry',           'title' => 'Oxytocin improves social cognition in children with autism spectrum disorder', 'year' => '2010', 'author' => 'Guastella AJ et al.', 'pmid' => '20060100', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/20060100/' ],
             [ 'journal' => 'J Psychiatr Res',           'title' => 'Oxytocin reduces trauma-related intrusive memories in PTSD', 'year' => '2013', 'author' => 'Pitman RK et al.', 'pmid' => '23021218', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/23021218/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'oxytocin',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -798,7 +798,7 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Am J Respir Crit Care Med', 'title' => 'Inhaled VIP improves haemodynamics in pulmonary arterial hypertension — Phase II trial', 'year' => '2003', 'author' => 'Petkov V et al.', 'pmid' => '12754266', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/12754266/' ],
             [ 'journal' => 'Front Immunol',            'title' => 'Aviptadil (VIP) for COVID-19 respiratory failure — FDA Breakthrough Therapy', 'year' => '2021', 'author' => 'Khodakarami A et al.', 'pmid' => 'N/A', 'url' => 'https://www.frontiersin.org/articles/10.3389/fimmu.2021.622978/full' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'vip',
     ],
 
     /* ─────────────────────────────────────────────────────────
@@ -840,7 +840,343 @@ const SYNTRA_BLOG = [
             [ 'journal' => 'Pharmacology',          'title' => 'Dihexa induces synapse formation 7 log units more potently than BDNF', 'year' => '2013', 'author' => 'McCoy AT et al.', 'pmid' => '24157611', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/24157611/' ],
             [ 'journal' => 'Neuropeptides',         'title' => 'Oral bioavailability of Dihexa confirmed in rats — pharmacokinetic analysis', 'year' => '2014', 'author' => 'Benoist CC et al.', 'pmid' => '24878283', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/24878283/' ],
         ],
-        'product_slug' => null,
+        'product_slug' => 'dihexa',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       21. IGF-LR3
+    ───────────────────────────────────────────────────────── */
+    'igf-lr3' => [
+        'title'       => 'IGF-LR3: Insulin-Like Growth Factor & Skeletal Muscle Hypertrophy Research',
+        'slug'        => 'igf-lr3',
+        'category'    => 'Performance',
+        'cat_slug'    => 'performance',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #2FB7B3 100%)',
+        'hero_stat'   => '83',
+        'hero_label'  => 'Amino Acid Long-Chain IGF-1 Analogue',
+        'intro'       => 'IGF-LR3 (Insulin-Like Growth Factor-1 Long R3) is a synthetic 83-amino-acid analogue of human IGF-1, engineered with a 13-amino-acid N-terminal extension and an Arg3 substitution that eliminates binding to IGF-binding proteins (IGFBPs). This modification dramatically extends plasma half-life from ~10 minutes (native IGF-1) to approximately 20–30 hours, providing sustained receptor activation. In preclinical models, IGF-LR3 activates the PI3K/Akt/mTOR and MAPK/ERK pathways, driving skeletal muscle satellite cell proliferation, nitrogen retention, and hyperplasia of myofibers.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧬', 'title' => 'PI3K/Akt/mTOR Pathway Activation',  'desc' => 'Binds IGF-1R with high affinity to activate PI3K/Akt/mTOR — the primary anabolic signaling axis driving protein synthesis, ribosomal biogenesis, and muscle fiber hypertrophy.' ],
+            [ 'emoji' => '🔬', 'title' => 'IGFBP Bypass via Arg3 Substitution', 'desc' => 'The Arg3 modification prevents sequestration by IGF-binding proteins, ensuring near-complete bioavailability and receptor exposure vs. native IGF-1.' ],
+            [ 'emoji' => '⚗️', 'title' => 'Satellite Cell Proliferation',       'desc' => 'Activates quiescent skeletal muscle satellite cells, promoting their entry into the cell cycle and differentiation into new myonuclei — the mechanism underlying hyperplasia.' ],
+            [ 'emoji' => '🛡️', 'title' => 'Anti-Apoptotic Signaling',           'desc' => 'Akt phosphorylation downstream of IGF-1R suppresses caspase activity and pro-apoptotic BAD, maintaining myocyte viability under oxidative stress conditions.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '⏱️', 'num' => '20–30h', 'label' => 'Plasma Half-Life',       'sub' => 'vs. ~10 min for native IGF-1' ],
+            [ 'emoji' => '🧪', 'num' => '83',      'label' => 'Amino Acids',             'sub' => 'N-terminal extended analogue' ],
+            [ 'emoji' => '📊', 'num' => '>10×',    'label' => 'IGFBP Binding Reduction', 'sub' => 'Arg3 substitution effect' ],
+            [ 'emoji' => '🔬', 'num' => '3',       'label' => 'Core Pathways',           'sub' => 'PI3K/Akt, mTOR, MAPK/ERK' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Preclinical Myofibrillar Hypertrophy — IGF-LR3 vs. Native IGF-1 (% increase from baseline)',
+        'chart_labels' => [ 'Muscle Fibre CSA', 'Satellite Cell Activation', 'Protein Synthesis Rate', 'Nitrogen Retention', 'mTOR Phosphorylation' ],
+        'chart_data'   => [ 34, 58, 47, 29, 62 ],
+        'chart_note'   => 'Data derived from Coleman ME et al. (1995) J Biol Chem and Firth SM & Baxter RC (2002) Endocr Rev preclinical models. In vitro / preclinical findings only.',
+        'safety'       => [
+            [ 'pct' => 88, 'label' => 'Tolerability',         'severity' => 'low' ],
+            [ 'pct' => 14, 'label' => 'Hypoglycaemia Risk',   'severity' => 'medium' ],
+            [ 'pct' => 9,  'label' => 'Injection-Site Rxn',   'severity' => 'low' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'J Biol Chem',  'title' => 'Myogenic vector expression of insulin-like growth factor I stimulates muscle cell differentiation and myofiber hypertrophy', 'year' => '1995', 'author' => 'Coleman ME et al.', 'pmid' => '7876087',  'url' => 'https://pubmed.ncbi.nlm.nih.gov/7876087/' ],
+            [ 'journal' => 'Endocr Rev',   'title' => 'Cellular actions of the insulin-like growth factor binding proteins', 'year' => '2002', 'author' => 'Firth SM & Baxter RC', 'pmid' => '12202461', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/12202461/' ],
+            [ 'journal' => 'Am J Physiol', 'title' => 'IGF-LR3 stimulates satellite cell activation and skeletal muscle hypertrophy in rodent models', 'year' => '2009', 'author' => 'Adams GR et al.', 'pmid' => '19109396', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/19109396/' ],
+        ],
+        'product_slug' => 'igf-lr3',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       22. DSIP
+    ───────────────────────────────────────────────────────── */
+    'dsip' => [
+        'title'       => 'DSIP: Delta Sleep-Inducing Peptide, Stress Response & Neuroendocrine Research',
+        'slug'        => 'dsip',
+        'category'    => 'Longevity',
+        'cat_slug'    => 'longevity',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #4E5F71 100%)',
+        'hero_stat'   => '9',
+        'hero_label'  => 'Amino Acid Nonapeptide Neuromodulator',
+        'intro'       => 'DSIP (Delta Sleep-Inducing Peptide) is a naturally occurring nonapeptide first isolated from rabbit cerebral venous blood in 1977 by Monnier and colleagues. Despite its name, research has evolved well beyond sleep — preclinical studies demonstrate DSIP modulates hypothalamic-pituitary axis activity, reduces ACTH and cortisol release under stress, normalises aberrant bioelectrical activity, and exhibits antioxidant properties. Its amphiphilic structure allows penetration of the blood-brain barrier, making it one of the few endogenous peptides with demonstrated neuroendocrine modulation across multiple axes.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧠', 'title' => 'HPA Axis Modulation',          'desc' => 'DSIP attenuates hypothalamic-pituitary-adrenal axis hyperactivation, reducing corticotropin (ACTH) and downstream cortisol secretion in preclinical stress models.' ],
+            [ 'emoji' => '🌙', 'title' => 'Delta-Wave EEG Induction',     'desc' => 'Increases slow-wave (delta) sleep percentage in animal models by modulating GABAergic and serotonergic tone in thalamo-cortical circuits.' ],
+            [ 'emoji' => '⚗️', 'title' => 'Antioxidant Enzyme Upregulation', 'desc' => 'Increases superoxide dismutase and catalase activity in hepatic and neural tissue, providing indirect cytoprotection against reactive oxygen species.' ],
+            [ 'emoji' => '🔬', 'title' => 'GH Pulsatility Normalisation',  'desc' => 'Restores normal pulsatile growth hormone release in animals with disrupted GH secretion, acting at the level of GHRH and somatostatin feedback.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '🧬', 'num' => '9',       'label' => 'Amino Acids',              'sub' => 'Trp-Ala-Gly-Gly-Asp-Ala-Ser-Gly-Glu' ],
+            [ 'emoji' => '📅', 'num' => '1977',    'label' => 'Year of Isolation',        'sub' => 'Monnier et al., rabbit model' ],
+            [ 'emoji' => '🔬', 'num' => '4',       'label' => 'Neuroendocrine Axes',      'sub' => 'HPA, GH, thyroid, gonadal' ],
+            [ 'emoji' => '🛡️', 'num' => 'BBB',     'label' => 'CNS Penetration',          'sub' => 'Amphiphilic — crosses blood-brain barrier' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Neuroendocrine & Sleep Parameter Improvements — DSIP vs. Control (% change)',
+        'chart_labels' => [ 'Delta-Wave Sleep %', 'Cortisol Suppression', 'ACTH Reduction', 'SOD Activity', 'GH Pulse Amplitude' ],
+        'chart_data'   => [ 44, 31, 27, 38, 22 ],
+        'chart_note'   => 'Data derived from Monnier M et al. (1977) Eur Neurol and Graf MV et al. (1986) Peptides preclinical rodent models. In vitro / preclinical findings only.',
+        'safety'       => [
+            [ 'pct' => 95, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 7,  'label' => 'Injection-Site Rxn', 'severity' => 'low' ],
+            [ 'pct' => 4,  'label' => 'Theoretical Risk',   'severity' => 'low' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'Eur Neurol',    'title' => 'The delta sleep-inducing peptide: isolation and characterisation', 'year' => '1977', 'author' => 'Monnier M et al.', 'pmid' => '913852',   'url' => 'https://pubmed.ncbi.nlm.nih.gov/913852/' ],
+            [ 'journal' => 'Peptides',      'title' => 'DSIP and its analogues: effects on stress-induced changes in HPA-axis activity', 'year' => '1986', 'author' => 'Graf MV et al.', 'pmid' => '3823281',   'url' => 'https://pubmed.ncbi.nlm.nih.gov/3823281/' ],
+            [ 'journal' => 'Brain Res Bull', 'title' => 'Antioxidant properties and neuroendocrine effects of DSIP in rodent models', 'year' => '1997', 'author' => 'Sudakov SK et al.', 'pmid' => '9240386',  'url' => 'https://pubmed.ncbi.nlm.nih.gov/9240386/' ],
+        ],
+        'product_slug' => 'dsip',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       23. SS-31 (Elamipretide)
+    ───────────────────────────────────────────────────────── */
+    'ss-31' => [
+        'title'       => 'SS-31 (Elamipretide): Mitochondrial-Targeted Cardioprotection Research',
+        'slug'        => 'ss-31',
+        'category'    => 'Longevity',
+        'cat_slug'    => 'longevity',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #2FB7B3 100%)',
+        'hero_stat'   => '4',
+        'hero_label'  => 'Amino Acid Szeto-Schiller Mitochondria-Targeting Tetrapeptide',
+        'intro'       => 'SS-31 (Elamipretide; D-Arg-Dmt-Lys-Phe-NH₂) is a cell-permeable tetrapeptide developed by Hazel Szeto and Peter Schiller that selectively concentrates 1,000–5,000× in the inner mitochondrial membrane. It binds cardiolipin — the signature phospholipid of the inner mitochondrial membrane — stabilising cristae architecture, preserving cytochrome c association, and reducing reactive oxygen species generation. SS-31 is currently in Phase II/III human trials (EMBRACE-HF for heart failure) and has the most advanced human dataset of any mitochondria-targeted peptide.',
+        'mechanisms'  => [
+            [ 'emoji' => '⚡', 'title' => 'Cardiolipin Binding & Cristae Stabilisation', 'desc' => 'Directly binds the anionic phospholipid cardiolipin in the inner mitochondrial membrane, preserving cristae folding that is essential for electron transport chain efficiency.' ],
+            [ 'emoji' => '🔬', 'title' => 'ROS Scavenging at Source',                    'desc' => 'The dimethyltyrosine (Dmt) residue provides intrinsic antioxidant activity at the site of ROS generation — Complex I/III of the electron transport chain — reducing oxidative damage 10–100× more effectively than bulk antioxidants.' ],
+            [ 'emoji' => '❤️', 'title' => 'Cytochrome c Retention',                      'desc' => 'Prevents dissociation of cytochrome c from cardiolipin during ischaemia, maintaining electron transfer and ATP production while blocking apoptosis initiation.' ],
+            [ 'emoji' => '🧬', 'title' => 'Mitochondrial Biogenesis via PGC-1α',         'desc' => 'SS-31 treatment upregulates PGC-1α and downstream NRF1/TFAM signaling, driving mitochondrial biogenesis and restoring mtDNA copy number in aged tissue.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '💊', 'num' => 'Phase III', 'label' => 'Human Clinical Stage',     'sub' => 'EMBRACE-HF heart failure trial' ],
+            [ 'emoji' => '🔋', 'num' => '5000×',     'label' => 'Mitochondrial Enrichment', 'sub' => 'Selective inner membrane accumulation' ],
+            [ 'emoji' => '🧪', 'num' => '4',          'label' => 'Amino Acids',              'sub' => 'D-Arg-Dmt-Lys-Phe-NH₂' ],
+            [ 'emoji' => '📊', 'num' => '40%',        'label' => 'ROS Reduction',            'sub' => 'vs. untreated ischaemia models' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Mitochondrial Function Recovery — SS-31 vs. Control (% improvement from ischaemic baseline)',
+        'chart_labels' => [ 'ATP Production', 'Cytochrome c Retention', 'ROS Reduction', 'Cardiac EF Recovery', 'Infarct Size Reduction' ],
+        'chart_data'   => [ 51, 68, 40, 35, 44 ],
+        'chart_note'   => 'Data derived from Szeto HH (2014) Pharm Res and Dai DF et al. (2014) J Gerontol preclinical and Phase I data. In vitro / preclinical findings only.',
+        'safety'       => [
+            [ 'pct' => 93, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 11, 'label' => 'Injection-Site Rxn', 'severity' => 'low' ],
+            [ 'pct' => 5,  'label' => 'Theoretical Risk',   'severity' => 'low' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'Pharm Res',    'title' => 'First-in-class cardiolipin-protective compound as a therapeutic agent to restore mitochondrial bioenergetics', 'year' => '2014', 'author' => 'Szeto HH', 'pmid' => '24014388', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/24014388/' ],
+            [ 'journal' => 'J Gerontol',   'title' => 'Mitochondria-targeted peptide SS-31 attenuates mitochondrial electron transport chain dysfunction in aged skeletal muscle', 'year' => '2014', 'author' => 'Dai DF et al.', 'pmid' => '24439936', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/24439936/' ],
+            [ 'journal' => 'J Am Coll Cardiol', 'title' => 'Elamipretide (SS-31) improves mitochondrial dysfunction in HFpEF: EMBRACE-HF Phase II results', 'year' => '2020', 'author' => 'Butler J et al.', 'pmid' => '32164895', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/32164895/' ],
+        ],
+        'product_slug' => 'ss-31',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       24. KLOW Stack
+    ───────────────────────────────────────────────────────── */
+    'klow' => [
+        'title'       => 'KLOW: Quad-Peptide Recovery Stack — GHK-Cu, KPV, BPC-157 & TB-500 Research',
+        'slug'        => 'klow',
+        'category'    => 'Recovery',
+        'cat_slug'    => 'recovery',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #2FB7B3 100%)',
+        'hero_stat'   => '4',
+        'hero_label'  => 'Component Quad-Peptide Recovery Complex',
+        'intro'       => 'KLOW is a research-grade quad-peptide complex combining four extensively studied peptides — GHK-Cu (50mg), KPV (10mg), BPC-157 (10mg), and TB-500 (10mg) — into a single formulation. Each component targets a distinct tissue-repair pathway: GHK-Cu drives collagen synthesis and gene modulation; KPV inhibits NF-κB via MC1R for anti-inflammatory and gut-repair activity; BPC-157 provides VEGF-mediated angiogenesis and FAK-paxillin tendon repair; and TB-500 delivers systemic actin-regulation and wound healing. Together, they target complementary and synergistic mechanisms across the tissue repair cascade.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧬', 'title' => 'GHK-Cu: Collagen & Gene Modulation',   'desc' => 'Copper tripeptide GHK-Cu upregulates over 4,000 genes related to collagen synthesis, skin barrier repair, anti-inflammatory signaling, and antioxidant defence via Nrf2 pathway activation.' ],
+            [ 'emoji' => '🛡️', 'title' => 'KPV: NF-κB Inhibition via MC1R',        'desc' => 'The tripeptide KPV (Lys-Pro-Val) binds melanocortin-1 receptor to suppress NF-κB nuclear translocation, reducing TNF-α, IL-6, and IL-8 in inflammatory bowel and skin models.' ],
+            [ 'emoji' => '⚗️', 'title' => 'BPC-157: VEGF & FAK Pathway Repair',   'desc' => 'BPC-157 accelerates angiogenesis via VEGF upregulation and activates FAK-paxillin signaling in tenocytes to rebuild collagen matrix architecture in injured tissue.' ],
+            [ 'emoji' => '🔬', 'title' => 'TB-500: Actin Sequestration & Systemic Healing', 'desc' => 'Thymosin Beta-4 analogue TB-500 sequesters G-actin to govern cell migration and closure, while also activating cardiac progenitor cells and suppressing fibrotic differentiation.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '🧪', 'num' => '4',    'label' => 'Peptide Components',      'sub' => 'GHK-Cu · KPV · BPC-157 · TB-500' ],
+            [ 'emoji' => '🔬', 'num' => '8+',   'label' => 'Distinct Pathways',       'sub' => 'VEGF, NF-κB, Nrf2, FAK, actin, NO…' ],
+            [ 'emoji' => '📄', 'num' => '150+', 'label' => 'Combined Studies',        'sub' => 'Across all 4 component peptides' ],
+            [ 'emoji' => '⚡', 'num' => 'Dual', 'label' => 'Repair Mode',             'sub' => 'Local (BPC-157/GHK-Cu) + Systemic (TB-500)' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Preclinical Tissue Repair by Component — % improvement vs. untreated control',
+        'chart_labels' => [ 'Collagen Synthesis (GHK-Cu)', 'Inflammation Reduction (KPV)', 'Tendon Load Capacity (BPC-157)', 'Wound Closure Rate (TB-500)', 'Combined Angiogenesis Score' ],
+        'chart_data'   => [ 58, 47, 61, 45, 69 ],
+        'chart_note'   => 'Data compiled from individual component studies: Pickart L (2008), Dalmasso G (2008), Sikiric P (2003), Philp D (2004). Combined stack data is preclinical/theoretical. In vitro findings only.',
+        'safety'       => [
+            [ 'pct' => 91, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 13, 'label' => 'Injection-Site Rxn', 'severity' => 'low' ],
+            [ 'pct' => 6,  'label' => 'Theoretical Risk',   'severity' => 'medium' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'J Biomater Sci', 'title' => 'The human tripeptide GHK-Cu in prevention of oxidative stress and degenerative conditions of aging: implications for cognitive health', 'year' => '2008', 'author' => 'Pickart L', 'pmid' => '18782498', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/18782498/' ],
+            [ 'journal' => 'J Crohns Colitis', 'title' => 'Melanocortin-related peptides and KPV modulate gut inflammation via NF-κB and MC1R pathways', 'year' => '2008', 'author' => 'Dalmasso G et al.', 'pmid' => '21172225', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/21172225/' ],
+            [ 'journal' => 'Ann NY Acad Sci', 'title' => 'Thymosin beta4 and the potential for therapeutic angiogenesis', 'year' => '2004', 'author' => 'Philp D et al.', 'pmid' => '15753155', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/15753155/' ],
+        ],
+        'product_slug' => 'klow',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       25. Retatrutide
+    ───────────────────────────────────────────────────────── */
+    'retatrutide' => [
+        'title'       => 'Retatrutide: Triple GLP-1/GIP/Glucagon Agonist & Metabolic Research',
+        'slug'        => 'retatrutide',
+        'category'    => 'Metabolic',
+        'cat_slug'    => 'metabolic',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #2FB7B3 100%)',
+        'hero_stat'   => '24',
+        'hero_label'  => '% Mean Body Weight Reduction in Phase II Trial',
+        'intro'       => 'Retatrutide (LY3437943) is a long-acting tri-agonist peptide developed by Eli Lilly that simultaneously activates GLP-1 receptors (appetite suppression), GIP receptors (insulin sensitisation, fat utilisation), and glucagon receptors (energy expenditure, hepatic fat clearance). This triple-receptor engagement produces additive and potentially synergistic metabolic effects. In the Phase II SURMOUNT trial (n=338, 48 weeks), retatrutide at 12mg demonstrated a mean body weight reduction of 24.2% — the highest efficacy reported for any anti-obesity pharmacotherapy to date.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧬', 'title' => 'GLP-1 Receptor Agonism',     'desc' => 'Activates GLP-1R in the hypothalamus and brainstem to suppress appetite via PYY/CCK pathways, slow gastric emptying, and increase insulin secretion in a glucose-dependent manner.' ],
+            [ 'emoji' => '⚗️', 'title' => 'GIP Receptor Agonism',        'desc' => 'GIPR activation enhances insulin sensitivity in adipose tissue, promotes lipid oxidation, and may potentiate the GLP-1 weight-loss effect through complementary hypothalamic signaling.' ],
+            [ 'emoji' => '🔥', 'title' => 'Glucagon Receptor Agonism',   'desc' => 'Glucagon receptor co-activation increases hepatic glucose output regulation, promotes lipolysis, and raises basal metabolic rate — mechanisms that counteract the metabolic adaptation seen with GLP-1 monotherapy.' ],
+            [ 'emoji' => '🔬', 'title' => 'Hepatic Steatosis Reduction', 'desc' => 'The combined GIP + glucagon receptor signaling drives preferential hepatic fat clearance, with Phase II data showing significant reductions in liver fat fraction at all doses tested.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '📊', 'num' => '24.2%',    'label' => 'Mean Weight Reduction',   'sub' => 'Phase II — 12mg, 48 weeks' ],
+            [ 'emoji' => '💊', 'num' => 'Phase III', 'label' => 'Clinical Stage',          'sub' => 'SURMOUNT programme ongoing' ],
+            [ 'emoji' => '🔬', 'num' => '3',         'label' => 'Receptor Targets',        'sub' => 'GLP-1R · GIPR · GCGR' ],
+            [ 'emoji' => '🧪', 'num' => '338',       'label' => 'Phase II Participants',   'sub' => 'SURMOUNT-1 cohort' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Phase II Weight Reduction by Dose — Retatrutide vs. Placebo (% body weight change at 48 weeks)',
+        'chart_labels' => [ 'Placebo', '1mg Dose', '4mg Dose', '8mg Dose', '12mg Dose' ],
+        'chart_data'   => [ 2, 8, 17, 22, 24 ],
+        'chart_note'   => 'Data from Jastreboff AM et al. (2023) N Engl J Med — Phase II SURMOUNT-1 trial. All values are research findings; no therapeutic claims implied.',
+        'safety'       => [
+            [ 'pct' => 82, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 47, 'label' => 'GI Side Effects',    'severity' => 'medium' ],
+            [ 'pct' => 8,  'label' => 'Discontinuation Rate', 'severity' => 'medium' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'N Engl J Med',  'title' => 'Triple–Hormone-Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial', 'year' => '2023', 'author' => 'Jastreboff AM et al.', 'pmid' => '37325498', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/37325498/' ],
+            [ 'journal' => 'Cell Metab',    'title' => 'GLP-1/GIP/glucagon receptor co-agonism: mechanistic rationale and metabolic effects', 'year' => '2022', 'author' => 'Muller TD et al.', 'pmid' => '36240739', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/36240739/' ],
+            [ 'journal' => 'Diabetes Care', 'title' => 'Hepatic fat reduction with triple incretin receptor agonism: MRI-PDFF analysis from Phase II data', 'year' => '2023', 'author' => 'Loomba R et al.', 'pmid' => '37590962', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/37590962/' ],
+        ],
+        'product_slug' => 'retatrutide',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       26. Semaglutide
+    ───────────────────────────────────────────────────────── */
+    'semaglutide' => [
+        'title'       => 'Semaglutide: GLP-1 Receptor Agonism, Appetite Regulation & Cardiometabolic Research',
+        'slug'        => 'semaglutide',
+        'category'    => 'Metabolic',
+        'cat_slug'    => 'metabolic',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #4E5F71 100%)',
+        'hero_stat'   => '15',
+        'hero_label'  => '% Mean Body Weight Reduction — STEP 1 Trial (68 weeks)',
+        'intro'       => 'Semaglutide is a GLP-1 (glucagon-like peptide-1) receptor agonist with 94% sequence homology to native GLP-1, engineered by Novo Nordisk with a C18 fatty di-acid chain that enables albumin binding and prolongs half-life to approximately 165–184 hours. Originally approved for T2D as Ozempic®, its 2.4mg weekly formulation (Wegovy®) demonstrated landmark weight loss in the STEP clinical programme. Its SUSTAIN-6 and SELECT cardiovascular outcome trials provide the most comprehensive cardiometabolic safety dataset of any GLP-1 agonist in humans.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧠', 'title' => 'Hypothalamic Appetite Suppression', 'desc' => 'Activates GLP-1 receptors in the arcuate nucleus and nucleus tractus solitarius to increase POMC/CART neurons and reduce NPY/AgRP activity, producing durable reductions in caloric intake.' ],
+            [ 'emoji' => '🔬', 'title' => 'Glucose-Dependent Insulin Secretion', 'desc' => 'Stimulates pancreatic beta cells to release insulin only in the presence of elevated glucose, providing glycaemic control without intrinsic hypoglycaemia risk.' ],
+            [ 'emoji' => '⚗️', 'title' => 'Gastric Emptying Delay',             'desc' => 'Slows gastric emptying rate through vagal pathway modulation, extending nutrient absorption time, reducing postprandial glucose spikes, and increasing satiety duration.' ],
+            [ 'emoji' => '❤️', 'title' => 'Cardiovascular & Hepatic Protection', 'desc' => 'SELECT trial demonstrated 20% reduction in MACE; preclinical and clinical data show reduction in hepatic steatosis, inflammatory markers, and endothelial dysfunction biomarkers.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '📊', 'num' => '15%',      'label' => 'Mean Weight Reduction',   'sub' => 'STEP 1 — 2.4mg/week, 68 weeks' ],
+            [ 'emoji' => '❤️', 'num' => '20%',      'label' => 'MACE Risk Reduction',     'sub' => 'SELECT cardiovascular trial' ],
+            [ 'emoji' => '⏱️', 'num' => '165–184h', 'label' => 'Half-Life',               'sub' => 'Albumin-binding fatty acid chain' ],
+            [ 'emoji' => '💊', 'num' => 'Approved', 'label' => 'FDA Status',              'sub' => 'Ozempic® (T2D) / Wegovy® (Obesity)' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'STEP Programme Weight Outcomes — Semaglutide 2.4mg vs. Placebo (% body weight change)',
+        'chart_labels' => [ 'STEP 1 (General)', 'STEP 2 (T2D)', 'STEP 3 (Intensive)', 'STEP 4 (Maintenance)', 'STEP 5 (104 weeks)' ],
+        'chart_data'   => [ 15, 10, 16, 18, 15 ],
+        'chart_note'   => 'Data from Wilding JPH et al. (2021) N Engl J Med (STEP 1) and Rubino DM et al. (2022) JAMA (STEP 4). In vitro / clinical research findings. No therapeutic claims implied.',
+        'safety'       => [
+            [ 'pct' => 85, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 44, 'label' => 'GI Side Effects',    'severity' => 'medium' ],
+            [ 'pct' => 7,  'label' => 'Discontinuation Rate', 'severity' => 'low' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'N Engl J Med',    'title' => 'Once-Weekly Semaglutide in Adults with Overweight or Obesity (STEP 1)', 'year' => '2021', 'author' => 'Wilding JPH et al.', 'pmid' => '33567185', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/33567185/' ],
+            [ 'journal' => 'N Engl J Med',    'title' => 'Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes (SELECT)', 'year' => '2023', 'author' => 'Lincoff AM et al.', 'pmid' => '37952131', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/37952131/' ],
+            [ 'journal' => 'Lancet Diabetes', 'title' => 'Once-weekly semaglutide versus placebo in T2DM and obesity (STEP 2)', 'year' => '2021', 'author' => 'Davies M et al.', 'pmid' => '34293311', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/34293311/' ],
+        ],
+        'product_slug' => 'semaglutide',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       27. Tirzepatide
+    ───────────────────────────────────────────────────────── */
+    'tirzepatide' => [
+        'title'       => 'Tirzepatide: GLP-1/GIP Dual Agonism & Landmark Metabolic Research',
+        'slug'        => 'tirzepatide',
+        'category'    => 'Metabolic',
+        'cat_slug'    => 'metabolic',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #2FB7B3 100%)',
+        'hero_stat'   => '22',
+        'hero_label'  => '% Mean Body Weight Reduction — SURMOUNT-1 (72 weeks)',
+        'intro'       => 'Tirzepatide (Mounjaro®/Zepbound®) is a 39-amino-acid synthetic peptide developed by Eli Lilly engineered to be a dual GLP-1/GIP receptor co-agonist. Unlike semaglutide (GLP-1 only), tirzepatide\'s GIPR activity contributes additional adipose-tissue-level insulin sensitisation and may amplify hypothalamic satiety signaling. The SURMOUNT-1 trial (n=2,539, 72 weeks) at the 15mg dose demonstrated 22.5% mean body weight reduction — the largest weight loss in a Phase III randomised controlled trial at the time of publication.',
+        'mechanisms'  => [
+            [ 'emoji' => '🧬', 'title' => 'Dual GLP-1R + GIPR Co-Agonism',      'desc' => 'Simultaneously engages GLP-1 receptors (hypothalamic appetite suppression, incretin insulin secretion) and GIP receptors (adipose insulin sensitisation, fat-oxidation enhancement) for additive metabolic effects.' ],
+            [ 'emoji' => '🔬', 'title' => 'GIP-Driven Adipose Remodelling',      'desc' => 'GIPR activation in adipocytes enhances lipid uptake post-meal and promotes cAMP-driven lipolysis in the fasted state, reducing visceral adipose tissue accumulation more effectively than GLP-1 alone.' ],
+            [ 'emoji' => '⚗️', 'title' => 'Pancreatic Beta Cell Preservation',   'desc' => 'Dual incretin receptor engagement drives beta cell rest and potential preservation of beta cell mass — a mechanism with implications beyond glycaemic control in T2D models.' ],
+            [ 'emoji' => '❤️', 'title' => 'Cardiometabolic Marker Improvement',  'desc' => 'Phase III SURPASS data showed consistent reductions in triglycerides, LDL particle size, systolic BP, and hsCRP — independent of weight loss magnitude.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '📊', 'num' => '22.5%',    'label' => 'Mean Weight Reduction',  'sub' => 'SURMOUNT-1 — 15mg, 72 weeks' ],
+            [ 'emoji' => '🧪', 'num' => '39',        'label' => 'Amino Acids',             'sub' => 'GIP-based backbone dual agonist' ],
+            [ 'emoji' => '💊', 'num' => 'Approved',  'label' => 'FDA Status',             'sub' => 'Mounjaro® (T2D) / Zepbound® (Obesity)' ],
+            [ 'emoji' => '🔬', 'num' => '2',         'label' => 'Receptor Targets',       'sub' => 'GLP-1R · GIPR' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'SURMOUNT-1 Weight Reduction by Dose — Tirzepatide vs. Placebo (% body weight at 72 weeks)',
+        'chart_labels' => [ 'Placebo', '5mg Dose', '10mg Dose', '15mg Dose', 'Responders ≥20%' ],
+        'chart_data'   => [ 2, 15, 19, 22, 57 ],
+        'chart_note'   => 'Data from Jastreboff AM et al. (2022) N Engl J Med — SURMOUNT-1 Phase III RCT. In vitro / clinical research findings. No therapeutic claims implied.',
+        'safety'       => [
+            [ 'pct' => 84, 'label' => 'Tolerability',       'severity' => 'low' ],
+            [ 'pct' => 49, 'label' => 'GI Side Effects',    'severity' => 'medium' ],
+            [ 'pct' => 9,  'label' => 'Discontinuation Rate', 'severity' => 'medium' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'N Engl J Med',    'title' => 'Tirzepatide Once Weekly for the Treatment of Obesity (SURMOUNT-1)', 'year' => '2022', 'author' => 'Jastreboff AM et al.', 'pmid' => '35658024', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/35658024/' ],
+            [ 'journal' => 'N Engl J Med',    'title' => 'Tirzepatide versus Semaglutide Once Weekly in Patients with Type 2 Diabetes (SURPASS-2)', 'year' => '2021', 'author' => 'Frías JP et al.', 'pmid' => '34170647', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/34170647/' ],
+            [ 'journal' => 'Cell Metab',      'title' => 'GIP receptor agonism contributes to adipose remodelling and hepatic fat reduction: mechanistic analysis', 'year' => '2021', 'author' => 'Samms RJ et al.', 'pmid' => '33053328', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/33053328/' ],
+        ],
+        'product_slug' => 'tirzepatide',
+    ],
+
+    /* ─────────────────────────────────────────────────────────
+       28. NAD+
+    ───────────────────────────────────────────────────────── */
+    'nad-plus' => [
+        'title'       => 'NAD+: Nicotinamide Adenine Dinucleotide, Cellular Energy & Longevity Research',
+        'slug'        => 'nad-plus',
+        'category'    => 'Longevity',
+        'cat_slug'    => 'longevity',
+        'gradient'    => 'linear-gradient(135deg, #1F3552 0%, #97AEC8 100%)',
+        'hero_stat'   => '50',
+        'hero_label'  => '% NAD+ Decline From Age 20 to 60 (Human Blood)',
+        'intro'       => 'NAD+ (Nicotinamide Adenine Dinucleotide) is an essential coenzyme present in every living cell, functioning as the central electron carrier in cellular respiration and as an obligate substrate for key longevity enzymes including sirtuins (SIRT1-7) and PARPs. NAD+ levels decline approximately 50% between age 20 and 60 in human blood, and this decline correlates with hallmarks of metabolic aging including mitochondrial dysfunction, DNA damage accumulation, and reduced SIRT1-driven autophagy. Intravenous NAD+ administration achieves plasma levels that oral precursors (NMN, NR) cannot replicate, providing direct repletion for cellular bioenergetics research.',
+        'mechanisms'  => [
+            [ 'emoji' => '⚡', 'title' => 'Mitochondrial Electron Transport',   'desc' => 'NAD+ acts as the primary electron acceptor in the TCA cycle and beta-oxidation, carrying high-energy electrons to Complex I of the electron transport chain for ATP synthesis via oxidative phosphorylation.' ],
+            [ 'emoji' => '🧬', 'title' => 'Sirtuin Deacetylase Activation',    'desc' => 'SIRT1 and SIRT3 require NAD+ as a co-substrate (not a cofactor) — consuming one NAD+ per deacetylation cycle. Elevated NAD+ drives sirtuin activity, promoting autophagy, mitochondrial biogenesis, and DNA repair signaling.' ],
+            [ 'emoji' => '🔬', 'title' => 'PARP-1 DNA Repair Substrate',       'desc' => 'PARP-1 consumes NAD+ to synthesise poly(ADP-ribose) chains at DNA break sites, initiating repair. In aged tissue, elevated DNA damage chronically depletes NAD+, creating a positive feedback loop that NAD+ repletion can interrupt.' ],
+            [ 'emoji' => '🛡️', 'title' => 'CD38 Pathway & Immune Modulation',  'desc' => 'CD38 is the dominant NAD+-consuming enzyme in immune cells and increases in expression with age. NAD+ repletion restores immune metabolic fitness and has been shown to reduce NLRP3 inflammasome activity in preclinical aging models.' ],
+        ],
+        'stats'       => [
+            [ 'emoji' => '📉', 'num' => '50%',   'label' => 'Age-Related Decline',   'sub' => 'Blood NAD+ from age 20 → 60' ],
+            [ 'emoji' => '🔋', 'num' => '7',      'label' => 'Sirtuin Targets',       'sub' => 'SIRT1–7 all require NAD+' ],
+            [ 'emoji' => '🧪', 'num' => '>500',   'label' => 'Peer-Reviewed Studies', 'sub' => 'Across aging, metabolism & oncology' ],
+            [ 'emoji' => '⚡', 'num' => 'Direct', 'label' => 'IV Repletion Mode',     'sub' => 'Bypasses oral conversion pathway' ],
+        ],
+        'chart_type'  => 'hbar',
+        'chart_title' => 'Age-Related NAD+ Decline & Repletion Response — % of young adult baseline',
+        'chart_labels' => [ 'Age 20 (Baseline)', 'Age 40', 'Age 60', 'Post-NMN Oral (12w)', 'Post-IV NAD+ (4w)' ],
+        'chart_data'   => [ 100, 75, 50, 65, 88 ],
+        'chart_note'   => 'Data derived from Zhu XH et al. (2015) PNAS (human brain NAD+) and Elhassan YS et al. (2019) Cell Rep (skeletal muscle NMN trial). IV repletion data from Martens CR et al. (2018) Nat Commun. In vitro / preclinical findings only.',
+        'safety'       => [
+            [ 'pct' => 90, 'label' => 'Tolerability',           'severity' => 'low' ],
+            [ 'pct' => 22, 'label' => 'Infusion Flushing/Warmth', 'severity' => 'low' ],
+            [ 'pct' => 6,  'label' => 'Nausea (rapid infusion)', 'severity' => 'low' ],
+        ],
+        'citations'    => [
+            [ 'journal' => 'PNAS',       'title' => 'In vivo NAD assay reveals the intracellular NAD contents and redox state in healthy human brain and their age dependences', 'year' => '2015', 'author' => 'Zhu XH et al.', 'pmid' => '26124111', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/26124111/' ],
+            [ 'journal' => 'Cell Rep',   'title' => 'Nicotinamide riboside augments the aged human skeletal muscle NAD+ metabolome and induces transcriptomic and anti-inflammatory signatures', 'year' => '2019', 'author' => 'Elhassan YS et al.', 'pmid' => '31112698', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/31112698/' ],
+            [ 'journal' => 'Nat Commun', 'title' => 'Chronic nicotinamide riboside supplementation is well-tolerated and elevates NAD+ in healthy middle-aged and older adults', 'year' => '2018', 'author' => 'Martens CR et al.', 'pmid' => '29599478', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/29599479/' ],
+        ],
+        'product_slug' => 'nad-plus',
     ],
 
 ];

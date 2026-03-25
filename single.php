@@ -268,6 +268,24 @@ $has_data = ( $p !== null );
 
 <?php endif; ?>
 
+<?php if ( $has_data && ! empty( $p['product_slug'] ) ) :
+    $float_product_url = home_url( '/product/' . $p['product_slug'] . '/' );
+    $float_name        = strtoupper( $p['product_slug'] );
+?>
+<!-- ═══ FLOATING PRODUCT CTA ═══ -->
+<div class="blog-float-cta" id="blogFloatCta" aria-hidden="true">
+    <div class="blog-float-cta__inner">
+        <div class="blog-float-cta__text">
+            <span class="blog-float-cta__label">Syntra Research Compound</span>
+            <span class="blog-float-cta__name"><?php echo esc_html( $float_name ); ?></span>
+        </div>
+        <a href="<?php echo esc_url( $float_product_url ); ?>" class="blog-float-cta__btn">
+            View Product &rarr;
+        </a>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- ═══ BACK TO LIBRARY ═══ -->
 <div class="post-back-link">
     <div class="container">
@@ -326,6 +344,34 @@ window.addEventListener('load', function() {
         }
     });
 });
+</script>
+<?php endif; ?>
+
+<?php if ( $has_data && ! empty( $p['product_slug'] ) ) : ?>
+<script>
+(function() {
+    var floatCta  = document.getElementById('blogFloatCta');
+    var hero      = document.getElementById('introduction');
+    var postCta   = document.querySelector('.post-cta');
+    if (!floatCta || !hero) return;
+
+    var heroObserver = new IntersectionObserver(function(entries) {
+        var heroVisible = entries[0].isIntersecting;
+        floatCta.classList.toggle('is-visible', !heroVisible);
+        floatCta.setAttribute('aria-hidden', heroVisible ? 'true' : 'false');
+    }, { threshold: 0 });
+    heroObserver.observe(hero);
+
+    if (postCta) {
+        var ctaObserver = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                floatCta.classList.remove('is-visible');
+                floatCta.setAttribute('aria-hidden', 'true');
+            }
+        }, { threshold: 0.2 });
+        ctaObserver.observe(postCta);
+    }
+})();
 </script>
 <?php endif; ?>
 
