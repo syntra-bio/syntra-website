@@ -159,7 +159,55 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
         </div>
         <?php endif; ?>
 
-        <!-- Qty + Add to Cart -->
+        <?php
+        $stock_status  = $product->get_stock_status(); // 'instock' | 'outofstock' | 'onbackorder'
+        $is_outofstock = ( $stock_status === 'outofstock' );
+        $is_backorder  = ( $stock_status === 'onbackorder' );
+        $notify_sent   = isset( $_GET['notify'] ) && $_GET['notify'] === 'success';
+        ?>
+
+        <!-- Stock status indicator -->
+        <?php if ( $is_outofstock ) : ?>
+        <div class="stock-badge stock-badge--out">
+          <span class="stock-badge__dot"></span> Out of Stock
+        </div>
+        <?php elseif ( $is_backorder ) : ?>
+        <div class="stock-badge stock-badge--backorder">
+          <span class="stock-badge__dot"></span> Available on Backorder
+        </div>
+        <?php else : ?>
+        <div class="stock-badge stock-badge--in">
+          <span class="stock-badge__dot"></span> In Stock — Ships in 1–2 Business Days
+        </div>
+        <?php endif; ?>
+
+        <?php if ( $is_outofstock ) : ?>
+
+        <!-- SOLD OUT state -->
+        <button class="btn btn-primary btn-lg btn-full btn--sold-out" disabled aria-disabled="true">
+          Sold Out
+        </button>
+
+        <!-- Notify Me form -->
+        <div class="notify-form">
+          <?php if ( $notify_sent ) : ?>
+            <div class="notify-form__success">
+              ✓ You're on the list — we'll email you the moment this compound is restocked.
+            </div>
+          <?php else : ?>
+            <p class="notify-form__label">Notify me when back in stock</p>
+            <form class="notify-form__row" method="post" action="">
+              <?php wp_nonce_field( 'syntra_notify', 'syntra_notify_nonce' ); ?>
+              <input type="hidden" name="syntra_notify_product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
+              <input type="email" name="syntra_notify_email" class="notify-form__input" placeholder="your@email.com" required autocomplete="email">
+              <button type="submit" class="notify-form__btn">Notify Me</button>
+            </form>
+          <?php endif; ?>
+        </div>
+
+        <?php else : ?>
+
+        <!-- Qty + Add to Cart (in stock or backorder) -->
         <form class="cart" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>">
           <div class="product-info__qty">
             <button type="button" class="qty-btn" data-action="minus" aria-label="Decrease quantity">−</button>
@@ -169,10 +217,23 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
           </div>
           <input type="hidden" name="product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
           <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-          <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary btn-lg btn-full">
-            Add to Cart — <?php echo $product->get_price_html(); ?>
+          <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary btn-lg btn-full <?php echo $is_backorder ? 'btn--backorder' : ''; ?>">
+            <?php if ( $is_backorder ) : ?>
+              Pre-Order — <?php echo $product->get_price_html(); ?>
+            <?php else : ?>
+              Add to Cart — <?php echo $product->get_price_html(); ?>
+            <?php endif; ?>
           </button>
         </form>
+
+        <?php if ( $is_backorder ) : ?>
+        <div class="backorder-notice">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Backordered — orders ship within 5–10 business days in the sequence received.
+        </div>
+        <?php endif; ?>
+
+        <?php endif; ?>
 
         <div style="margin-top:16px; padding:12px; border:1px solid var(--mist); border-left:3px solid var(--teal); border-radius:0 8px 8px 0;">
           <p class="compliance-text">For in vitro laboratory research use only. Not for human consumption, diagnostic, or therapeutic use.</p>

@@ -41,12 +41,12 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.3.3' );
+        [ 'syntra-fonts' ], '1.3.4' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
         get_template_directory_uri() . '/assets/js/syntra.js',
-        [], '1.3.3', true );
+        [], '1.3.4', true );
 
     // Pass cart count to JS
     if ( class_exists( 'WooCommerce' ) ) {
@@ -346,3 +346,69 @@ function syntra_gtm_purchase() {
     <?php
 }
 add_action( 'wp_footer', 'syntra_gtm_purchase' );
+
+/* ─────────────────────────────────────────────────────────
+   BACK-IN-STOCK NOTIFY ME — form handler
+───────────────────────────────────────────────────────── */
+add_action( 'init', 'syntra_handle_notify_me' );
+function syntra_handle_notify_me() {
+    if ( empty( $_POST['syntra_notify_product_id'] ) ) return;
+    if ( ! isset( $_POST['syntra_notify_nonce'] ) ) return;
+    if ( ! wp_verify_nonce( $_POST['syntra_notify_nonce'], 'syntra_notify' ) ) return;
+
+    $product_id = absint( $_POST['syntra_notify_product_id'] );
+    $email      = sanitize_email( $_POST['syntra_notify_email'] ?? '' );
+
+    if ( ! is_email( $email ) || ! $product_id ) return;
+
+    $key    = 'syntra_notify_' . $product_id;
+    $emails = get_option( $key, [] );
+    if ( ! in_array( $email, $emails, true ) ) {
+        $emails[] = $email;
+        update_option( $key, $emails, false );
+    }
+
+    wp_redirect( add_query_arg( 'notify', 'success', get_permalink( $product_id ) ) );
+    exit;
+}
+
+/* ─────────────────────────────────────────────────────────
+   BACK-IN-STOCK NOTIFY ME — admin page
+───────────────────────────────────────────────────────── */
+add_action( 'admin_menu', 'syntra_notify_admin_menu' );
+function syntra_notify_admin_menu() {
+    add_menu_page(
+        'Back-in-Stock Signups',
+        'Stock Alerts',
+        'manage_woocommerce',
+        'syntra-stock-alerts',
+        'syntra_notify_admin_page',
+        'dashicons-email-alt',
+        58
+    );
+}
+
+function syntra_notify_admin_page() {
+    global $wpdb;
+    // Gather all syntra_notify_* options
+    $rows = $wpdb->get_results(
+        "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'syntra\_notify\_%'",
+        ARRAY_A
+    );
+    echo '<div class="wrap"><h1>Back-in-Stock Email Signups</h1>';
+    if ( empty( $rows ) ) {
+        echo '<p>No signups yet.</p></div>';
+        return;
+    }
+    echo '<table class="widefat striped"><thead><tr><th>Product</th><th>Emails</th><th>Count</th></tr></thead><tbody>';
+    foreach ( $rows as $row ) {
+        $product_id = (int) str_replace( 'syntra_notify_', '', $row['option_name'] );
+        $emails     = maybe_unserialize( $row['option_value'] );
+        $product    = wc_get_product( $product_id );
+        $name       = $product ? '<a href="' . get_edit_post_link( $product_id ) . '">' . esc_html( $product->get_name() ) . '</a>' : 'Product #' . $product_id;
+        $email_list = is_array( $emails ) ? implode( '<br>', array_map( 'esc_html', $emails ) ) : esc_html( $emails );
+        $count      = is_array( $emails ) ? count( $emails ) : 1;
+        echo '<tr><td>' . $name . '</td><td>' . $email_list . '</td><td>' . $count . '</td></tr>';
+    }
+    echo '</tbody></table></div>';
+}

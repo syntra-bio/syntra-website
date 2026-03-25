@@ -1729,6 +1729,121 @@ p  { color: var(--slate); line-height: 1.6; }
 }
 
 /* ══════════════════════════════════════════════════════════
+   STOCK STATUS — badge, sold out, backorder, notify form
+══════════════════════════════════════════════════════════ */
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.stock-badge__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.stock-badge--in  { background: rgba(47,183,179,0.10); color: #1a9e9a; }
+.stock-badge--in  .stock-badge__dot  { background: #2FB7B3; box-shadow: 0 0 0 3px rgba(47,183,179,0.25); }
+.stock-badge--out { background: rgba(211,47,47,0.08);  color: #c0392b; }
+.stock-badge--out .stock-badge__dot  { background: #e53935; box-shadow: 0 0 0 3px rgba(229,57,53,0.2); }
+.stock-badge--backorder { background: rgba(245,158,11,0.10); color: #b45309; }
+.stock-badge--backorder .stock-badge__dot { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,0.22); }
+
+/* Sold Out button */
+.btn--sold-out {
+  background: #e0e4ea !important;
+  color: #8a939f !important;
+  border-color: transparent !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Backorder button — amber tint */
+.btn--backorder {
+  background: #b45309 !important;
+  border-color: #b45309 !important;
+}
+.btn--backorder:hover { background: #92400e !important; border-color: #92400e !important; }
+
+/* Backorder shipping notice */
+.backorder-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #92400e;
+  line-height: 1.5;
+}
+.backorder-notice svg { flex-shrink: 0; margin-top: 1px; stroke: #f59e0b; }
+
+/* Notify Me form */
+.notify-form {
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--off-white);
+  border: 1px solid rgba(229,57,53,0.2);
+  border-radius: 8px;
+}
+.notify-form__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.notify-form__row {
+  display: flex;
+  gap: 8px;
+}
+.notify-form__input {
+  flex: 1;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--mist);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--navy);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.notify-form__input:focus { border-color: var(--teal); }
+.notify-form__btn {
+  height: 42px;
+  padding: 0 18px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.notify-form__btn:hover { background: var(--teal); }
+.notify-form__success {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a9e9a;
+  padding: 4px 0;
+}
+
+@media (max-width: 767px) {
+  .notify-form__row { flex-direction: column; }
+  .notify-form__btn { width: 100%; }
+}
+
+/* ══════════════════════════════════════════════════════════
    BLOG FLOATING FOOTER CTA
 ══════════════════════════════════════════════════════════ */
 .blog-float-cta {
