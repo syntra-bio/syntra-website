@@ -1,13 +1,13 @@
 <?php get_header(); ?>
 
 <?php
-// Always force-load from current post ID — prevents stale WC global causing wrong product
+// Declare global first, then overwrite — ensures WC global is updated to current page product
+global $product;
 $product = wc_get_product( get_the_ID() );
 if ( ! $product ) {
     wp_redirect( home_url() );
     exit;
 }
-global $product;
 
 $slug       = $product->get_slug();
 $p          = syntra_get_product_data( $slug );
