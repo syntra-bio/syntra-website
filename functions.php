@@ -41,12 +41,12 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.3.7' );
+        [ 'syntra-fonts' ], '1.3.8' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
         get_template_directory_uri() . '/assets/js/syntra.js',
-        [], '1.3.7', true );
+        [], '1.3.8', true );
 
     // Pass cart count to JS
     if ( class_exists( 'WooCommerce' ) ) {
@@ -346,6 +346,37 @@ function syntra_gtm_purchase() {
     <?php
 }
 add_action( 'wp_footer', 'syntra_gtm_purchase' );
+
+/* ─────────────────────────────────────────────────────────
+   CHECKOUT — Terms & Conditions acceptance checkbox
+───────────────────────────────────────────────────────── */
+add_action( 'woocommerce_review_order_before_submit', 'syntra_tc_checkbox' );
+function syntra_tc_checkbox() {
+    $tc_url     = esc_url( home_url( '/terms-and-conditions/' ) );
+    $refund_url = esc_url( home_url( '/refund-policy/' ) );
+    echo '<div class="syntra-tc-wrap">';
+    woocommerce_form_field( 'syntra_tc_accepted', [
+        'type'     => 'checkbox',
+        'class'    => [ 'syntra-tc-field form-row-wide' ],
+        'label'    => sprintf(
+            'I have read and agree to the <a href="%s" target="_blank">Terms &amp; Conditions</a> and <a href="%s" target="_blank">Returns &amp; Refund Policy</a>. I confirm I am purchasing these compounds for legitimate in vitro laboratory research use only.',
+            $tc_url,
+            $refund_url
+        ),
+        'required' => true,
+    ], 0 );
+    echo '</div>';
+}
+
+add_action( 'woocommerce_checkout_process', 'syntra_tc_checkbox_validate' );
+function syntra_tc_checkbox_validate() {
+    if ( empty( $_POST['syntra_tc_accepted'] ) ) {
+        wc_add_notice(
+            'You must accept the Terms &amp; Conditions and confirm research use before completing your order.',
+            'error'
+        );
+    }
+}
 
 /* ─────────────────────────────────────────────────────────
    BACK-IN-STOCK NOTIFY ME — form handler
