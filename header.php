@@ -45,7 +45,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="site-header__nav-link <?php echo is_home() || is_singular( 'post' ) ? 'active' : ''; ?>">Research</a>
       <a href="#" class="site-header__nav-link">COA Library</a>
       <a href="#" class="site-header__nav-link">About</a>
-      <a href="#" class="site-header__nav-link">Contact</a>
+      <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="site-header__nav-link">Contact</a>
     </nav>
 
     <div class="site-header__icons">
@@ -87,7 +87,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="mobile-nav__link">Research</a>
     <a href="#" class="mobile-nav__link">COA Library</a>
     <a href="#" class="mobile-nav__link">About</a>
-    <a href="#" class="mobile-nav__link">Contact</a>
+    <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mobile-nav__link">Contact</a>
   </nav>
   <div class="mobile-nav__footer">
     <span class="compliance-text">FOR RESEARCH USE ONLY · IN VITRO LABORATORY USE</span>

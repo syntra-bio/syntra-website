@@ -27,7 +27,7 @@
         <a href="<?php echo esc_url( home_url( '/#research' ) ); ?>" class="footer-nav-link">Research</a>
         <a href="#" class="footer-nav-link">COA Library</a>
         <a href="#" class="footer-nav-link">About Syntra</a>
-        <a href="#" class="footer-nav-link">Contact</a>
+        <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="footer-nav-link">Contact</a>
       </div>
 
       <div>
