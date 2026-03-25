@@ -176,7 +176,7 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
         </div>
         <?php else : ?>
         <div class="stock-badge stock-badge--in">
-          <span class="stock-badge__dot"></span> In Stock — Ships in 1–2 Business Days
+          <span class="stock-badge__dot"></span> In Stock — Same Day Dispatch on Orders Before 2PM AEST Mon–Fri
         </div>
         <?php endif; ?>
 
