@@ -3515,3 +3515,17 @@ a.wc-backward:hover { border-color: var(--teal); color: var(--teal); }
 .sty__link { font-size: 13px; color: var(--slate); text-decoration: underline; transition: color 0.2s; }
 .sty__link:hover { color: var(--teal); }
 
+
+/* ── Hide WC's default thank you output (block checkout mode) ──
+   Our custom template/hook replaces all of this.             */
+.woocommerce-order-received .woocommerce-thankyou-order-received,
+.woocommerce-order-received .woocommerce-order-overview,
+.woocommerce-order-received ul.woocommerce-thankyou-order-details,
+.woocommerce-order-received section.woocommerce-bacs-bank-details,
+.woocommerce-order-received .wc-bacs-bank-details,
+.woocommerce-order-received .woocommerce-order-details,
+.woocommerce-order-received .woocommerce-customer-details,
+.woocommerce-order-received h2.woocommerce-column__title,
+.woocommerce-order-received .woocommerce-columns {
+  display: none !important;
+}

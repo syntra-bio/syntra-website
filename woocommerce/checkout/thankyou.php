@@ -5,6 +5,9 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+// Flag so the woocommerce_thankyou hook knows the template already ran
+if ( ! defined( 'SYNTRA_THANKYOU_LOADED' ) ) define( 'SYNTRA_THANKYOU_LOADED', true );
+
 $is_bacs   = $order && $order->get_payment_method() === 'bacs';
 $is_failed = $order && $order->get_status() === 'failed';
 $bacs_due  = $is_bacs && $order && $order->has_status( [ 'pending', 'on-hold' ] );

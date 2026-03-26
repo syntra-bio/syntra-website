@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.6.4' );
+        [ 'syntra-fonts' ], '1.6.5' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -105,18 +105,32 @@ function syntra_patch_all_stock_statuses() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   THANK YOU PAGE — FORCE CLASSIC TEMPLATE EVEN IN BLOCK MODE
-   When the checkout page uses the WC Checkout Block, the
-   thankyou.php template override is ignored. This filter
-   forces WC to load our theme's thankyou.php regardless.
+   THANK YOU PAGE — WORKS FOR BOTH CLASSIC + BLOCK CHECKOUT
+   Classic mode: thankyou.php template override loads directly.
+   Block mode:   WC ignores thankyou.php, so we hook into
+                 woocommerce_thankyou and include our template.
+                 CSS hides WC's default block-rendered output.
 ───────────────────────────────────────────────────────── */
-add_filter( 'wc_get_template', 'syntra_force_thankyou_template', 10, 5 );
-function syntra_force_thankyou_template( $template, $template_name, $args, $template_path, $default_path ) {
+
+// Filter for classic mode (belt-and-suspenders)
+add_filter( 'wc_get_template', function( $template, $template_name ) {
     if ( $template_name !== 'checkout/thankyou.php' ) return $template;
     $theme_tpl = get_stylesheet_directory() . '/woocommerce/checkout/thankyou.php';
-    if ( file_exists( $theme_tpl ) ) return $theme_tpl;
-    return $template;
-}
+    return file_exists( $theme_tpl ) ? $theme_tpl : $template;
+}, 10, 2 );
+
+// Hook for block checkout mode — fires woocommerce_thankyou inside block context
+add_action( 'woocommerce_thankyou', function( $order_id ) {
+    // If our template already ran (classic mode), don't double-render
+    if ( defined( 'SYNTRA_THANKYOU_LOADED' ) ) return;
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) return;
+    $tpl = get_stylesheet_directory() . '/woocommerce/checkout/thankyou.php';
+    if ( file_exists( $tpl ) ) include $tpl;
+}, 1 );
+
+// Remove WC's default order table from the thankyou hook (we render our own)
+remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
 
 /* ─────────────────────────────────────────────────────────
    WOOCOMMERCE — REMOVE DEFAULT WRAPPERS
