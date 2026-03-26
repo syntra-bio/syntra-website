@@ -135,115 +135,113 @@ $bacs_due  = $is_bacs && $order && $order->has_status( [ 'pending', 'on-hold' ] 
 <?php endif; ?>
 
 <!-- ═══════════════════════════════════════════
-     ITEMS + SIDEBAR
+     ITEMS ORDERED (full width)
 ═══════════════════════════════════════════ -->
-<div class="sty__cols">
+<div class="sty__items-section">
+  <p class="mono-label sty__col-label">Items Ordered</p>
 
-  <!-- Items ordered -->
-  <div class="sty__items-col">
-    <p class="mono-label sty__col-label">Items Ordered</p>
-
-    <?php foreach ( $order->get_items() as $item_id => $item ) :
-      $_product = $item->get_product();
-      $img      = $_product ? $_product->get_image( 'thumbnail' ) : '';
-      $variant  = $item->get_meta( 'Strength' ) ?: $item->get_meta( 'syntra_variant_label' );
-    ?>
-    <div class="sty__item">
-      <div class="sty__item__img <?php echo $img ? '' : 'sty__item__img--empty'; ?>">
-        <?php if ( $img ) : echo $img; else : ?>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        <?php endif; ?>
-      </div>
-      <div class="sty__item__body">
-        <span class="sty__item__name"><?php echo wp_kses_post( $item->get_name() ); ?></span>
-        <?php if ( $variant ) : ?>
-        <span class="sty__item__variant"><?php echo esc_html( $variant ); ?></span>
-        <?php endif; ?>
-        <span class="sty__item__qty">Qty: <?php echo (int) $item->get_quantity(); ?></span>
-      </div>
-      <span class="sty__item__price"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $item ) ); ?></span>
-    </div>
-    <?php endforeach; ?>
-
-    <div class="sty__totals">
-      <div class="sty__totals__row">
-        <span>Subtotal</span>
-        <span><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></span>
-      </div>
-      <?php if ( $order->get_total_discount() > 0 ) : ?>
-      <div class="sty__totals__row sty__totals__row--discount">
-        <span>Discount</span>
-        <span>−<?php echo wp_kses_post( wc_price( $order->get_total_discount() ) ); ?></span>
-      </div>
+  <?php foreach ( $order->get_items() as $item_id => $item ) :
+    $_product = $item->get_product();
+    $img      = $_product ? $_product->get_image( 'thumbnail' ) : '';
+    $variant  = $item->get_meta( 'Strength' ) ?: $item->get_meta( 'syntra_variant_label' );
+  ?>
+  <div class="sty__item">
+    <div class="sty__item__img <?php echo $img ? '' : 'sty__item__img--empty'; ?>">
+      <?php if ( $img ) : echo $img; else : ?>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       <?php endif; ?>
-      <div class="sty__totals__row">
-        <span>Shipping</span>
-        <span><?php echo (float) $order->get_shipping_total() > 0 ? wp_kses_post( wc_price( $order->get_shipping_total() ) ) : 'Free'; ?></span>
-      </div>
-      <div class="sty__totals__row sty__totals__row--total">
-        <span>Total</span>
-        <span><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></span>
-      </div>
     </div>
+    <div class="sty__item__body">
+      <span class="sty__item__name"><?php echo wp_kses_post( $item->get_name() ); ?></span>
+      <?php if ( $variant ) : ?>
+      <span class="sty__item__variant"><?php echo esc_html( $variant ); ?></span>
+      <?php endif; ?>
+      <span class="sty__item__qty">Qty: <?php echo (int) $item->get_quantity(); ?></span>
+    </div>
+    <span class="sty__item__price"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $item ) ); ?></span>
   </div>
+  <?php endforeach; ?>
 
-  <!-- Sidebar -->
-  <div class="sty__side-col">
-
-    <?php
-    $ship_addr = $order->get_formatted_shipping_address();
-    $bill_addr = $order->get_formatted_billing_address();
-    $addr      = $ship_addr ?: $bill_addr;
-    if ( $addr ) : ?>
-    <div class="sty__card">
-      <p class="mono-label sty__col-label">Shipping To</p>
-      <address class="sty__address"><?php echo wp_kses_post( $addr ); ?></address>
+  <div class="sty__totals">
+    <div class="sty__totals__row">
+      <span>Subtotal</span>
+      <span><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></span>
+    </div>
+    <?php if ( $order->get_total_discount() > 0 ) : ?>
+    <div class="sty__totals__row sty__totals__row--discount">
+      <span>Discount</span>
+      <span>−<?php echo wp_kses_post( wc_price( $order->get_total_discount() ) ); ?></span>
     </div>
     <?php endif; ?>
-
-    <div class="sty__card">
-      <p class="mono-label sty__col-label">What Happens Next</p>
-      <div class="sty__steps">
-
-        <div class="sty__step sty__step--done">
-          <div class="sty__step__dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="sty__step__body">
-            <strong>Order Confirmed</strong>
-            <span>Confirmation sent to <?php echo esc_html( $order->get_billing_email() ); ?></span>
-          </div>
-        </div>
-
-        <?php if ( $is_bacs ) : ?>
-        <div class="sty__step <?php echo $bacs_due ? 'sty__step--active' : 'sty__step--done'; ?>">
-          <div class="sty__step__dot"><?php echo $bacs_due ? '2' : '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>'; ?></div>
-          <div class="sty__step__body">
-            <strong>Bank Transfer</strong>
-            <span><?php echo $bacs_due ? 'Transfer using the bank details above' : 'Payment received'; ?></span>
-          </div>
-        </div>
-        <?php endif; ?>
-
-        <div class="sty__step">
-          <div class="sty__step__dot"><?php echo $is_bacs ? '3' : '2'; ?></div>
-          <div class="sty__step__body">
-            <strong>Dispatch</strong>
-            <span>Same day before 2PM AEST Mon–Fri</span>
-          </div>
-        </div>
-
-        <div class="sty__step">
-          <div class="sty__step__dot"><?php echo $is_bacs ? '4' : '3'; ?></div>
-          <div class="sty__step__body">
-            <strong>Tracking Email</strong>
-            <span>Tracking number sent to your email</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="sty__totals__row">
+      <span>Shipping</span>
+      <span><?php echo (float) $order->get_shipping_total() > 0 ? wp_kses_post( wc_price( $order->get_shipping_total() ) ) : 'Free'; ?></span>
     </div>
-
+    <div class="sty__totals__row sty__totals__row--total">
+      <span>Total</span>
+      <span><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></span>
+    </div>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     SHIPPING + NEXT STEPS (horizontal, side by side)
+═══════════════════════════════════════════ -->
+<div class="sty__bottom-cols">
+
+  <?php
+  $ship_addr = $order->get_formatted_shipping_address();
+  $bill_addr = $order->get_formatted_billing_address();
+  $addr      = $ship_addr ?: $bill_addr;
+  if ( $addr ) : ?>
+  <div class="sty__card">
+    <p class="mono-label sty__col-label">Shipping To</p>
+    <address class="sty__address"><?php echo wp_kses_post( $addr ); ?></address>
+  </div>
+  <?php endif; ?>
+
+  <div class="sty__card">
+    <p class="mono-label sty__col-label">What Happens Next</p>
+    <div class="sty__steps">
+
+      <div class="sty__step sty__step--done">
+        <div class="sty__step__dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="sty__step__body">
+          <strong>Order Confirmed</strong>
+          <span>Confirmation sent to <?php echo esc_html( $order->get_billing_email() ); ?></span>
+        </div>
+      </div>
+
+      <?php if ( $is_bacs ) : ?>
+      <div class="sty__step <?php echo $bacs_due ? 'sty__step--active' : 'sty__step--done'; ?>">
+        <div class="sty__step__dot"><?php echo $bacs_due ? '2' : '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>'; ?></div>
+        <div class="sty__step__body">
+          <strong>Bank Transfer</strong>
+          <span><?php echo $bacs_due ? 'Transfer using the bank details above' : 'Payment received'; ?></span>
+        </div>
+      </div>
+      <?php endif; ?>
+
+      <div class="sty__step">
+        <div class="sty__step__dot"><?php echo $is_bacs ? '3' : '2'; ?></div>
+        <div class="sty__step__body">
+          <strong>Dispatch</strong>
+          <span>Same day before 2PM AEST Mon–Fri</span>
+        </div>
+      </div>
+
+      <div class="sty__step">
+        <div class="sty__step__dot"><?php echo $is_bacs ? '4' : '3'; ?></div>
+        <div class="sty__step__body">
+          <strong>Tracking Email</strong>
+          <span>Tracking number sent to your email</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /.sty__bottom-cols -->
 
 <!-- Actions -->
 <div class="sty__actions">
