@@ -453,34 +453,37 @@ define( 'SYNTRA_FREE_SHIPPING_THRESHOLD', 100 );
 
 function syntra_free_shipping_tracker() {
     if ( ! function_exists( 'WC' ) || ! WC()->cart ) return;
+    if ( ! is_cart() && ! is_checkout() ) return;
+    if ( WC()->cart->is_empty() ) return;
 
-    $threshold   = SYNTRA_FREE_SHIPPING_THRESHOLD;
-    $cart_total  = (float) WC()->cart->get_subtotal();
-    $remaining   = max( 0, $threshold - $cart_total );
-    $pct         = min( 100, round( ( $cart_total / $threshold ) * 100 ) );
-    $unlocked    = $remaining <= 0;
+    $threshold  = SYNTRA_FREE_SHIPPING_THRESHOLD;
+    $cart_total = (float) WC()->cart->get_subtotal();
+    $remaining  = max( 0, $threshold - $cart_total );
+    $pct        = min( 100, round( ( $cart_total / $threshold ) * 100 ) );
+    $unlocked   = $remaining <= 0;
     ?>
-    <div class="shipping-tracker <?php echo $unlocked ? 'shipping-tracker--unlocked' : ''; ?>">
-      <div class="shipping-tracker__text">
-        <?php if ( $unlocked ) : ?>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-          You've unlocked <strong>free shipping!</strong>
-        <?php else : ?>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          Spend <strong>$<?php echo number_format( $remaining, 2 ); ?> more</strong> for free shipping
+    <div class="shipping-tracker <?php echo $unlocked ? 'shipping-tracker--unlocked' : ''; ?>" id="shippingTracker">
+      <div class="shipping-tracker__inner">
+        <div class="shipping-tracker__text">
+          <?php if ( $unlocked ) : ?>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            You've unlocked <strong>free shipping!</strong>
+          <?php else : ?>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Spend <strong>$<?php echo number_format( $remaining, 2 ); ?> more</strong> for free shipping
+          <?php endif; ?>
+        </div>
+        <div class="shipping-tracker__bar-wrap">
+          <div class="shipping-tracker__bar-fill" style="width:<?php echo esc_attr( $pct ); ?>%"></div>
+        </div>
+        <?php if ( ! $unlocked ) : ?>
+        <div class="shipping-tracker__labels">
+          <span>$0</span>
+          <span>Free at $<?php echo number_format( $threshold, 0 ); ?></span>
+        </div>
         <?php endif; ?>
       </div>
-      <div class="shipping-tracker__bar-wrap">
-        <div class="shipping-tracker__bar-fill" style="width:<?php echo esc_attr( $pct ); ?>%"></div>
-      </div>
-      <?php if ( ! $unlocked ) : ?>
-      <div class="shipping-tracker__labels">
-        <span>$0</span>
-        <span>Free shipping at $<?php echo number_format( $threshold, 0 ); ?></span>
-      </div>
-      <?php endif; ?>
     </div>
     <?php
 }
-add_action( 'woocommerce_before_cart',            'syntra_free_shipping_tracker' );
-add_action( 'woocommerce_before_checkout_form',   'syntra_free_shipping_tracker' );
+add_action( 'wp_footer', 'syntra_free_shipping_tracker' );
