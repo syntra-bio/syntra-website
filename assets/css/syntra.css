@@ -2254,6 +2254,59 @@ a.contact-detail-block__value:hover { color: var(--teal); }
 }
 
 /* Out of Stock — red/muted */
+/* ============================================================
+   FREE SHIPPING PROGRESS TRACKER
+============================================================ */
+.shipping-tracker {
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: var(--white);
+  border: 1px solid var(--mist);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--teal);
+}
+.shipping-tracker--unlocked {
+  border-left-color: #2FB7B3;
+  background: rgba(47,183,179,0.05);
+}
+.shipping-tracker__text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--slate);
+  margin-bottom: 10px;
+}
+.shipping-tracker__text svg { stroke: var(--teal); flex-shrink: 0; }
+.shipping-tracker--unlocked .shipping-tracker__text { color: #1a7a77; font-weight: 500; }
+.shipping-tracker__text strong { color: var(--navy); }
+.shipping-tracker__bar-wrap {
+  height: 6px;
+  background: var(--mist);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.shipping-tracker__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2FB7B3, #1a9e9a);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+.shipping-tracker--unlocked .shipping-tracker__bar-fill {
+  background: linear-gradient(90deg, #2FB7B3, #0d6e6b);
+}
+.shipping-tracker__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--pkg-blue);
+  letter-spacing: 0.04em;
+}
+
+/* Out of Stock — red/muted */
 .variant-pill.pill--outofstock {
   background: rgba(229, 57, 53, 0.06);
   border-color: rgba(229, 57, 53, 0.25);
