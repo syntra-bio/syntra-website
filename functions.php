@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.6.6' );
+        [ 'syntra-fonts' ], '1.6.7' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -616,10 +616,86 @@ function syntra_notify_admin_page() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   SHIPPING — Express Post $9.95 / Free over $100
+   Registers a shipping method so no WP Admin config needed.
+   Works across all Australian shipping zones automatically.
+───────────────────────────────────────────────────────── */
+define( 'SYNTRA_FREE_SHIPPING_THRESHOLD', 100 );
+define( 'SYNTRA_SHIPPING_COST', 9.95 );
+
+// Register the shipping method class
+add_filter( 'woocommerce_shipping_methods', function( $methods ) {
+    $methods['syntra_express'] = 'Syntra_Express_Shipping';
+    return $methods;
+} );
+
+class Syntra_Express_Shipping extends WC_Shipping_Method {
+
+    public function __construct( $instance_id = 0 ) {
+        $this->id                 = 'syntra_express';
+        $this->instance_id        = absint( $instance_id );
+        $this->method_title       = 'Syntra Express Post';
+        $this->method_description = 'Express Post $9.95 — free for orders $100+';
+        $this->supports           = [ 'shipping-zones', 'instance-settings' ];
+        $this->init();
+    }
+
+    public function init() {
+        $this->init_form_fields();
+        $this->init_settings();
+        $this->enabled = $this->get_option( 'enabled', 'yes' );
+        $this->title   = $this->get_option( 'title', 'Express Post' );
+        add_action( 'woocommerce_update_options_shipping_' . $this->id, [ $this, 'process_admin_options' ] );
+    }
+
+    public function init_form_fields() {
+        $this->instance_form_fields = [
+            'title' => [
+                'title'   => 'Label',
+                'type'    => 'text',
+                'default' => 'Express Post',
+            ],
+        ];
+    }
+
+    public function calculate_shipping( $package = [] ) {
+        $subtotal  = WC()->cart ? WC()->cart->get_subtotal() : 0;
+        $threshold = SYNTRA_FREE_SHIPPING_THRESHOLD;
+        $is_free   = $subtotal >= $threshold;
+
+        $this->add_rate( [
+            'id'    => $this->get_rate_id(),
+            'label' => $is_free ? 'Express Post (Free)' : 'Express Post',
+            'cost'  => $is_free ? 0 : SYNTRA_SHIPPING_COST,
+        ] );
+    }
+}
+
+// If there are NO shipping zones set up yet, force our method as a fallback
+// so customers always see a shipping option at checkout
+add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
+    if ( ! empty( $rates ) ) return $rates; // zones configured — leave them alone
+
+    // No rates from zones — inject our method directly
+    $subtotal  = WC()->cart ? WC()->cart->get_subtotal() : 0;
+    $threshold = SYNTRA_FREE_SHIPPING_THRESHOLD;
+    $is_free   = $subtotal >= $threshold;
+
+    $rates['syntra_express_fallback'] = new WC_Shipping_Rate(
+        'syntra_express_fallback',
+        $is_free ? 'Express Post (Free)' : 'Express Post',
+        $is_free ? 0 : SYNTRA_SHIPPING_COST,
+        [],
+        'syntra_express'
+    );
+
+    return $rates;
+}, 100, 2 );
+
+/* ─────────────────────────────────────────────────────────
    FREE SHIPPING PROGRESS TRACKER
    Shows on cart + checkout pages
 ───────────────────────────────────────────────────────── */
-define( 'SYNTRA_FREE_SHIPPING_THRESHOLD', 100 );
 
 function syntra_free_shipping_tracker() {
     if ( ! function_exists( 'WC' ) || ! WC()->cart ) return;
