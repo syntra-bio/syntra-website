@@ -27,16 +27,32 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
 $variants     = syntra_get_variants( $product->get_id() );
 $has_variants = ! empty( $variants );
 
+if ( current_user_can( 'administrator' ) ) {
+    echo '<div style="background:#fff3cd;border:2px solid #f0ad4e;padding:16px;margin:16px;font-family:monospace;font-size:12px;z-index:9999;position:relative;">';
+    echo '<strong>ADMIN DEBUG — raw variant DB data:</strong><br>';
+    foreach ( $variants as $i => $v ) {
+        $computed = syntra_calc_variant_stock_status( $v );
+        echo "[$i] " . esc_html( ($v['label']??'') . ($v['unit']??'') ) . " | ";
+        echo "qty=" . ( isset($v['qty']) ? $v['qty'] : '<b style=color:red>NOT SET</b>' ) . " | ";
+        echo "bo_qty=" . ( isset($v['bo_qty']) ? $v['bo_qty'] : '<b style=color:red>NOT SET</b>' ) . " | ";
+        echo "stock=" . esc_html( $v['stock'] ?? 'NOT SET' ) . " | ";
+        echo "<b>COMPUTED: $computed</b><br>";
+    }
+    echo '</div>';
+}
+
+
+
 // Pre-select first in-stock variant → backorder → first
 $sel_idx = 0;
 $sel_v   = null;
 if ( $has_variants ) {
     foreach ( $variants as $i => $v ) {
-        if ( ( $v['stock'] ?? '' ) === 'instock' )     { $sel_idx = $i; $sel_v = $v; break; }
+        if ( syntra_calc_variant_stock_status( $v ) === 'instock' )     { $sel_idx = $i; $sel_v = $v; break; }
     }
     if ( ! $sel_v ) {
         foreach ( $variants as $i => $v ) {
-            if ( ( $v['stock'] ?? '' ) === 'onbackorder' ) { $sel_idx = $i; $sel_v = $v; break; }
+            if ( syntra_calc_variant_stock_status( $v ) === 'onbackorder' ) { $sel_idx = $i; $sel_v = $v; break; }
         }
     }
     if ( ! $sel_v ) { $sel_idx = 0; $sel_v = $variants[0]; }
@@ -140,7 +156,7 @@ if ( $has_variants ) {
           </p>
           <div class="variant-selector__pills">
             <?php foreach ( $variants as $i => $v ) :
-              $v_stock  = $v['stock'] ?? 'outofstock';
+              $v_stock  = syntra_calc_variant_stock_status( $v );
               $v_label  = $v['label'] ?? '';
               $v_unit   = $v['unit']  ?? '';
               $v_price  = (float) ( $v['price'] ?? 0 );
@@ -166,7 +182,7 @@ if ( $has_variants ) {
                   'index'  => $i,
                   'label'  => ( $v['label'] ?? '' ) . ( $v['unit'] ?? '' ),
                   'price'  => (float) ( $v['price'] ?? 0 ),
-                  'stock'  => $v['stock'] ?? 'outofstock',
+                  'stock'  => syntra_calc_variant_stock_status( $v ),
                   'imgUrl' => $v['image'] ? wp_get_attachment_image_url( $v['image'], 'large' ) : '',
               ];
           }
@@ -273,7 +289,7 @@ if ( $has_variants ) {
         <?php
         // Use selected variant stock if variants exist, otherwise use WC product stock
         if ( $has_variants && $sel_v ) {
-            $stock_status = $sel_v['stock'] ?? 'outofstock';
+            $stock_status = syntra_calc_variant_stock_status( $sel_v );
         } else {
             $stock_status = $product->get_stock_status();
         }

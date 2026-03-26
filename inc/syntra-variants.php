@@ -26,8 +26,8 @@ function syntra_get_variants( $product_id ) {
  * If qty is not set (legacy row), falls back to the manual 'stock' string.
  */
 function syntra_calc_variant_stock_status( $v ) {
-    if ( isset( $v['qty'] ) && $v['qty'] !== '' ) {
-        $qty    = max( 0, (int) $v['qty'] );
+    if ( isset( $v['qty'] ) || isset( $v['bo_qty'] ) ) {
+        $qty    = max( 0, (int) ( $v['qty']    ?? 0 ) );
         $bo_qty = max( 0, (int) ( $v['bo_qty'] ?? 0 ) );
         if ( $qty > 0 )    return 'instock';
         if ( $bo_qty > 0 ) return 'onbackorder';
@@ -289,8 +289,8 @@ function syntra_variants_save_meta( $post_id, $post ) {
             'image'  => absint( $row['image'] ?? 0 ),
         ];
 
-        if ( $qty !== null )    $entry['qty']    = $qty;
-        if ( $bo_qty !== null ) $entry['bo_qty'] = $bo_qty;
+        $entry['qty']    = $qty    !== null ? $qty    : 0;
+        $entry['bo_qty'] = $bo_qty !== null ? $bo_qty : 0;
 
         // Auto-calculate stock status from qty fields; fall back to manual if not set
         $entry['stock'] = syntra_calc_variant_stock_status( $entry );

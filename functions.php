@@ -62,16 +62,15 @@ add_action( 'wp_enqueue_scripts', 'syntra_enqueue' );
 
 /* ─────────────────────────────────────────────────────────
    STOCK STATUS AUTO-FIXER
-   Runs once on admin load to patch all syntra product
-   _stock_status values in the database so WC's own checks
-   match our variant aggregate stock.
+   Runs once on admin load to:
+   1. Rewrite each variant's 'stock' field from its qty/bo_qty values
+   2. Sync WC _stock_status to the aggregate
+   Transient key v5 forces a fresh run over v4.
 ───────────────────────────────────────────────────────── */
-// Runs on every admin page load until it has patched every product at least once.
-// Transient key v4 forces a fresh run (invalidates any previously stuck v3 transient).
 add_action( 'admin_init', 'syntra_patch_all_stock_statuses' );
 function syntra_patch_all_stock_statuses() {
-    if ( ! function_exists( 'syntra_variant_aggregate_stock' ) ) return;
-    if ( get_transient( 'syntra_stock_patched_v4' ) ) return;
+    if ( ! function_exists( 'syntra_calc_variant_stock_status' ) ) return;
+    if ( get_transient( 'syntra_stock_patched_v5' ) ) return;
 
     global $wpdb;
     $ids = $wpdb->get_col(
@@ -80,28 +79,43 @@ function syntra_patch_all_stock_statuses() {
     );
 
     if ( empty( $ids ) ) {
-        // No products found yet — set short transient and retry in 10 min
-        set_transient( 'syntra_stock_patched_v4', 0, 10 * MINUTE_IN_SECONDS );
+        set_transient( 'syntra_stock_patched_v5', 0, 10 * MINUTE_IN_SECONDS );
         return;
     }
 
     $count = 0;
     foreach ( $ids as $pid ) {
-        $pid = (int) $pid;
-        $agg = syntra_variant_aggregate_stock( $pid );
-        if ( $agg === null ) continue;
+        $pid      = (int) $pid;
+        $variants = get_post_meta( $pid, 'syntra_variants', true );
+        if ( ! is_array( $variants ) || empty( $variants ) ) continue;
 
-        $status = ( $agg === 'onbackorder' ) ? 'onbackorder'
-                : ( ( $agg === 'outofstock' ) ? 'outofstock' : 'instock' );
+        $changed = false;
+        foreach ( $variants as $i => $v ) {
+            $correct = syntra_calc_variant_stock_status( $v );
+            if ( ( $v['stock'] ?? '' ) !== $correct ) {
+                $variants[ $i ]['stock'] = $correct;
+                $changed = true;
+            }
+        }
+        if ( $changed ) {
+            update_post_meta( $pid, 'syntra_variants', $variants );
+        }
 
-        update_post_meta( $pid, '_stock_status', $status );
+        // Sync WC _stock_status to aggregate
+        $has_in = false; $has_bo = false;
+        foreach ( $variants as $v ) {
+            $s = $v['stock'] ?? 'outofstock';
+            if ( $s === 'instock' )     $has_in = true;
+            if ( $s === 'onbackorder' ) $has_bo = true;
+        }
+        $wc_status = $has_in ? 'instock' : ( $has_bo ? 'onbackorder' : 'outofstock' );
+        update_post_meta( $pid, '_stock_status', $wc_status );
         update_post_meta( $pid, '_manage_stock', 'no' );
         wc_delete_product_transients( $pid );
         $count++;
     }
 
-    // Set transient for 1 week — force fresh run by changing key next deployment
-    set_transient( 'syntra_stock_patched_v4', max( $count, 1 ), WEEK_IN_SECONDS );
+    set_transient( 'syntra_stock_patched_v5', max( $count, 1 ), WEEK_IN_SECONDS );
 }
 
 /* ─────────────────────────────────────────────────────────
