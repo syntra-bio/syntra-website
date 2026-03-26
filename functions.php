@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.6.1' );
+        [ 'syntra-fonts' ], '1.6.2' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -59,6 +59,46 @@ function syntra_enqueue() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'syntra_enqueue' );
+
+/* ─────────────────────────────────────────────────────────
+   STOCK STATUS AUTO-FIXER
+   Runs once on admin load to patch all syntra product
+   _stock_status values in the database so WC's own checks
+   match our variant aggregate stock.
+───────────────────────────────────────────────────────── */
+add_action( 'admin_init', 'syntra_patch_all_stock_statuses' );
+function syntra_patch_all_stock_statuses() {
+    if ( ! function_exists( 'syntra_variant_aggregate_stock' ) ) return;
+    // Only runs when the transient has expired (set to 1 week on success)
+    if ( get_transient( 'syntra_stock_patched_v3' ) ) return;
+
+    global $wpdb;
+    // Get all product IDs that have syntra_variants meta
+    $ids = $wpdb->get_col(
+        "SELECT DISTINCT post_id FROM {$wpdb->postmeta}
+         WHERE meta_key = 'syntra_variants' AND meta_value != '' AND meta_value != 'a:0:{}'"
+    );
+
+    $count = 0;
+    foreach ( $ids as $pid ) {
+        $pid = (int) $pid;
+        $agg = syntra_variant_aggregate_stock( $pid );
+        if ( $agg === null ) continue;
+
+        $status = ( $agg === 'onbackorder' ) ? 'onbackorder'
+                : ( ( $agg === 'outofstock' ) ? 'outofstock' : 'instock' );
+
+        update_post_meta( $pid, '_stock_status', $status );
+        // Also ensure manage_stock is off (so WC doesn't override our status)
+        update_post_meta( $pid, '_manage_stock', 'no' );
+        wc_delete_product_transients( $pid );
+        $count++;
+    }
+
+    if ( $count > 0 ) {
+        set_transient( 'syntra_stock_patched_v3', $count, WEEK_IN_SECONDS );
+    }
+}
 
 /* ─────────────────────────────────────────────────────────
    WOOCOMMERCE — REMOVE DEFAULT WRAPPERS
@@ -94,6 +134,19 @@ add_action( 'woocommerce_review_order_after_order_total', function() {
       <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Same-Day Dispatch</span>
     </div></td></tr>';
 }, 20 );
+
+// Force-fix stock status on products loaded into the cart session
+// Ensures WC's cart validity check never incorrectly flags syntra products
+add_filter( 'woocommerce_cart_item_product', function( $product, $cart_item, $cart_item_key ) {
+    if ( ! $product || ! function_exists( 'syntra_variant_aggregate_stock' ) ) return $product;
+    $agg = syntra_variant_aggregate_stock( $product->get_id() );
+    if ( $agg === null ) return $product;
+    if ( $agg !== 'outofstock' ) {
+        $product->set_stock_status( 'instock' );
+        $product->set_manage_stock( false );
+    }
+    return $product;
+}, 10, 3 );
 
 // Add checkout body class
 add_filter( 'body_class', function( $classes ) {
