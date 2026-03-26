@@ -183,12 +183,49 @@ if ( $has_variants ) {
           endif; ?>
         </div>
 
-        <?php if ( $p && ! empty( $p['bundles'] ) ) : ?>
+        <?php
+        // For variant products: always render 4 standard cards at exact 0/5/10/15% from selected variant price.
+        // For non-variant products: render legacy hardcoded bundle data from product-data.php (unchanged).
+        $show_bundles = $has_variants || ( $p && ! empty( $p['bundles'] ) );
+        if ( $show_bundles ) :
+          if ( $has_variants && $sel_v ) :
+            // Standard 4-card layout calculated from selected variant price
+            $v_base_price = (float) $sel_v['price'];
+            $std_bundles = [
+              [ 'qty' => 1, 'label' => '1 Vial',  'disc' => 0,  'badge' => '',           'badge_type' => '' ],
+              [ 'qty' => 2, 'label' => '2 Vials',  'disc' => 5,  'badge' => 'Popular',    'badge_type' => '' ],
+              [ 'qty' => 3, 'label' => '3 Vials',  'disc' => 10, 'badge' => 'Best Value', 'badge_type' => 'navy' ],
+              [ 'qty' => 4, 'label' => '4 Vials',  'disc' => 15, 'badge' => 'Max Supply', 'badge_type' => 'navy' ],
+            ];
+        ?>
+        <div class="bundle-options">
+          <?php foreach ( $std_bundles as $i => $sb ) :
+            $total    = round( $v_base_price * $sb['qty'] * ( 1 - $sb['disc'] / 100 ), 2 );
+            $per_vial = round( $total / $sb['qty'], 2 );
+            $saving   = $sb['disc'] > 0 ? round( $v_base_price * $sb['qty'] - $total, 2 ) : 0;
+          ?>
+          <button type="button"
+            class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
+            data-qty="<?php echo esc_attr( $sb['qty'] ); ?>"
+            data-price="<?php echo esc_attr( number_format( $total, 2 ) ); ?>"
+            data-discount="<?php echo esc_attr( $sb['disc'] ); ?>">
+            <?php if ( $sb['badge'] ) : ?>
+              <div class="bundle-option__badge <?php echo $sb['badge_type'] === 'navy' ? 'bundle-option__badge--navy' : ''; ?>"><?php echo esc_html( $sb['badge'] ); ?></div>
+            <?php endif; ?>
+            <div class="bundle-option__qty"><?php echo esc_html( $sb['label'] ); ?></div>
+            <div class="bundle-option__price">$<?php echo esc_html( number_format( $total, 2 ) ); ?></div>
+            <div class="bundle-option__per <?php echo $sb['disc'] <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $sb['disc'] > 0 ? ' · ' . $sb['disc'] . '% off' : ''; ?></div>
+            <?php if ( $saving > 0 ) : ?>
+              <div class="bundle-option__save">You save $<?php echo esc_html( number_format( $saving, 2 ) ); ?></div>
+            <?php endif; ?>
+          </button>
+          <?php endforeach; ?>
+        </div>
+
+          <?php else : // Non-variant product — use legacy product-data.php bundle prices ?>
         <div class="bundle-options">
           <?php foreach ( $p['bundles'] as $i => $bundle ) :
-            // Normalise price — handle both 79.99 (float) and '$79.99' (string)
             $price_num  = is_numeric( $bundle['price'] ) ? (float) $bundle['price'] : (float) str_replace( [ '$', ',' ], '', $bundle['price'] );
-            // Normalise qty — handle both 2 (int) and '2 Vials' / '10mg' (string)
             $qty_num    = is_numeric( $bundle['qty'] ) ? (int) $bundle['qty'] : ( $i + 1 );
             $qty_label  = $bundle['label'] ?? ( $qty_num . ' Vial' . ( $qty_num > 1 ? 's' : '' ) );
             $base_price = is_numeric( $p['bundles'][0]['price'] ) ? (float) $p['bundles'][0]['price'] : (float) str_replace( [ '$', ',' ], '', $p['bundles'][0]['price'] );
@@ -196,8 +233,9 @@ if ( $has_variants ) {
             $saving     = $qty_num > 1 ? round( ( $base_price * $qty_num ) - $price_num, 2 ) : 0;
             $badge      = $bundle['badge'] ?? '';
             $badge_type = $bundle['badgeType'] ?? '';
+            // For legacy bundles use exact tiers: 2v=5%, 3v=10%, 4v=15%
+            $discount_pct = [ 0, 5, 10, 15 ][ $i ] ?? 0;
           ?>
-          <?php $discount_pct = $qty_num > 1 ? (int) round( ( $saving / ( $base_price * $qty_num ) ) * 100 ) : 0; ?>
           <button type="button"
             class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
             data-qty="<?php echo esc_attr( $qty_num ); ?>"
@@ -208,13 +246,14 @@ if ( $has_variants ) {
             <?php endif; ?>
             <div class="bundle-option__qty"><?php echo esc_html( $qty_label ); ?></div>
             <div class="bundle-option__price">$<?php echo esc_html( number_format( $price_num, 2 ) ); ?></div>
-            <div class="bundle-option__per <?php echo $saving <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $saving > 0 ? ' · ' . round( ( $saving / ( $base_price * $qty_num ) ) * 100 ) . '% off' : ''; ?></div>
+            <div class="bundle-option__per <?php echo $saving <= 0 ? 'bundle-option__per--base' : ''; ?>">$<?php echo esc_html( number_format( $per_vial, 2 ) ); ?> / vial<?php echo $saving > 0 ? ' · ' . $discount_pct . '% off' : ''; ?></div>
             <?php if ( $saving > 0 ) : ?>
               <div class="bundle-option__save">You save $<?php echo esc_html( number_format( $saving, 2 ) ); ?></div>
             <?php endif; ?>
           </button>
           <?php endforeach; ?>
         </div>
+          <?php endif; ?>
         <?php endif; ?>
 
         <?php if ( $formula || $cas ) : ?>
