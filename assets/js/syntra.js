@@ -91,23 +91,104 @@
     if (input) { input.value = next; }
   });
 
-  /* ── Bundle options ── */
-  document.addEventListener('click', function (e) {
-    var opt = e.target.closest('.bundle-option');
-    if (!opt) return;
-    document.querySelectorAll('.bundle-option').forEach(function (o) { o.classList.remove('bundle-option--active'); });
-    opt.classList.add('bundle-option--active');
-    var qty   = parseInt(opt.dataset.qty, 10) || 1;
-    var price = opt.dataset.price;
-    var qtyInput  = document.querySelector('.qty-input');
-    var qtyDisplay = document.querySelector('.qty-value');
-    var priceEl   = document.querySelector('.js-bundle-price');
-    var addBtn    = document.querySelector('.btn-primary[name="add-to-cart"]');
-    if (qtyInput)  { qtyInput.value = qty; }
-    if (qtyDisplay) { qtyDisplay.textContent = qty; }
-    if (priceEl)   { priceEl.textContent = '$' + price; }
-    if (addBtn)    { addBtn.textContent = 'Add to Cart — $' + price; }
-  });
+  /* ── Bundle options (variant-aware) ── */
+  (function () {
+    var _variantPrice = null; // updated by variant pill handler
+
+    // Read initial variant price if pills exist
+    var activePill = document.querySelector('.variant-pill--active');
+    if (activePill && window.syntraVariants) {
+      var initIdx = parseInt(activePill.dataset.index, 10);
+      var initV   = window.syntraVariants[initIdx];
+      if (initV) _variantPrice = initV.price;
+    }
+
+    function bundleTotal(variantPrice, qty, discPct) {
+      return variantPrice * qty * (1 - discPct / 100);
+    }
+
+    function setPriceDisplay(total) {
+      var priceEl  = document.querySelector('.js-bundle-price');
+      var atcPrice = document.querySelector('.js-atc-price');
+      if (priceEl)  priceEl.innerHTML = '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' + total.toFixed(2) + '</bdi></span>';
+      if (atcPrice) atcPrice.textContent = '$' + total.toFixed(2);
+    }
+
+    function recalcAllBundleCards(variantPrice) {
+      document.querySelectorAll('.bundle-option').forEach(function (opt) {
+        var qty    = parseInt(opt.dataset.qty, 10)      || 1;
+        var disc   = parseInt(opt.dataset.discount, 10) || 0;
+        var total  = bundleTotal(variantPrice, qty, disc);
+        var perV   = total / qty;
+
+        var priceEl = opt.querySelector('.bundle-option__price');
+        var perEl   = opt.querySelector('.bundle-option__per');
+        var saveEl  = opt.querySelector('.bundle-option__save');
+
+        if (priceEl) priceEl.textContent = '$' + total.toFixed(2);
+        if (perEl)   perEl.textContent   = '$' + perV.toFixed(2) + ' / vial' + (disc > 0 ? ' \u00B7 ' + disc + '% off' : '');
+        if (saveEl)  saveEl.textContent  = disc > 0 ? 'You save $' + (variantPrice * qty - total).toFixed(2) : '';
+
+        opt.dataset.price = total.toFixed(2); // keep data-price in sync
+      });
+    }
+
+    // Expose so variant pill handler can trigger bundle recalc + price update
+    window.syntraBundleOnVariant = function (variantPrice) {
+      _variantPrice = variantPrice;
+      if (!document.querySelector('.bundle-option')) return;
+      recalcAllBundleCards(variantPrice);
+      // Refresh price display for whichever bundle is active
+      var active = document.querySelector('.bundle-option--active');
+      if (active) {
+        var disc  = parseInt(active.dataset.discount, 10) || 0;
+        var qty   = parseInt(active.dataset.qty, 10)      || 1;
+        var total = bundleTotal(variantPrice, qty, disc);
+        var di    = document.querySelector('.js-bundle-discount');
+        if (di) di.value = disc;
+        setPriceDisplay(total);
+      }
+    };
+
+    // Bundle click
+    document.addEventListener('click', function (e) {
+      var opt = e.target.closest('.bundle-option');
+      if (!opt) return;
+
+      document.querySelectorAll('.bundle-option').forEach(function (o) { o.classList.remove('bundle-option--active'); });
+      opt.classList.add('bundle-option--active');
+
+      var qty  = parseInt(opt.dataset.qty, 10)      || 1;
+      var disc = parseInt(opt.dataset.discount, 10) || 0;
+
+      var total = (_variantPrice !== null)
+        ? bundleTotal(_variantPrice, qty, disc)
+        : parseFloat(opt.dataset.price) || 0;
+
+      var qtyInput  = document.querySelector('.qty-input');
+      var qtyDisp   = document.querySelector('.qty-value');
+      var discInput = document.querySelector('.js-bundle-discount');
+
+      if (qtyInput)  qtyInput.value         = qty;
+      if (qtyDisp)   qtyDisp.textContent    = qty;
+      if (discInput) discInput.value         = disc;
+
+      setPriceDisplay(total);
+    });
+
+    // Initial recalc on page load if variant + bundles coexist
+    if (_variantPrice !== null && document.querySelector('.bundle-option')) {
+      recalcAllBundleCards(_variantPrice);
+      var active = document.querySelector('.bundle-option--active');
+      if (active) {
+        var disc  = parseInt(active.dataset.discount, 10) || 0;
+        var qty   = parseInt(active.dataset.qty, 10)      || 1;
+        var di    = document.querySelector('.js-bundle-discount');
+        if (di) di.value = disc;
+        setPriceDisplay(bundleTotal(_variantPrice, qty, disc));
+      }
+    }
+  })();
 
   /* ── FAQ accordion ── */
   document.addEventListener('click', function (e) {
@@ -221,6 +302,12 @@
     } else if (galleryImg && galleryImg.dataset.defaultSrc) {
       galleryImg.src = galleryImg.dataset.defaultSrc;
       galleryImg.srcset = '';
+    }
+
+    // Recalculate bundle prices for the new variant price
+    // (syntraBundleOnVariant also updates price display + discount input for active bundle)
+    if (typeof window.syntraBundleOnVariant === 'function') {
+      window.syntraBundleOnVariant(v.price);
     }
   }
 

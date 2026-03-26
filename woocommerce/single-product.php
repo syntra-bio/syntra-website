@@ -197,10 +197,12 @@ if ( $has_variants ) {
             $badge      = $bundle['badge'] ?? '';
             $badge_type = $bundle['badgeType'] ?? '';
           ?>
+          <?php $discount_pct = $qty_num > 1 ? (int) round( ( $saving / ( $base_price * $qty_num ) ) * 100 ) : 0; ?>
           <button type="button"
             class="bundle-option <?php echo $i === 0 ? 'bundle-option--active' : ''; ?>"
             data-qty="<?php echo esc_attr( $qty_num ); ?>"
-            data-price="<?php echo esc_attr( number_format( $price_num, 2 ) ); ?>">
+            data-price="<?php echo esc_attr( number_format( $price_num, 2 ) ); ?>"
+            data-discount="<?php echo esc_attr( $discount_pct ); ?>">
             <?php if ( $badge ) : ?>
               <div class="bundle-option__badge <?php echo $badge_type === 'navy' ? 'bundle-option__badge--navy' : ''; ?>"><?php echo esc_html( $badge ); ?></div>
             <?php endif; ?>
@@ -298,6 +300,7 @@ if ( $has_variants ) {
             <?php if ( $has_variants ) : ?>
             <input type="hidden" name="syntra_variant_index" class="js-variant-index" value="<?php echo esc_attr( $sel_idx ); ?>">
             <?php endif; ?>
+            <input type="hidden" name="syntra_bundle_discount" class="js-bundle-discount" value="0">
             <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
             <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary btn-lg btn-full js-atc-btn <?php echo $is_backorder ? 'btn--backorder' : ''; ?>">
               <span class="js-atc-verb"><?php echo $is_backorder ? 'Pre-Order' : 'Add to Cart'; ?></span> &mdash; <span class="js-atc-price"><?php echo esc_html( $btn_price ); ?></span>

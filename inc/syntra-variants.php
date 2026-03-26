@@ -255,14 +255,20 @@ function syntra_variant_add_cart_data( $cart_item_data, $product_id ) {
 
     if ( empty( $variants ) || ! array_key_exists( $index, $variants ) ) return $cart_item_data;
 
-    $v = $variants[ $index ];
+    $v            = $variants[ $index ];
+    $base_price   = (float) $v['price'];
+    $discount_pct = min( 15, max( 0, (int) ( $_POST['syntra_bundle_discount'] ?? 0 ) ) );
+    $final_price  = $discount_pct > 0 ? round( $base_price * ( 1 - $discount_pct / 100 ), 2 ) : $base_price;
+
     $cart_item_data['syntra_variant'] = [
-        'index' => $index,
-        'label' => sanitize_text_field( $v['label'] ),
-        'unit'  => sanitize_text_field( $v['unit'] ),
-        'sku'   => sanitize_text_field( $v['sku'] ),
-        'price' => (float) $v['price'],
-        'stock' => $v['stock'],
+        'index'       => $index,
+        'label'       => sanitize_text_field( $v['label'] ),
+        'unit'        => sanitize_text_field( $v['unit'] ),
+        'sku'         => sanitize_text_field( $v['sku'] ),
+        'price'       => $final_price,
+        'base_price'  => $base_price,
+        'discount'    => $discount_pct,
+        'stock'       => $v['stock'],
     ];
     // Unique key so same product with different variant = separate cart lines
     $cart_item_data['syntra_variant_uid'] = $product_id . ':' . $index;
