@@ -228,7 +228,7 @@ function syntra_variants_save_meta( $post_id, $post ) {
 
     update_post_meta( $post_id, 'syntra_variants', $variants );
 
-    // Sync WC product price & SKU to first variant
+    // Sync WC product price, SKU, and stock_status to first variant
     if ( ! empty( $variants ) ) {
         $first = $variants[0];
         if ( $first['price'] > 0 ) {
@@ -238,6 +238,11 @@ function syntra_variants_save_meta( $post_id, $post ) {
         if ( $first['sku'] ) {
             update_post_meta( $post_id, '_sku', $first['sku'] );
         }
+        // Keep WC's own _stock_status in sync so its built-in checks pass
+        $agg       = syntra_variant_aggregate_stock( $post_id );
+        $wc_status = ( $agg === 'onbackorder' ) ? 'onbackorder' : ( $agg === 'outofstock' ? 'outofstock' : 'instock' );
+        update_post_meta( $post_id, '_stock_status', $wc_status );
+        wc_delete_product_transients( $post_id );
     }
 }
 
@@ -327,6 +332,23 @@ function syntra_variant_validate( $passed, $product_id, $quantity ) {
     }
 
     return $passed;
+}
+
+// 6. Override WooCommerce's own is_in_stock() / is_purchasable() checks
+//    so that WC's built-in "product is out of stock" error never fires
+//    for products managed by Syntra variants.
+add_filter( 'woocommerce_product_is_in_stock', 'syntra_override_wc_stock', 10, 2 );
+function syntra_override_wc_stock( $in_stock, $product ) {
+    $agg = syntra_variant_aggregate_stock( $product->get_id() );
+    if ( $agg === null ) return $in_stock; // no variants → keep WC default
+    return $agg !== 'outofstock';
+}
+
+add_filter( 'woocommerce_is_purchasable', 'syntra_override_wc_purchasable', 10, 2 );
+function syntra_override_wc_purchasable( $purchasable, $product ) {
+    $agg = syntra_variant_aggregate_stock( $product->get_id() );
+    if ( $agg === null ) return $purchasable;
+    return $agg !== 'outofstock';
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -545,11 +567,16 @@ function syntra_variants_seed_page() {
 
             update_post_meta( $product_id, 'syntra_variants', $variants );
 
-            // Sync WC price + SKU to first variant
+            // Sync WC price, SKU, and stock_status to first variant
             $first = $variants[0];
             update_post_meta( $product_id, '_price',         (string) $first['price'] );
             update_post_meta( $product_id, '_regular_price', (string) $first['price'] );
             update_post_meta( $product_id, '_sku',           $first['sku'] );
+            // Set WC's own stock status so its built-in validation passes
+            $agg_stock = syntra_variant_aggregate_stock( $product_id );
+            $wc_stock  = ( $agg_stock === 'onbackorder' ) ? 'onbackorder' : ( $agg_stock === 'outofstock' ? 'outofstock' : 'instock' );
+            update_post_meta( $product_id, '_stock_status', $wc_stock );
+            wc_delete_product_transients( $product_id );
 
             $count     = count( $variants );
             $pill_text = implode( ', ', array_map( fn($v) => $v['label'] . $v['unit'], $variants ) );

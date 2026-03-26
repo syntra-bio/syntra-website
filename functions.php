@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.6.0' );
+        [ 'syntra-fonts' ], '1.6.1' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -101,6 +101,57 @@ add_filter( 'body_class', function( $classes ) {
     if ( is_cart() )     $classes[] = 'syntra-cart-page-body';
     return $classes;
 } );
+
+// BACS payment description — styled HTML (works for both classic + block checkout)
+add_filter( 'woocommerce_gateway_description', 'syntra_styled_bacs_description', 20, 2 );
+function syntra_styled_bacs_description( $description, $gateway_id ) {
+    if ( $gateway_id !== 'bacs' ) return $description;
+    $bacs = WC()->payment_gateways()->payment_gateways()['bacs'] ?? null;
+    if ( ! $bacs || empty( $bacs->account_details ) ) return $description;
+
+    ob_start();
+    foreach ( $bacs->account_details as $account ) {
+        if ( empty( $account['account_name'] ) ) continue;
+        ?>
+        <div class="syntra-bacs-desc">
+          <p class="syntra-bacs-desc__intro">Transfer <strong>after</strong> placing your order. Use your <strong>order number</strong> as the payment reference.</p>
+          <div class="syntra-bacs-desc__table">
+            <?php if ( ! empty( $account['account_name'] ) ) : ?>
+            <div class="syntra-bacs-desc__row">
+              <span class="syntra-bacs-desc__label">Account Name</span>
+              <span class="syntra-bacs-desc__val"><?php echo esc_html( $account['account_name'] ); ?></span>
+            </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $account['bank_name'] ) ) : ?>
+            <div class="syntra-bacs-desc__row">
+              <span class="syntra-bacs-desc__label">Bank</span>
+              <span class="syntra-bacs-desc__val"><?php echo esc_html( $account['bank_name'] ); ?></span>
+            </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $account['sort_code'] ) ) : ?>
+            <div class="syntra-bacs-desc__row syntra-bacs-desc__row--em">
+              <span class="syntra-bacs-desc__label">BSB</span>
+              <span class="syntra-bacs-desc__val syntra-bacs-desc__val--mono"><?php echo esc_html( $account['sort_code'] ); ?></span>
+            </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $account['account_number'] ) ) : ?>
+            <div class="syntra-bacs-desc__row syntra-bacs-desc__row--em">
+              <span class="syntra-bacs-desc__label">Account Number</span>
+              <span class="syntra-bacs-desc__val syntra-bacs-desc__val--mono"><?php echo esc_html( $account['account_number'] ); ?></span>
+            </div>
+            <?php endif; ?>
+            <?php if ( ! empty( $account['iban'] ) ) : ?>
+            <div class="syntra-bacs-desc__row">
+              <span class="syntra-bacs-desc__label">IBAN</span>
+              <span class="syntra-bacs-desc__val syntra-bacs-desc__val--mono"><?php echo esc_html( $account['iban'] ); ?></span>
+            </div>
+            <?php endif; ?>
+          </div>
+        </div>
+        <?php
+    }
+    return ob_get_clean();
+}
 
 /* ─────────────────────────────────────────────────────────
    WOOCOMMERCE — REMOVE DEFAULT SINGLE PRODUCT HOOKS
