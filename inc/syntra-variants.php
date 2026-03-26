@@ -19,6 +19,25 @@ function syntra_get_variants( $product_id ) {
 }
 
 /**
+ * Calculate a single variant's stock status from its qty fields.
+ * qty > 0              → instock
+ * qty == 0, bo_qty > 0 → onbackorder
+ * qty == 0, bo_qty == 0 → outofstock
+ * If qty is not set (legacy row), falls back to the manual 'stock' string.
+ */
+function syntra_calc_variant_stock_status( $v ) {
+    if ( isset( $v['qty'] ) && $v['qty'] !== '' ) {
+        $qty    = max( 0, (int) $v['qty'] );
+        $bo_qty = max( 0, (int) ( $v['bo_qty'] ?? 0 ) );
+        if ( $qty > 0 )    return 'instock';
+        if ( $bo_qty > 0 ) return 'onbackorder';
+        return 'outofstock';
+    }
+    // Legacy fallback — manual dropdown value
+    return $v['stock'] ?? 'outofstock';
+}
+
+/**
  * Aggregate stock across all variants.
  * Returns 'instock' | 'onbackorder' | 'outofstock', or null if no variants.
  */
@@ -26,10 +45,10 @@ function syntra_variant_aggregate_stock( $product_id ) {
     $variants = syntra_get_variants( $product_id );
     if ( empty( $variants ) ) return null;
 
-    $has_in  = false;
-    $has_bo  = false;
+    $has_in = false;
+    $has_bo = false;
     foreach ( $variants as $v ) {
-        $s = $v['stock'] ?? 'outofstock';
+        $s = syntra_calc_variant_stock_status( $v );
         if ( $s === 'instock' )     $has_in = true;
         if ( $s === 'onbackorder' ) $has_bo = true;
     }
@@ -77,14 +96,16 @@ function syntra_variants_box_render( $post ) {
     <table id="svt">
       <thead>
         <tr>
-          <th style="width:65px">Label</th>
-          <th style="width:48px">Unit</th>
-          <th style="width:124px">SKU</th>
-          <th style="width:74px">Cost AUD</th>
-          <th style="width:74px">Price AUD</th>
-          <th style="width:52px">Margin</th>
-          <th style="width:118px">Stock</th>
-          <th style="width:72px">Image</th>
+          <th style="width:60px">Label</th>
+          <th style="width:44px">Unit</th>
+          <th style="width:110px">SKU</th>
+          <th style="width:68px">Cost AUD</th>
+          <th style="width:68px">Price AUD</th>
+          <th style="width:48px">Margin</th>
+          <th style="width:64px">In Stock</th>
+          <th style="width:64px">BO Cap</th>
+          <th style="width:80px">Status</th>
+          <th style="width:64px">Image</th>
           <th style="width:28px"></th>
         </tr>
       </thead>
@@ -111,9 +132,27 @@ function syntra_variants_box_render( $post ) {
             row.find('.svt-margin').text(m);
         }
 
+        function calcStatus(row) {
+            var qty   = parseInt(row.find('[name$="[qty]"]').val(), 10);
+            var bo    = parseInt(row.find('[name$="[bo_qty]"]').val(), 10);
+            var badge = row.find('.svt-status');
+            qty = isNaN(qty) ? 0 : qty;
+            bo  = isNaN(bo)  ? 0 : bo;
+            if (qty > 0) {
+                badge.text('In Stock (' + qty + ')').css({background:'#e6f9f8',color:'#1a7a77',border:'1px solid #2FB7B3'});
+            } else if (bo > 0) {
+                badge.text('Backorder (' + bo + ')').css({background:'#fff8e1',color:'#7a5a00',border:'1px solid #f5c518'});
+            } else {
+                badge.text('Out of Stock').css({background:'#fdecea',color:'#a00',border:'1px solid #e53935'});
+            }
+        }
+
         function bindRow(row) {
             row.find('[name$="[cost]"],[name$="[price]"]').on('input', function(){
                 calcMargin($(this).closest('tr'));
+            });
+            row.find('[name$="[qty]"],[name$="[bo_qty]"]').on('input', function(){
+                calcStatus($(this).closest('tr'));
             });
             row.find('.svt-rm').on('click', function(){ $(this).closest('tr').remove(); });
             row.find('.svt-img-btn').on('click', function(e){
@@ -130,7 +169,10 @@ function syntra_variants_box_render( $post ) {
             });
         }
 
-        $('#svt-body tr').each(function(){ bindRow($(this)); });
+        $('#svt-body tr').each(function(){
+            bindRow($(this));
+            calcStatus($(this));
+        });
 
         $('#svt-add').on('click', function(){
             var tpl = <?php echo json_encode( syntra_variants_row_tpl() ); ?>;
@@ -138,6 +180,7 @@ function syntra_variants_box_render( $post ) {
             var row = $(tpl);
             $('#svt-body').append(row);
             bindRow(row);
+            calcStatus(row);
             idx++;
         });
     })(jQuery);
@@ -151,14 +194,28 @@ function syntra_variants_row( $i, $v ) {
     $sku    = esc_attr( $v['sku']    ?? '' );
     $cost   = esc_attr( $v['cost']   ?? '' );
     $price  = esc_attr( $v['price']  ?? '' );
-    $stock  = $v['stock'] ?? 'instock';
-    $image  = absint( $v['image']    ?? 0 );
+    $qty    = isset( $v['qty'] )    ? (int) $v['qty']    : '';
+    $bo_qty = isset( $v['bo_qty'] ) ? (int) $v['bo_qty'] : '';
+    $image  = absint( $v['image']   ?? 0 );
     $margin = '';
     if ( $price && $cost && (float) $price > 0 ) {
         $margin = round( ( (float) $price - (float) $cost ) / (float) $price * 100, 1 ) . '%';
     }
     $img_url = $image ? wp_get_attachment_image_url( $image, 'thumbnail' ) : '';
     $img_lg  = $image ? wp_get_attachment_image_url( $image, 'large' )     : '';
+
+    // Compute current status for badge
+    $status = syntra_calc_variant_stock_status( $v );
+    if ( $status === 'instock' ) {
+        $badge_style = 'background:#e6f9f8;color:#1a7a77;border:1px solid #2FB7B3;';
+        $badge_text  = 'In Stock' . ( $qty !== '' ? " ({$qty})" : '' );
+    } elseif ( $status === 'onbackorder' ) {
+        $badge_style = 'background:#fff8e1;color:#7a5a00;border:1px solid #f5c518;';
+        $badge_text  = 'Backorder' . ( $bo_qty !== '' ? " ({$bo_qty})" : '' );
+    } else {
+        $badge_style = 'background:#fdecea;color:#a00;border:1px solid #e53935;';
+        $badge_text  = 'Out of Stock';
+    }
 
     echo '<tr>';
     echo '<td><input type="text" name="syntra_variants[' . $i . '][label]" value="' . $label . '" placeholder="10mg"></td>';
@@ -171,11 +228,14 @@ function syntra_variants_row( $i, $v ) {
     echo '<td><input type="number" name="syntra_variants[' . $i . '][price]" value="' . $price . '" placeholder="0.00" step="0.01" min="0"></td>';
     echo '<td><span class="svt-margin">' . esc_html( $margin ?: '—' ) . '</span></td>';
 
-    echo '<td><select name="syntra_variants[' . $i . '][stock]">';
-    foreach ( [ 'instock' => 'In Stock', 'onbackorder' => 'Backorder', 'outofstock' => 'Out of Stock' ] as $val => $lbl ) {
-        echo '<option value="' . $val . '"' . ( $stock === $val ? ' selected' : '' ) . '>' . $lbl . '</option>';
-    }
-    echo '</select></td>';
+    // In Stock qty
+    echo '<td><input type="number" name="syntra_variants[' . $i . '][qty]" value="' . esc_attr( $qty ) . '" placeholder="0" min="0" step="1" style="text-align:center"></td>';
+
+    // Backorder cap
+    echo '<td><input type="number" name="syntra_variants[' . $i . '][bo_qty]" value="' . esc_attr( $bo_qty ) . '" placeholder="0" min="0" step="1" style="text-align:center"></td>';
+
+    // Status badge (read-only, JS updates it live)
+    echo '<td><span class="svt-status" style="display:block;padding:3px 6px;border-radius:4px;font-size:10px;font-weight:700;text-align:center;white-space:nowrap;' . $badge_style . '">' . esc_html( $badge_text ) . '</span></td>';
 
     echo '<td>';
     echo '<input type="hidden" name="syntra_variants[' . $i . '][image]" class="svt-img-id" value="' . $image . '">';
@@ -215,15 +275,27 @@ function syntra_variants_save_meta( $post_id, $post ) {
         $label = sanitize_text_field( $row['label'] ?? '' );
         if ( $label === '' ) continue;
 
-        $variants[] = [
-            'label' => $label,
-            'unit'  => in_array( $row['unit'] ?? '', [ 'mg', 'ml' ], true ) ? $row['unit'] : 'mg',
-            'sku'   => sanitize_text_field( $row['sku']   ?? '' ),
-            'cost'  => round( (float) ( $row['cost']  ?? 0 ), 2 ),
-            'price' => round( (float) ( $row['price'] ?? 0 ), 2 ),
-            'stock' => in_array( $row['stock'] ?? '', [ 'instock', 'onbackorder', 'outofstock' ], true ) ? $row['stock'] : 'instock',
-            'image' => absint( $row['image'] ?? 0 ),
+        $qty_raw    = $row['qty']    ?? '';
+        $bo_qty_raw = $row['bo_qty'] ?? '';
+        $qty        = ( $qty_raw !== '' )    ? max( 0, (int) $qty_raw )    : null;
+        $bo_qty     = ( $bo_qty_raw !== '' ) ? max( 0, (int) $bo_qty_raw ) : null;
+
+        $entry = [
+            'label'  => $label,
+            'unit'   => in_array( $row['unit'] ?? '', [ 'mg', 'ml' ], true ) ? $row['unit'] : 'mg',
+            'sku'    => sanitize_text_field( $row['sku']   ?? '' ),
+            'cost'   => round( (float) ( $row['cost']  ?? 0 ), 2 ),
+            'price'  => round( (float) ( $row['price'] ?? 0 ), 2 ),
+            'image'  => absint( $row['image'] ?? 0 ),
         ];
+
+        if ( $qty !== null )    $entry['qty']    = $qty;
+        if ( $bo_qty !== null ) $entry['bo_qty'] = $bo_qty;
+
+        // Auto-calculate stock status from qty fields; fall back to manual if not set
+        $entry['stock'] = syntra_calc_variant_stock_status( $entry );
+
+        $variants[] = $entry;
     }
 
     update_post_meta( $post_id, 'syntra_variants', $variants );
@@ -306,17 +378,18 @@ function syntra_variant_cart_label( $data, $cart_item ) {
     return $data;
 }
 
-// 4. Save variant to order line item
+// 4. Save variant to order line item (including index for stock decrement)
 add_action( 'woocommerce_checkout_create_order_line_item', 'syntra_variant_order_meta', 10, 4 );
 function syntra_variant_order_meta( $item, $cart_item_key, $values, $order ) {
     if ( ! empty( $values['syntra_variant'] ) ) {
         $v = $values['syntra_variant'];
-        $item->add_meta_data( 'Strength',    esc_html( $v['label'] . $v['unit'] ), true );
-        $item->add_meta_data( 'Variant SKU', esc_html( $v['sku'] ),                true );
+        $item->add_meta_data( 'Strength',              esc_html( $v['label'] . $v['unit'] ), true );
+        $item->add_meta_data( 'Variant SKU',           esc_html( $v['sku'] ),                true );
+        $item->add_meta_data( '_syntra_variant_index', (int) $v['index'],                    true );
     }
 }
 
-// 5. Validate variant is not out of stock before adding to cart
+// 5. Validate variant stock before adding to cart (checks actual qty)
 add_filter( 'woocommerce_add_to_cart_validation', 'syntra_variant_validate', 10, 3 );
 function syntra_variant_validate( $passed, $product_id, $quantity ) {
     if ( ! isset( $_POST['syntra_variant_index'] ) ) return $passed;
@@ -326,12 +399,82 @@ function syntra_variant_validate( $passed, $product_id, $quantity ) {
 
     if ( empty( $variants ) || ! array_key_exists( $index, $variants ) ) return $passed;
 
-    if ( ( $variants[ $index ]['stock'] ?? 'instock' ) === 'outofstock' ) {
+    $v      = $variants[ $index ];
+    $status = syntra_calc_variant_stock_status( $v );
+
+    if ( $status === 'outofstock' ) {
         wc_add_notice( 'This variant is currently out of stock.', 'error' );
         return false;
     }
 
+    // If tracking qty, check there's enough in-stock or backorder capacity
+    if ( isset( $v['qty'] ) ) {
+        $in_stock = (int) $v['qty'];
+        $bo_cap   = (int) ( $v['bo_qty'] ?? 0 );
+        $total_available = $in_stock + $bo_cap;
+        if ( $quantity > $total_available ) {
+            wc_add_notice( sprintf( 'Only %d available for this variant.', $total_available ), 'error' );
+            return false;
+        }
+    }
+
     return $passed;
+}
+
+// 5b. Decrement variant qty when an order moves to processing (payment confirmed)
+add_action( 'woocommerce_order_status_changed', 'syntra_decrement_variant_stock_on_order', 10, 3 );
+function syntra_decrement_variant_stock_on_order( $order_id, $old_status, $new_status ) {
+    // Only fire when payment is confirmed for the first time
+    $paid_statuses = [ 'processing', 'completed' ];
+    if ( ! in_array( $new_status, $paid_statuses, true ) ) return;
+    if ( in_array( $old_status, $paid_statuses, true ) ) return; // already decremented
+
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) return;
+
+    foreach ( $order->get_items() as $item ) {
+        $product_id  = $item->get_product_id();
+        $variants    = syntra_get_variants( $product_id );
+        if ( empty( $variants ) ) continue;
+
+        // Find which variant index was ordered (saved as order meta)
+        $variant_idx = null;
+        $raw_idx     = $item->get_meta( '_syntra_variant_index' );
+        if ( $raw_idx !== '' && $raw_idx !== false ) {
+            $variant_idx = (int) $raw_idx;
+        } else {
+            // Fallback: match by Strength label
+            $strength = $item->get_meta( 'Strength' );
+            foreach ( $variants as $i => $v ) {
+                if ( $strength && ( $v['label'] . $v['unit'] ) === $strength ) {
+                    $variant_idx = $i; break;
+                }
+            }
+        }
+
+        if ( $variant_idx === null || ! isset( $variants[ $variant_idx ] ) ) continue;
+        $v           = $variants[ $variant_idx ];
+        if ( ! isset( $v['qty'] ) ) continue; // not tracking qty for this variant
+
+        $qty_ordered = (int) $item->get_quantity();
+        $in_stock    = max( 0, (int) $v['qty'] );
+        $bo_cap      = max( 0, (int) ( $v['bo_qty'] ?? 0 ) );
+
+        if ( $in_stock >= $qty_ordered ) {
+            $variants[ $variant_idx ]['qty'] = $in_stock - $qty_ordered;
+        } else {
+            // Use remaining in-stock, then eat into backorder cap
+            $need_from_bo = $qty_ordered - $in_stock;
+            $variants[ $variant_idx ]['qty']    = 0;
+            $variants[ $variant_idx ]['bo_qty'] = max( 0, $bo_cap - $need_from_bo );
+        }
+
+        // Recalculate status after decrement
+        $variants[ $variant_idx ]['stock'] = syntra_calc_variant_stock_status( $variants[ $variant_idx ] );
+
+        update_post_meta( $product_id, 'syntra_variants', $variants );
+        wc_delete_product_transients( $product_id );
+    }
 }
 
 // 6. Override ALL WooCommerce stock checks for syntra products.
