@@ -70,8 +70,14 @@ $count    = count( $products );
         $mw       = $pdata ? $pdata['mw']       : get_post_meta( $product->get_id(), 'syntra_mw',       true );
         $category = $pdata ? $pdata['category'] : get_post_meta( $product->get_id(), 'syntra_category', true );
         $descriptor = $pdata ? $pdata['descriptor'] : get_post_meta( $product->get_id(), 'syntra_descriptor', true );
-        $stock    = $product->is_in_stock() ? 'In Stock' : 'Out of Stock';
-        $stockCls = $product->is_in_stock() ? '' : ' low';
+        $agg      = function_exists('syntra_variant_aggregate_stock') ? syntra_variant_aggregate_stock( $product->get_id() ) : null;
+        if ( $agg === 'instock' || ( $agg === null && $product->is_in_stock() ) ) {
+            $stock = 'In Stock'; $stockCls = ' product-card__stock--in';
+        } elseif ( $agg === 'onbackorder' ) {
+            $stock = 'Backorder'; $stockCls = ' product-card__stock--bo';
+        } else {
+            $stock = 'Out of Stock'; $stockCls = ' product-card__stock--out';
+        }
         $price    = $product->get_price();
       ?>
       <a class="product-card"

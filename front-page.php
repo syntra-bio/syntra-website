@@ -115,8 +115,14 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           $formula   = $pdata ? $pdata['formula']  : get_post_meta( $product->get_id(), 'syntra_formula', true );
           $mw        = $pdata ? $pdata['mw']       : get_post_meta( $product->get_id(), 'syntra_mw', true );
           $category  = $pdata ? $pdata['descriptor'] : get_post_meta( $product->get_id(), 'syntra_descriptor', true );
-          $stock     = $product->is_in_stock() ? 'In Stock' : 'Out of Stock';
-          $stock_cls = $product->is_in_stock() ? '' : 'low';
+          $agg = function_exists('syntra_variant_aggregate_stock') ? syntra_variant_aggregate_stock( $product->get_id() ) : null;
+          if ( $agg === 'instock' || ( $agg === null && $product->is_in_stock() ) ) {
+              $stock = 'In Stock'; $stock_cls = 'product-card__stock--in';
+          } elseif ( $agg === 'onbackorder' ) {
+              $stock = 'Backorder'; $stock_cls = 'product-card__stock--bo';
+          } else {
+              $stock = 'Out of Stock'; $stock_cls = 'product-card__stock--out';
+          }
         ?>
         <a class="product-card" href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>">
           <div class="product-card__img">
@@ -171,7 +177,7 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
             <div class="product-card__formula"><?php echo esc_html( $p['formula'] ); ?> · MW: <?php echo esc_html( $p['mw'] ); ?></div>
             <div class="product-card__footer">
               <div class="product-card__price"><?php echo esc_html( $p['price'] ); ?></div>
-              <div class="product-card__stock">In Stock</div>
+              <div class="product-card__stock product-card__stock--in">In Stock</div>
             </div>
           </div>
         </a>
