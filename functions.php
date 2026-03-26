@@ -105,6 +105,20 @@ function syntra_patch_all_stock_statuses() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   THANK YOU PAGE — FORCE CLASSIC TEMPLATE EVEN IN BLOCK MODE
+   When the checkout page uses the WC Checkout Block, the
+   thankyou.php template override is ignored. This filter
+   forces WC to load our theme's thankyou.php regardless.
+───────────────────────────────────────────────────────── */
+add_filter( 'wc_get_template', 'syntra_force_thankyou_template', 10, 5 );
+function syntra_force_thankyou_template( $template, $template_name, $args, $template_path, $default_path ) {
+    if ( $template_name !== 'checkout/thankyou.php' ) return $template;
+    $theme_tpl = get_stylesheet_directory() . '/woocommerce/checkout/thankyou.php';
+    if ( file_exists( $theme_tpl ) ) return $theme_tpl;
+    return $template;
+}
+
+/* ─────────────────────────────────────────────────────────
    WOOCOMMERCE — REMOVE DEFAULT WRAPPERS
 ───────────────────────────────────────────────────────── */
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
