@@ -22,6 +22,25 @@ $solubility = $p ? $p['solubility']  : get_post_meta( $product->get_id(), 'syntr
 $shelf_life = $p ? $p['shelfLife']   : '24 months from production date';
 $descriptor = $p ? $p['descriptor']  : get_post_meta( $product->get_id(), 'syntra_descriptor', true );
 $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
+
+// Variant selector data
+$variants     = syntra_get_variants( $product->get_id() );
+$has_variants = ! empty( $variants );
+
+// Pre-select first in-stock variant → backorder → first
+$sel_idx = 0;
+$sel_v   = null;
+if ( $has_variants ) {
+    foreach ( $variants as $i => $v ) {
+        if ( ( $v['stock'] ?? '' ) === 'instock' )     { $sel_idx = $i; $sel_v = $v; break; }
+    }
+    if ( ! $sel_v ) {
+        foreach ( $variants as $i => $v ) {
+            if ( ( $v['stock'] ?? '' ) === 'onbackorder' ) { $sel_idx = $i; $sel_v = $v; break; }
+        }
+    }
+    if ( ! $sel_v ) { $sel_idx = 0; $sel_v = $variants[0]; }
+}
 ?>
 
 <!-- BREADCRUMB -->
@@ -58,8 +77,13 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
       <!-- Gallery -->
       <div class="product-gallery">
         <div class="product-gallery__main">
-          <?php if ( $product->get_image_id() ) : ?>
-            <?php echo wp_get_attachment_image( $product->get_image_id(), 'large' ); ?>
+          <?php
+          // If selected variant has an image, use it; otherwise fall back to product image
+          $gallery_img_id  = ( $has_variants && $sel_v && ! empty( $sel_v['image'] ) ) ? $sel_v['image'] : $product->get_image_id();
+          $default_img_url = $product->get_image_id() ? wp_get_attachment_image_url( $product->get_image_id(), 'large' ) : '';
+          ?>
+          <?php if ( $gallery_img_id ) : ?>
+            <?php echo wp_get_attachment_image( $gallery_img_id, 'large', false, [ 'class' => 'js-gallery-main-img', 'data-default-src' => esc_attr( $default_img_url ) ] ); ?>
           <?php else : ?>
             <div class="gallery-placeholder">
               <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
@@ -108,8 +132,55 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
           <div class="product-info__descriptor"><?php echo esc_html( $descriptor ); ?></div>
         <?php endif; ?>
 
+        <?php if ( $has_variants ) : ?>
+        <!-- VARIANT PILL SELECTOR -->
+        <div class="variant-selector">
+          <p class="variant-selector__label mono-label">
+            Select Strength &mdash; <span class="js-variant-label"><?php echo esc_html( ( $sel_v['label'] ?? '' ) . ( $sel_v['unit'] ?? '' ) ); ?></span>
+          </p>
+          <div class="variant-selector__pills">
+            <?php foreach ( $variants as $i => $v ) :
+              $v_stock  = $v['stock'] ?? 'outofstock';
+              $v_label  = $v['label'] ?? '';
+              $v_unit   = $v['unit']  ?? '';
+              $v_price  = (float) ( $v['price'] ?? 0 );
+              $v_img    = $v['image'] ? wp_get_attachment_image_url( $v['image'], 'large' ) : '';
+              $pill_mod = $v_stock === 'instock' ? 'pill--instock' : ( $v_stock === 'onbackorder' ? 'pill--backorder' : 'pill--outofstock' );
+            ?>
+            <button type="button"
+              class="variant-pill <?php echo esc_attr( $pill_mod ); ?> <?php echo $i === $sel_idx ? 'variant-pill--active' : ''; ?>"
+              data-index="<?php echo esc_attr( $i ); ?>"
+              data-label="<?php echo esc_attr( $v_label . $v_unit ); ?>"
+              data-price="<?php echo esc_attr( $v_price ); ?>"
+              data-stock="<?php echo esc_attr( $v_stock ); ?>"
+              data-img="<?php echo esc_attr( $v_img ); ?>"
+              <?php echo $v_stock === 'outofstock' ? '' : ''; ?>
+            ><?php echo esc_html( $v_label . $v_unit ); ?></button>
+            <?php endforeach; ?>
+          </div>
+          <?php
+          // Output JS variant data for dynamic updates
+          $js_variants = [];
+          foreach ( $variants as $i => $v ) {
+              $js_variants[] = [
+                  'index'  => $i,
+                  'label'  => ( $v['label'] ?? '' ) . ( $v['unit'] ?? '' ),
+                  'price'  => (float) ( $v['price'] ?? 0 ),
+                  'stock'  => $v['stock'] ?? 'outofstock',
+                  'imgUrl' => $v['image'] ? wp_get_attachment_image_url( $v['image'], 'large' ) : '',
+              ];
+          }
+          ?>
+          <script>window.syntraVariants = <?php echo wp_json_encode( $js_variants ); ?>;</script>
+        </div>
+        <?php endif; ?>
+
         <div class="product-info__price js-bundle-price">
-          <?php echo $product->get_price_html(); ?>
+          <?php if ( $has_variants && $sel_v ) :
+            echo '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' . number_format( (float) $sel_v['price'], 2 ) . '</bdi></span>';
+          else :
+            echo $product->get_price_html();
+          endif; ?>
         </div>
 
         <?php if ( $p && ! empty( $p['bundles'] ) ) : ?>
@@ -159,80 +230,84 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
         <?php endif; ?>
 
         <?php
-        $stock_status  = $product->get_stock_status(); // 'instock' | 'outofstock' | 'onbackorder'
+        // Use selected variant stock if variants exist, otherwise use WC product stock
+        if ( $has_variants && $sel_v ) {
+            $stock_status = $sel_v['stock'] ?? 'outofstock';
+        } else {
+            $stock_status = $product->get_stock_status();
+        }
         $is_outofstock = ( $stock_status === 'outofstock' );
         $is_backorder  = ( $stock_status === 'onbackorder' );
         $notify_sent   = isset( $_GET['notify'] ) && $_GET['notify'] === 'success';
         ?>
 
-        <!-- Stock status indicator -->
+        <!-- Stock status indicator (js-stock-badge updated by variant JS) -->
         <?php if ( $is_outofstock ) : ?>
-        <div class="stock-badge stock-badge--out">
-          <span class="stock-badge__dot"></span> Out of Stock
+        <div class="stock-badge stock-badge--out js-stock-badge">
+          <span class="stock-badge__dot"></span> <span class="js-stock-text">Out of Stock</span>
         </div>
         <?php elseif ( $is_backorder ) : ?>
-        <div class="stock-badge stock-badge--backorder">
-          <span class="stock-badge__dot"></span> Available on Backorder
+        <div class="stock-badge stock-badge--backorder js-stock-badge">
+          <span class="stock-badge__dot"></span> <span class="js-stock-text">Available on Backorder</span>
         </div>
         <?php else : ?>
-        <div class="stock-badge stock-badge--in">
-          <span class="stock-badge__dot"></span> In Stock — Same Day Dispatch on Orders Before 2PM AEST Mon–Fri
+        <div class="stock-badge stock-badge--in js-stock-badge">
+          <span class="stock-badge__dot"></span> <span class="js-stock-text">In Stock — Same Day Dispatch on Orders Before 2PM AEST Mon–Fri</span>
         </div>
         <?php endif; ?>
 
-        <?php if ( $is_outofstock ) : ?>
-
-        <!-- SOLD OUT state -->
-        <button class="btn btn-primary btn-lg btn-full btn--sold-out" disabled aria-disabled="true">
-          Sold Out
-        </button>
-
-        <!-- Notify Me form -->
-        <div class="notify-form">
-          <?php if ( $notify_sent ) : ?>
-            <div class="notify-form__success">
-              ✓ You're on the list — we'll email you the moment this compound is restocked.
-            </div>
-          <?php else : ?>
-            <p class="notify-form__label">Notify me when back in stock</p>
-            <form class="notify-form__row" method="post" action="">
-              <?php wp_nonce_field( 'syntra_notify', 'syntra_notify_nonce' ); ?>
-              <input type="hidden" name="syntra_notify_product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
-              <input type="email" name="syntra_notify_email" class="notify-form__input" placeholder="your@email.com" required autocomplete="email">
-              <button type="submit" class="notify-form__btn">Notify Me</button>
-            </form>
-          <?php endif; ?>
-        </div>
-
-        <?php else : ?>
-
-        <!-- Qty + Add to Cart (in stock or backorder) -->
-        <form class="cart" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>">
-          <div class="product-info__qty">
-            <button type="button" class="qty-btn" data-action="minus" aria-label="Decrease quantity">−</button>
-            <div class="qty-value">1</div>
-            <button type="button" class="qty-btn" data-action="plus" aria-label="Increase quantity">+</button>
-            <input type="hidden" name="quantity" class="qty-input" value="1" min="1">
-          </div>
-          <input type="hidden" name="product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
-          <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-          <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary btn-lg btn-full <?php echo $is_backorder ? 'btn--backorder' : ''; ?>">
-            <?php if ( $is_backorder ) : ?>
-              Pre-Order — <?php echo $product->get_price_html(); ?>
-            <?php else : ?>
-              Add to Cart — <?php echo $product->get_price_html(); ?>
-            <?php endif; ?>
+        <!-- SOLD OUT section (shown when out of stock) -->
+        <div class="js-soldout-section" <?php echo $is_outofstock ? '' : 'style="display:none"'; ?>>
+          <button class="btn btn-primary btn-lg btn-full btn--sold-out" disabled aria-disabled="true">
+            Sold Out
           </button>
-        </form>
-
-        <?php if ( $is_backorder ) : ?>
-        <div class="backorder-notice">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Backordered — orders ship within 5–10 business days in the sequence received.
+          <div class="notify-form">
+            <?php if ( $notify_sent ) : ?>
+              <div class="notify-form__success">
+                ✓ You're on the list — we'll email you the moment this compound is restocked.
+              </div>
+            <?php else : ?>
+              <p class="notify-form__label">Notify me when back in stock</p>
+              <form class="notify-form__row" method="post" action="">
+                <?php wp_nonce_field( 'syntra_notify', 'syntra_notify_nonce' ); ?>
+                <input type="hidden" name="syntra_notify_product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
+                <input type="email" name="syntra_notify_email" class="notify-form__input" placeholder="your@email.com" required autocomplete="email">
+                <button type="submit" class="notify-form__btn">Notify Me</button>
+              </form>
+            <?php endif; ?>
+          </div>
         </div>
-        <?php endif; ?>
 
-        <?php endif; ?>
+        <!-- ADD TO CART section (shown when in stock or backorder) -->
+        <div class="js-cart-section" <?php echo $is_outofstock ? 'style="display:none"' : ''; ?>>
+          <?php
+          if ( $has_variants && $sel_v ) {
+              $btn_price = '$' . number_format( (float) $sel_v['price'], 2 );
+          } else {
+              $btn_price = strip_tags( $product->get_price_html() );
+          }
+          ?>
+          <form class="cart" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>">
+            <div class="product-info__qty">
+              <button type="button" class="qty-btn" data-action="minus" aria-label="Decrease quantity">−</button>
+              <div class="qty-value">1</div>
+              <button type="button" class="qty-btn" data-action="plus" aria-label="Increase quantity">+</button>
+              <input type="hidden" name="quantity" class="qty-input" value="1" min="1">
+            </div>
+            <input type="hidden" name="product_id" value="<?php echo esc_attr( $product->get_id() ); ?>">
+            <?php if ( $has_variants ) : ?>
+            <input type="hidden" name="syntra_variant_index" class="js-variant-index" value="<?php echo esc_attr( $sel_idx ); ?>">
+            <?php endif; ?>
+            <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+            <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="btn btn-primary btn-lg btn-full js-atc-btn <?php echo $is_backorder ? 'btn--backorder' : ''; ?>">
+              <span class="js-atc-verb"><?php echo $is_backorder ? 'Pre-Order' : 'Add to Cart'; ?></span> &mdash; <span class="js-atc-price"><?php echo esc_html( $btn_price ); ?></span>
+            </button>
+          </form>
+          <div class="backorder-notice js-backorder-notice" <?php echo $is_backorder ? '' : 'style="display:none"'; ?>>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Backordered — orders ship within 5–10 business days in the sequence received.
+          </div>
+        </div>
 
         <div style="margin-top:16px; padding:12px; border:1px solid var(--mist); border-left:3px solid var(--teal); border-radius:0 8px 8px 0;">
           <p class="compliance-text">For in vitro laboratory research use only. Not for human consumption, diagnostic, or therapeutic use.</p>

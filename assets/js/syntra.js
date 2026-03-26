@@ -151,6 +151,92 @@
 
 })();
 
+/* ── Variant pill selector ── */
+(function () {
+  var pills = document.querySelectorAll('.variant-pill');
+  if (!pills.length) return;
+
+  var variants     = window.syntraVariants || [];
+  var priceEl      = document.querySelector('.js-bundle-price');
+  var stockBadge   = document.querySelector('.js-stock-badge');
+  var stockText    = document.querySelector('.js-stock-text');
+  var variantLabel = document.querySelector('.js-variant-label');
+  var variantIdx   = document.querySelector('.js-variant-index');
+  var atcBtn       = document.querySelector('.js-atc-btn');
+  var atcPrice     = document.querySelector('.js-atc-price');
+  var atcVerb      = document.querySelector('.js-atc-verb');
+  var cartSection  = document.querySelector('.js-cart-section');
+  var soldSection  = document.querySelector('.js-soldout-section');
+  var boNotice     = document.querySelector('.js-backorder-notice');
+  var galleryImg   = document.querySelector('.js-gallery-main-img');
+
+  function applyVariant(v) {
+    // Update label above pills
+    if (variantLabel) variantLabel.textContent = v.label;
+
+    // Update price display
+    if (priceEl) priceEl.innerHTML = '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' + parseFloat(v.price).toFixed(2) + '</bdi></span>';
+
+    // Update stock badge class + text
+    if (stockBadge) {
+      stockBadge.classList.remove('stock-badge--in', 'stock-badge--out', 'stock-badge--backorder');
+      if (v.stock === 'instock') {
+        stockBadge.classList.add('stock-badge--in');
+        if (stockText) stockText.textContent = 'In Stock \u2014 Same Day Dispatch on Orders Before 2PM AEST Mon\u2013Fri';
+      } else if (v.stock === 'onbackorder') {
+        stockBadge.classList.add('stock-badge--backorder');
+        if (stockText) stockText.textContent = 'Available on Backorder';
+      } else {
+        stockBadge.classList.add('stock-badge--out');
+        if (stockText) stockText.textContent = 'Out of Stock';
+      }
+    }
+
+    // Toggle sold-out vs cart sections
+    if (v.stock === 'outofstock') {
+      if (cartSection)  cartSection.style.display  = 'none';
+      if (soldSection)  soldSection.style.display  = '';
+    } else {
+      if (soldSection)  soldSection.style.display  = 'none';
+      if (cartSection)  cartSection.style.display  = '';
+
+      // Backorder notice
+      if (boNotice) boNotice.style.display = v.stock === 'onbackorder' ? '' : 'none';
+
+      // ATC button
+      if (atcBtn) {
+        atcBtn.classList.toggle('btn--backorder', v.stock === 'onbackorder');
+      }
+      if (atcVerb) atcVerb.textContent = v.stock === 'onbackorder' ? 'Pre-Order' : 'Add to Cart';
+      if (atcPrice) atcPrice.textContent = '$' + parseFloat(v.price).toFixed(2);
+    }
+
+    // Update hidden variant index input
+    if (variantIdx) variantIdx.value = v.index;
+
+    // Swap gallery image if variant has one
+    if (galleryImg && v.imgUrl) {
+      galleryImg.src = v.imgUrl;
+      galleryImg.srcset = '';
+    } else if (galleryImg && galleryImg.dataset.defaultSrc) {
+      galleryImg.src = galleryImg.dataset.defaultSrc;
+      galleryImg.srcset = '';
+    }
+  }
+
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      // Update active pill
+      pills.forEach(function (p) { p.classList.remove('variant-pill--active'); });
+      pill.classList.add('variant-pill--active');
+
+      var idx = parseInt(pill.dataset.index, 10);
+      var v   = variants[idx];
+      if (v) applyVariant(v);
+    });
+  });
+})();
+
 /* ── Blog category filter ── */
 document.addEventListener('click', function(e) {
   var btn = e.target.closest('.blog-filter-btn');

@@ -2187,3 +2187,84 @@ a.contact-detail-block__value:hover { color: var(--teal); }
   line-height: 1.7;
   font-family: var(--font-mono);
 }
+
+/* ============================================================
+   VARIANT SELECTOR — Strength / Size Pills
+============================================================ */
+.variant-selector {
+  margin-bottom: 20px;
+}
+.variant-selector__label {
+  margin-bottom: 10px;
+  color: var(--slate);
+  letter-spacing: 0.06em;
+}
+.variant-selector__label .js-variant-label {
+  color: var(--navy);
+  font-weight: 600;
+}
+.variant-selector__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Base pill */
+.variant-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 36px;
+  line-height: 1;
+  position: relative;
+}
+
+/* In Stock — teal/green tint */
+.variant-pill.pill--instock {
+  background: rgba(47, 183, 179, 0.09);
+  border-color: rgba(47, 183, 179, 0.35);
+  color: #1a7a77;
+}
+.variant-pill.pill--instock:hover,
+.variant-pill.pill--instock.variant-pill--active {
+  background: rgba(47, 183, 179, 0.18);
+  border-color: #2FB7B3;
+  color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(47, 183, 179, 0.15);
+}
+
+/* Backorder — amber tint */
+.variant-pill.pill--backorder {
+  background: rgba(245, 158, 11, 0.09);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #92400e;
+}
+.variant-pill.pill--backorder:hover,
+.variant-pill.pill--backorder.variant-pill--active {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: #f59e0b;
+  color: #78350f;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+/* Out of Stock — red/muted */
+.variant-pill.pill--outofstock {
+  background: rgba(229, 57, 53, 0.06);
+  border-color: rgba(229, 57, 53, 0.25);
+  color: #999;
+  cursor: default;
+  text-decoration: line-through;
+  text-decoration-color: rgba(229, 57, 53, 0.5);
+}
+.variant-pill.pill--outofstock.variant-pill--active {
+  background: rgba(229, 57, 53, 0.10);
+  border-color: rgba(229, 57, 53, 0.4);
+  color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.10);
+}

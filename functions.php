@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 require_once get_template_directory() . '/inc/product-data.php';
 require_once get_template_directory() . '/inc/blog-data.php';
 require_once get_template_directory() . '/inc/setup-wc-products.php';
+require_once get_template_directory() . '/inc/syntra-variants.php';
 
 /* ─────────────────────────────────────────────────────────
    THEME SETUP
@@ -41,12 +42,12 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.4.2' );
+        [ 'syntra-fonts' ], '1.5.0' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
         get_template_directory_uri() . '/assets/js/syntra.js',
-        [], '1.4.2', true );
+        [], '1.5.0', true );
 
     // Pass cart count to JS
     if ( class_exists( 'WooCommerce' ) ) {
