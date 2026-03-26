@@ -2258,16 +2258,23 @@ a.contact-detail-block__value:hover { color: var(--teal); }
    FREE SHIPPING PROGRESS TRACKER
 ============================================================ */
 .shipping-tracker {
-  margin-bottom: 24px;
-  padding: 14px 18px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 980;
+  padding: 12px 20px;
   background: var(--white);
-  border: 1px solid var(--mist);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--teal);
+  border-top: 2px solid var(--teal);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+}
+.shipping-tracker__inner {
+  max-width: 640px;
+  margin: 0 auto;
 }
 .shipping-tracker--unlocked {
-  border-left-color: #2FB7B3;
-  background: rgba(47,183,179,0.05);
+  border-top-color: #2FB7B3;
+  background: rgba(47,183,179,0.06);
 }
 .shipping-tracker__text {
   display: flex;
@@ -2275,7 +2282,7 @@ a.contact-detail-block__value:hover { color: var(--teal); }
   gap: 8px;
   font-size: 13px;
   color: var(--slate);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .shipping-tracker__text svg { stroke: var(--teal); flex-shrink: 0; }
 .shipping-tracker--unlocked .shipping-tracker__text { color: #1a7a77; font-weight: 500; }
