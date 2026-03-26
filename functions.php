@@ -66,18 +66,24 @@ add_action( 'wp_enqueue_scripts', 'syntra_enqueue' );
    _stock_status values in the database so WC's own checks
    match our variant aggregate stock.
 ───────────────────────────────────────────────────────── */
+// Runs on every admin page load until it has patched every product at least once.
+// Transient key v4 forces a fresh run (invalidates any previously stuck v3 transient).
 add_action( 'admin_init', 'syntra_patch_all_stock_statuses' );
 function syntra_patch_all_stock_statuses() {
     if ( ! function_exists( 'syntra_variant_aggregate_stock' ) ) return;
-    // Only runs when the transient has expired (set to 1 week on success)
-    if ( get_transient( 'syntra_stock_patched_v3' ) ) return;
+    if ( get_transient( 'syntra_stock_patched_v4' ) ) return;
 
     global $wpdb;
-    // Get all product IDs that have syntra_variants meta
     $ids = $wpdb->get_col(
         "SELECT DISTINCT post_id FROM {$wpdb->postmeta}
          WHERE meta_key = 'syntra_variants' AND meta_value != '' AND meta_value != 'a:0:{}'"
     );
+
+    if ( empty( $ids ) ) {
+        // No products found yet — set short transient and retry in 10 min
+        set_transient( 'syntra_stock_patched_v4', 0, 10 * MINUTE_IN_SECONDS );
+        return;
+    }
 
     $count = 0;
     foreach ( $ids as $pid ) {
@@ -89,15 +95,13 @@ function syntra_patch_all_stock_statuses() {
                 : ( ( $agg === 'outofstock' ) ? 'outofstock' : 'instock' );
 
         update_post_meta( $pid, '_stock_status', $status );
-        // Also ensure manage_stock is off (so WC doesn't override our status)
         update_post_meta( $pid, '_manage_stock', 'no' );
         wc_delete_product_transients( $pid );
         $count++;
     }
 
-    if ( $count > 0 ) {
-        set_transient( 'syntra_stock_patched_v3', $count, WEEK_IN_SECONDS );
-    }
+    // Set transient for 1 week — force fresh run by changing key next deployment
+    set_transient( 'syntra_stock_patched_v4', max( $count, 1 ), WEEK_IN_SECONDS );
 }
 
 /* ─────────────────────────────────────────────────────────

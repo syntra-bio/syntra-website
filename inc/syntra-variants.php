@@ -334,21 +334,45 @@ function syntra_variant_validate( $passed, $product_id, $quantity ) {
     return $passed;
 }
 
-// 6. Override WooCommerce's own is_in_stock() / is_purchasable() checks
-//    so that WC's built-in "product is out of stock" error never fires
-//    for products managed by Syntra variants.
-add_filter( 'woocommerce_product_is_in_stock', 'syntra_override_wc_stock', 10, 2 );
+// 6. Override ALL WooCommerce stock checks for syntra products.
+//
+// Layer A — raw property getter (earliest possible intercept).
+// Fires when WC_Product::get_stock_status() is called, before is_in_stock()
+// even sees the value. Stops the "out of stock" error at the source.
+add_filter( 'woocommerce_product_get_stock_status', 'syntra_override_get_stock_status', 1, 2 );
+function syntra_override_get_stock_status( $status, $product ) {
+    $agg = syntra_variant_aggregate_stock( $product->get_id() );
+    if ( $agg === null ) return $status;
+    if ( $agg === 'outofstock' )   return 'outofstock';
+    if ( $agg === 'onbackorder' )  return 'onbackorder';
+    return 'instock';
+}
+
+// Layer B — is_in_stock() filter.
+add_filter( 'woocommerce_product_is_in_stock', 'syntra_override_wc_stock', 1, 2 );
 function syntra_override_wc_stock( $in_stock, $product ) {
     $agg = syntra_variant_aggregate_stock( $product->get_id() );
-    if ( $agg === null ) return $in_stock; // no variants → keep WC default
+    if ( $agg === null ) return $in_stock;
     return $agg !== 'outofstock';
 }
 
-add_filter( 'woocommerce_is_purchasable', 'syntra_override_wc_purchasable', 10, 2 );
+// Layer C — is_purchasable() filter.
+add_filter( 'woocommerce_is_purchasable', 'syntra_override_wc_purchasable', 1, 2 );
 function syntra_override_wc_purchasable( $purchasable, $product ) {
     $agg = syntra_variant_aggregate_stock( $product->get_id() );
     if ( $agg === null ) return $purchasable;
     return $agg !== 'outofstock';
+}
+
+// Layer D — add-to-cart validation (fires before WC's own stock check).
+// This catches the block checkout Store API path which can bypass the above.
+add_filter( 'woocommerce_add_to_cart_validation', 'syntra_add_to_cart_stock_bypass', 1, 3 );
+function syntra_add_to_cart_stock_bypass( $valid, $product_id, $quantity ) {
+    $agg = syntra_variant_aggregate_stock( (int) $product_id );
+    if ( $agg === null ) return $valid;
+    // If product has syntra variants and is not outofstock, force valid
+    if ( $agg !== 'outofstock' ) return true;
+    return $valid;
 }
 
 /* ─────────────────────────────────────────────────────────
