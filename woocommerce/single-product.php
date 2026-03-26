@@ -27,19 +27,7 @@ $shop_url   = get_permalink( wc_get_page_id( 'shop' ) );
 $variants     = syntra_get_variants( $product->get_id() );
 $has_variants = ! empty( $variants );
 
-if ( current_user_can( 'administrator' ) ) {
-    echo '<div style="background:#fff3cd;border:2px solid #f0ad4e;padding:16px;margin:16px;font-family:monospace;font-size:12px;z-index:9999;position:relative;">';
-    echo '<strong>ADMIN DEBUG — raw variant DB data:</strong><br>';
-    foreach ( $variants as $i => $v ) {
-        $computed = syntra_calc_variant_stock_status( $v );
-        echo "[$i] " . esc_html( ($v['label']??'') . ($v['unit']??'') ) . " | ";
-        echo "qty=" . ( isset($v['qty']) ? $v['qty'] : '<b style=color:red>NOT SET</b>' ) . " | ";
-        echo "bo_qty=" . ( isset($v['bo_qty']) ? $v['bo_qty'] : '<b style=color:red>NOT SET</b>' ) . " | ";
-        echo "stock=" . esc_html( $v['stock'] ?? 'NOT SET' ) . " | ";
-        echo "<b>COMPUTED: $computed</b><br>";
-    }
-    echo '</div>';
-}
+
 
 
 
