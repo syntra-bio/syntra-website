@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.5.5' );
+        [ 'syntra-fonts' ], '1.6.0' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -67,6 +67,40 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content',  'woocommerce_output_content_wrapper_end', 10 );
 add_action( 'woocommerce_before_main_content', function() { echo '<div class="woo-wrap">'; }, 10 );
 add_action( 'woocommerce_after_main_content',  function() { echo '</div>'; }, 10 );
+
+/* ─────────────────────────────────────────────────────────
+   CHECKOUT — STEPS + TRUST SIGNALS + DISTRACTION-FREE
+───────────────────────────────────────────────────────── */
+
+// Add progress steps above checkout form
+add_action( 'woocommerce_before_checkout_form', function() {
+    echo '<div class="syntra-steps">';
+    echo '<div class="syntra-step syntra-step--done"><div class="syntra-step__dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Cart</span></div>';
+    echo '<div class="syntra-step__line"></div>';
+    echo '<div class="syntra-step syntra-step--done"><div class="syntra-step__dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Details</span></div>';
+    echo '<div class="syntra-step__line"></div>';
+    echo '<div class="syntra-step syntra-step--active"><div class="syntra-step__dot">3</div><span>Payment</span></div>';
+    echo '<div class="syntra-step__line"></div>';
+    echo '<div class="syntra-step"><div class="syntra-step__dot">4</div><span>Confirm</span></div>';
+    echo '</div>';
+}, 5 );
+
+// Trust strip above Place Order
+add_action( 'woocommerce_review_order_after_order_total', function() {
+    echo '<tr class="syntra-checkout-trust"><td colspan="2">
+    <div class="syntra-checkout-trust__strip">
+      <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> SSL Encrypted</span>
+      <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 99%+ Purity</span>
+      <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Same-Day Dispatch</span>
+    </div></td></tr>';
+}, 20 );
+
+// Add checkout body class
+add_filter( 'body_class', function( $classes ) {
+    if ( is_checkout() ) $classes[] = 'syntra-checkout-page';
+    if ( is_cart() )     $classes[] = 'syntra-cart-page-body';
+    return $classes;
+} );
 
 /* ─────────────────────────────────────────────────────────
    WOOCOMMERCE — REMOVE DEFAULT SINGLE PRODUCT HOOKS
