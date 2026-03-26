@@ -340,3 +340,249 @@ function syntra_variant_availability( $availability, $product ) {
             return [ 'availability' => 'Out of Stock',              'class' => 'out-of-stock' ];
     }
 }
+
+/* ─────────────────────────────────────────────────────────
+   ADMIN SEED TOOL — Populate variants for all products
+   Admin → Products → Seed Variants
+───────────────────────────────────────────────────────── */
+add_action( 'admin_menu', 'syntra_variants_seed_menu' );
+function syntra_variants_seed_menu() {
+    add_submenu_page(
+        'edit.php?post_type=product',
+        'Seed Variants',
+        'Seed Variants',
+        'manage_options',
+        'syntra-seed-variants',
+        'syntra_variants_seed_page'
+    );
+}
+
+function syntra_variants_seed_data() {
+    // All variant data keyed by WooCommerce product slug.
+    // stock: 'instock' | 'onbackorder' | 'outofstock'
+    // unit:  'mg' | 'ml'
+    return [
+
+        /* ── GLP-1 ── */
+        'tirzepatide' => [
+            [ 'label'=>'5',   'unit'=>'mg', 'sku'=>'SYN-GLP-001', 'cost'=>5.74,  'price'=>65  ],
+            [ 'label'=>'10',  'unit'=>'mg', 'sku'=>'SYN-GLP-002', 'cost'=>8.89,  'price'=>90  ],
+            [ 'label'=>'15',  'unit'=>'mg', 'sku'=>'SYN-GLP-003', 'cost'=>11.33, 'price'=>115 ],
+            [ 'label'=>'20',  'unit'=>'mg', 'sku'=>'SYN-GLP-004', 'cost'=>14.06, 'price'=>140 ],
+            [ 'label'=>'30',  'unit'=>'mg', 'sku'=>'SYN-GLP-005', 'cost'=>17.93, 'price'=>180 ],
+            [ 'label'=>'40',  'unit'=>'mg', 'sku'=>'SYN-GLP-006', 'cost'=>22.23, 'price'=>220 ],
+            [ 'label'=>'50',  'unit'=>'mg', 'sku'=>'SYN-GLP-007', 'cost'=>27.25, 'price'=>270 ],
+            [ 'label'=>'60',  'unit'=>'mg', 'sku'=>'SYN-GLP-008', 'cost'=>31.55, 'price'=>315 ],
+        ],
+        'semaglutide' => [
+            [ 'label'=>'5',   'unit'=>'mg', 'sku'=>'SYN-GLP-009', 'cost'=>5.74,  'price'=>65  ],
+            [ 'label'=>'10',  'unit'=>'mg', 'sku'=>'SYN-GLP-010', 'cost'=>8.61,  'price'=>85  ],
+            [ 'label'=>'15',  'unit'=>'mg', 'sku'=>'SYN-GLP-011', 'cost'=>10.61, 'price'=>105 ],
+            [ 'label'=>'20',  'unit'=>'mg', 'sku'=>'SYN-GLP-012', 'cost'=>12.33, 'price'=>125 ],
+        ],
+        'retatrutide' => [
+            [ 'label'=>'5',   'unit'=>'mg', 'sku'=>'SYN-GLP-013', 'cost'=>11.47, 'price'=>115 ],
+            [ 'label'=>'10',  'unit'=>'mg', 'sku'=>'SYN-GLP-014', 'cost'=>16.06, 'price'=>160 ],
+            [ 'label'=>'15',  'unit'=>'mg', 'sku'=>'SYN-GLP-015', 'cost'=>19.65, 'price'=>195 ],
+            [ 'label'=>'20',  'unit'=>'mg', 'sku'=>'SYN-GLP-016', 'cost'=>22.95, 'price'=>230 ],
+            [ 'label'=>'30',  'unit'=>'mg', 'sku'=>'SYN-GLP-017', 'cost'=>31.55, 'price'=>315 ],
+            [ 'label'=>'50',  'unit'=>'mg', 'sku'=>'SYN-GLP-018', 'cost'=>50.20, 'price'=>500 ],
+            [ 'label'=>'60',  'unit'=>'mg', 'sku'=>'SYN-GLP-019', 'cost'=>60.24, 'price'=>600 ],
+        ],
+
+        /* ── Recovery ── */
+        'tb-500' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-REC-003', 'cost'=>12.19, 'price'=>100 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-REC-004', 'cost'=>24.09, 'price'=>195 ],
+        ],
+        'bpc-157' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-REC-005', 'cost'=>6.02, 'price'=>55 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-REC-006', 'cost'=>9.61, 'price'=>75 ],
+        ],
+        'bpc-157-tb500-stack' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-REC-007', 'cost'=>15.06, 'price'=>120 ],
+            [ 'label'=>'20', 'unit'=>'mg', 'sku'=>'SYN-REC-008', 'cost'=>28.68, 'price'=>230 ],
+        ],
+        'klow' => [
+            [ 'label'=>'80', 'unit'=>'mg', 'sku'=>'SYN-REC-002', 'cost'=>34.42, 'price'=>275 ],
+        ],
+
+        /* ── Anti-Aging ── */
+        'nad-plus' => [
+            [ 'label'=>'100',  'unit'=>'mg', 'sku'=>'SYN-AGE-001', 'cost'=>6.88,  'price'=>70  ],
+            [ 'label'=>'500',  'unit'=>'mg', 'sku'=>'SYN-AGE-002', 'cost'=>12.62, 'price'=>125 ],
+            [ 'label'=>'1000', 'unit'=>'mg', 'sku'=>'SYN-AGE-003', 'cost'=>23.66, 'price'=>235 ],
+        ],
+        'ghk-cu' => [
+            [ 'label'=>'50',  'unit'=>'mg', 'sku'=>'SYN-AGE-004', 'cost'=>4.45, 'price'=>65 ],
+            [ 'label'=>'100', 'unit'=>'mg', 'sku'=>'SYN-AGE-005', 'cost'=>8.61, 'price'=>85 ],
+        ],
+        'mots-c' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-AGE-006', 'cost'=>9.32,  'price'=>95  ],
+            [ 'label'=>'40', 'unit'=>'mg', 'sku'=>'SYN-AGE-007', 'cost'=>33.70, 'price'=>335 ],
+        ],
+        'ss-31' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-AGE-008', 'cost'=>15.49, 'price'=>155 ],
+            [ 'label'=>'50', 'unit'=>'mg', 'sku'=>'SYN-AGE-009', 'cost'=>60.24, 'price'=>600 ],
+        ],
+        '5-amino-1mq' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-AGE-010', 'cost'=>22.66, 'price'=>225 ],
+        ],
+        'epithalon' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-AGE-011', 'cost'=>6.17,  'price'=>65  ],
+            [ 'label'=>'50', 'unit'=>'mg', 'sku'=>'SYN-AGE-012', 'cost'=>25.82, 'price'=>260 ],
+        ],
+        'll-37' => [
+            [ 'label'=>'5', 'unit'=>'mg', 'sku'=>'SYN-AGE-016', 'cost'=>14.06, 'price'=>140 ],
+        ],
+
+        /* ── Neurological ── */
+        'semax' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-NEU-002', 'cost'=>7.17,  'price'=>65  ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-NEU-003', 'cost'=>11.47, 'price'=>105 ],
+        ],
+        'selank' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-NEU-004', 'cost'=>7.17,  'price'=>65  ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-NEU-005', 'cost'=>11.47, 'price'=>105 ],
+        ],
+        'thymosin-alpha-1' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-NEU-006', 'cost'=>15.49, 'price'=>140 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-NEU-007', 'cost'=>25.82, 'price'=>230 ],
+        ],
+        'dsip' => [
+            [ 'label'=>'5', 'unit'=>'mg', 'sku'=>'SYN-OTH-010', 'cost'=>6.88, 'price'=>55 ],
+        ],
+
+        /* ── Hormones ── */
+        'cjc-1295-no-dac' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-HRM-008', 'cost'=>14.06, 'price'=>110 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-HRM-009', 'cost'=>26.96, 'price'=>215 ],
+        ],
+        'cjc-1295-dac' => [
+            [ 'label'=>'2', 'unit'=>'mg', 'sku'=>'SYN-HRM-010', 'cost'=>11.76, 'price'=>95  ],
+            [ 'label'=>'5', 'unit'=>'mg', 'sku'=>'SYN-HRM-011', 'cost'=>27.68, 'price'=>220 ],
+        ],
+        'cjc-1295-ipamorelin-stack' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-HRM-012', 'cost'=>17.93, 'price'=>145 ],
+        ],
+        'sermorelin' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-HRM-013', 'cost'=>11.19, 'price'=>90  ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-HRM-014', 'cost'=>21.80, 'price'=>175 ],
+        ],
+        'igf-lr3' => [
+            [ 'label'=>'0.1', 'unit'=>'mg', 'sku'=>'SYN-HRM-017', 'cost'=>6.88,  'price'=>55  ],
+            [ 'label'=>'1',   'unit'=>'mg', 'sku'=>'SYN-HRM-018', 'cost'=>30.12, 'price'=>240 ],
+        ],
+        'ipamorelin' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-HRM-019', 'cost'=>5.88,  'price'=>50 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-HRM-020', 'cost'=>11.19, 'price'=>90 ],
+        ],
+        'kisspeptin-10' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-HRM-024', 'cost'=>9.61,  'price'=>75  ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-HRM-025', 'cost'=>18.93, 'price'=>150 ],
+        ],
+        'oxytocin' => [
+            [ 'label'=>'2', 'unit'=>'mg', 'sku'=>'SYN-HRM-026', 'cost'=>6.02,  'price'=>50 ],
+            [ 'label'=>'5', 'unit'=>'mg', 'sku'=>'SYN-HRM-027', 'cost'=>10.18, 'price'=>80 ],
+        ],
+
+        /* ── Other ── */
+        'pt-141' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-OTH-003', 'cost'=>8.89, 'price'=>70 ],
+        ],
+        'aod-9604' => [
+            [ 'label'=>'5',  'unit'=>'mg', 'sku'=>'SYN-OTH-004', 'cost'=>14.63, 'price'=>115 ],
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-OTH-005', 'cost'=>24.67, 'price'=>195 ],
+        ],
+        'melanotan-ii' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-OTH-007', 'cost'=>9.04, 'price'=>70 ],
+        ],
+        'vip' => [
+            [ 'label'=>'10', 'unit'=>'mg', 'sku'=>'SYN-OTH-012', 'cost'=>27.54, 'price'=>220 ],
+        ],
+
+        /* ── Accessories (ml) ── */
+        'bac-water' => [
+            [ 'label'=>'3',  'unit'=>'ml', 'sku'=>'SYN-ACC-001', 'cost'=>1.43, 'price'=>15 ],
+            [ 'label'=>'10', 'unit'=>'ml', 'sku'=>'SYN-ACC-002', 'cost'=>1.58, 'price'=>15 ],
+        ],
+    ];
+}
+
+function syntra_variants_seed_page() {
+    $results = [];
+
+    if ( isset( $_POST['syntra_seed_variants'] ) && check_admin_referer( 'syntra_seed' ) ) {
+        $data = syntra_variants_seed_data();
+
+        foreach ( $data as $slug => $rows ) {
+            $post = get_page_by_path( $slug, OBJECT, 'product' );
+            if ( ! $post ) {
+                $results[] = [ 'status' => 'skip', 'msg' => "NOT FOUND — slug: {$slug}" ];
+                continue;
+            }
+
+            $product_id = $post->ID;
+            $variants   = [];
+
+            foreach ( $rows as $row ) {
+                $variants[] = [
+                    'label' => (string) $row['label'],
+                    'unit'  => $row['unit'],
+                    'sku'   => $row['sku'],
+                    'cost'  => (float) $row['cost'],
+                    'price' => (float) $row['price'],
+                    'stock' => $row['stock'] ?? 'instock',
+                    'image' => 0,
+                ];
+            }
+
+            update_post_meta( $product_id, 'syntra_variants', $variants );
+
+            // Sync WC price + SKU to first variant
+            $first = $variants[0];
+            update_post_meta( $product_id, '_price',         (string) $first['price'] );
+            update_post_meta( $product_id, '_regular_price', (string) $first['price'] );
+            update_post_meta( $product_id, '_sku',           $first['sku'] );
+
+            $count     = count( $variants );
+            $pill_text = implode( ', ', array_map( fn($v) => $v['label'] . $v['unit'], $variants ) );
+            $results[] = [ 'status' => 'ok', 'msg' => "✅ {$slug} — {$count} variant(s): {$pill_text}" ];
+        }
+    }
+
+    ?>
+    <div class="wrap">
+      <h1>Syntra — Seed Product Variants</h1>
+      <p>This tool writes all variant data (strength, SKU, cost, price) to every product from the March 2026 pricing sheet. It is safe to run multiple times — it will overwrite existing variant data.</p>
+      <p><strong>Stock status</strong> for all variants is set to <em>In Stock</em>. Change individual variants in each product's edit page as needed.</p>
+
+      <?php if ( $results ) : ?>
+        <div class="notice notice-success is-dismissible" style="max-height:400px;overflow-y:auto;">
+          <?php foreach ( $results as $r ) : ?>
+            <p><?php echo esc_html( $r['msg'] ); ?></p>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <form method="post">
+        <?php wp_nonce_field( 'syntra_seed' ); ?>
+        <input type="hidden" name="syntra_seed_variants" value="1">
+        <table class="widefat" style="max-width:680px;margin-bottom:16px;">
+          <thead><tr><th>Product Slug</th><th>Variants to be seeded</th></tr></thead>
+          <tbody>
+          <?php foreach ( syntra_variants_seed_data() as $slug => $rows ) :
+            $labels = implode(', ', array_map( fn($r) => $r['label'] . $r['unit'], $rows ));
+          ?>
+            <tr>
+              <td><code><?php echo esc_html( $slug ); ?></code></td>
+              <td><?php echo esc_html( $labels ); ?></td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <?php submit_button( 'Seed All Variants Now', 'primary large' ); ?>
+      </form>
+    </div>
+    <?php
+}
