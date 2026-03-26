@@ -2258,6 +2258,11 @@ a.contact-detail-block__value:hover { color: var(--teal); }
    FREE SHIPPING PROGRESS TRACKER
 ============================================================ */
 .shipping-tracker {
+  display: none;
+}
+.woocommerce-cart .shipping-tracker,
+.woocommerce-checkout .shipping-tracker {
+  display: block;
   position: fixed;
   bottom: 0;
   left: 0;

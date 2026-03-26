@@ -42,7 +42,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.5.4' );
+        [ 'syntra-fonts' ], '1.5.5' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -453,8 +453,6 @@ define( 'SYNTRA_FREE_SHIPPING_THRESHOLD', 100 );
 
 function syntra_free_shipping_tracker() {
     if ( ! function_exists( 'WC' ) || ! WC()->cart ) return;
-    if ( ! is_cart() && ! is_checkout() ) return;
-    if ( WC()->cart->is_empty() ) return;
 
     $threshold  = SYNTRA_FREE_SHIPPING_THRESHOLD;
     $cart_total = (float) WC()->cart->get_subtotal();
