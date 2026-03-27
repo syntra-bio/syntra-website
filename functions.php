@@ -692,12 +692,11 @@ class Syntra_Express_Shipping extends WC_Shipping_Method {
     }
 }
 
-// If there are NO shipping zones set up yet, force our method as a fallback
-// so customers always see a shipping option at checkout
+// Override ALL shipping rates — zero cost when cart is over threshold.
+// Runs at priority 9999 so it fires after every other filter.
+// Works whether zones are configured or not.
 add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
-    if ( ! empty( $rates ) ) return $rates; // zones configured — leave them alone
-
-    // No rates from zones — inject our method directly
+    // Calculate subtotal from package contents (most reliable source)
     $subtotal = 0;
     if ( ! empty( $package['contents'] ) ) {
         foreach ( $package['contents'] as $item ) {
@@ -707,18 +706,34 @@ add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
     if ( $subtotal <= 0 && WC()->cart ) {
         $subtotal = (float) WC()->cart->get_subtotal();
     }
-    $is_free = $subtotal >= SYNTRA_FREE_SHIPPING_THRESHOLD;
 
-    $rates['syntra_express_fallback'] = new WC_Shipping_Rate(
-        'syntra_express_fallback',
-        $is_free ? 'Express Post (Free)' : 'Express Post',
-        $is_free ? 0 : SYNTRA_SHIPPING_COST,
-        [],
-        'syntra_express'
-    );
+    if ( empty( $rates ) ) {
+        // No rates at all — inject our fallback
+        $is_free = $subtotal >= SYNTRA_FREE_SHIPPING_THRESHOLD;
+        $rates['syntra_express_fallback'] = new WC_Shipping_Rate(
+            'syntra_express_fallback',
+            $is_free ? 'Express Post (Free)' : 'Express Post',
+            $is_free ? 0 : SYNTRA_SHIPPING_COST,
+            [],
+            'syntra_express'
+        );
+        return $rates;
+    }
+
+    if ( $subtotal < SYNTRA_FREE_SHIPPING_THRESHOLD ) return $rates;
+
+    // Over $100 — make every rate free
+    foreach ( $rates as $key => $rate ) {
+        $rates[ $key ]->cost  = 0;
+        $rates[ $key ]->taxes = [];
+        // Append (Free) to label if not already there
+        if ( strpos( $rate->label, 'Free' ) === false ) {
+            $rates[ $key ]->label = $rate->label . ' (Free)';
+        }
+    }
 
     return $rates;
-}, 100, 2 );
+}, 9999, 2 );
 
 // Force shipping recalculation whenever cart totals change
 add_action( 'woocommerce_cart_updated', function() {
