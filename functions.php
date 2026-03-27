@@ -673,9 +673,11 @@ class Syntra_Express_Shipping extends WC_Shipping_Method {
     }
 
     public function calculate_shipping( $package = [] ) {
-        $subtotal  = WC()->cart ? WC()->cart->get_subtotal() : 0;
-        $threshold = SYNTRA_FREE_SHIPPING_THRESHOLD;
-        $is_free   = $subtotal >= $threshold;
+        $subtotal = isset( $package['cart_subtotal'] ) ? (float) $package['cart_subtotal'] : 0;
+        if ( $subtotal <= 0 && WC()->cart ) {
+            $subtotal = (float) WC()->cart->get_subtotal();
+        }
+        $is_free = $subtotal >= SYNTRA_FREE_SHIPPING_THRESHOLD;
 
         $this->add_rate( [
             'id'    => $this->get_rate_id(),
@@ -691,9 +693,11 @@ add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
     if ( ! empty( $rates ) ) return $rates; // zones configured — leave them alone
 
     // No rates from zones — inject our method directly
-    $subtotal  = WC()->cart ? WC()->cart->get_subtotal() : 0;
-    $threshold = SYNTRA_FREE_SHIPPING_THRESHOLD;
-    $is_free   = $subtotal >= $threshold;
+    $subtotal = isset( $package['cart_subtotal'] ) ? (float) $package['cart_subtotal'] : 0;
+    if ( $subtotal <= 0 && WC()->cart ) {
+        $subtotal = (float) WC()->cart->get_subtotal();
+    }
+    $is_free = $subtotal >= SYNTRA_FREE_SHIPPING_THRESHOLD;
 
     $rates['syntra_express_fallback'] = new WC_Shipping_Rate(
         'syntra_express_fallback',
@@ -705,6 +709,12 @@ add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
 
     return $rates;
 }, 100, 2 );
+
+// Force shipping recalculation when cart contents change
+add_action( 'woocommerce_cart_updated', function() {
+    WC()->session->set( 'shipping_for_package_0', false );
+    WC()->cart->calculate_shipping();
+} );
 
 /* ─────────────────────────────────────────────────────────
    FREE SHIPPING PROGRESS TRACKER
