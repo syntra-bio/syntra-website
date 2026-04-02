@@ -132,9 +132,9 @@
     <div class="tg-header__inner">
       <div class="tg-logo">SYNTRA</div>
       <nav class="tg-header__links">
-        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-header__link">Terms &amp; Conditions</a>
-        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-header__link">Refund Policy</a>
-        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-header__link">Shipping Policy</a>
+        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Refund Policy</a>
+        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Shipping Policy</a>
       </nav>
     </div>
   </div>
@@ -350,7 +350,7 @@
         <h2>HOW TO ORDER</h2>
         <p class="tg-order__sub">Orders are processed via our secure checkout. We accept bank transfer (BSB/Account) and credit card payments. All prices are in Australian Dollars (AUD).</p>
         <p class="tg-order__sub">Same-day dispatch for orders placed before 2:00 PM AEST Monday–Friday. Orders are shipped via Australia Post Express Post.</p>
-        <a href="mailto:support@syntra.bio" class="tg-btn">Contact Us to Order</a>
+        <a href="mailto:support@syntra.bio" class="tg-btn">Contact Us to Order →</a>
       </div>
       <div>
         <div class="tg-section-label">Business Details</div>
@@ -395,9 +395,9 @@
       </div>
       <div>
         <div class="tg-footer__col-title">Legal</div>
-        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-footer__link">Terms &amp; Conditions</a>
-        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-footer__link">Refund Policy</a>
-        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-footer__link">Shipping Policy</a>
+        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Refund Policy</a>
+        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Shipping Policy</a>
       </div>
       <div>
         <div class="tg-footer__col-title">Compliance</div>
