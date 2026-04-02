@@ -6,6 +6,7 @@ require_once get_template_directory() . '/inc/product-data.php';
 require_once get_template_directory() . '/inc/blog-data.php';
 require_once get_template_directory() . '/inc/setup-wc-products.php';
 require_once get_template_directory() . '/inc/syntra-variants.php';
+require_once get_template_directory() . '/inc/syntra-create-locked-pages.php';
 
 /* ─────────────────────────────────────────────────────────
    THEME SETUP
