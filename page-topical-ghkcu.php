@@ -132,9 +132,9 @@
     <div class="tg-header__inner">
       <div class="tg-logo">SYNTRA</div>
       <nav class="tg-header__links">
-        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
-        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Refund Policy</a>
-        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Shipping Policy</a>
+        <a href="<?php echo esc_url( home_url( '/locked-terms/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="<?php echo esc_url( home_url( '/locked-refund/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Refund Policy</a>
+        <a href="<?php echo esc_url( home_url( '/locked-shipping/' ) ); ?>" class="tg-header__link" target="_blank" rel="noopener">Shipping Policy</a>
       </nav>
     </div>
   </div>
@@ -395,9 +395,9 @@
       </div>
       <div>
         <div class="tg-footer__col-title">Legal</div>
-        <a href="<?php echo esc_url( home_url( '/terms-and-conditions/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
-        <a href="<?php echo esc_url( home_url( '/refund-policy/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Refund Policy</a>
-        <a href="<?php echo esc_url( home_url( '/shipping-policy/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Shipping Policy</a>
+        <a href="<?php echo esc_url( home_url( '/locked-terms/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="<?php echo esc_url( home_url( '/locked-refund/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Refund Policy</a>
+        <a href="<?php echo esc_url( home_url( '/locked-shipping/' ) ); ?>" class="tg-footer__link" target="_blank" rel="noopener">Shipping Policy</a>
       </div>
       <div>
         <div class="tg-footer__col-title">Compliance</div>
