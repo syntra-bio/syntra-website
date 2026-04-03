@@ -115,28 +115,33 @@ function syntra_bac_water_popup() {
     .bwp-visual {
         background: linear-gradient(150deg, #111e2e 0%, #1F3552 100%);
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        padding: 36px 16px; gap: 12px; position: relative; flex-shrink: 0;
+        padding: 20px 16px; gap: 8px; position: relative; flex-shrink: 0;
     }
-    @media(min-width:580px){ .bwp-visual { width: 280px; } }
+    @media(min-width:580px){ .bwp-visual { width: 280px; padding: 36px 16px; gap: 12px; } }
 
     .bwp-glow {
-        position: absolute; width: 220px; height: 220px;
+        position: absolute; width: 160px; height: 160px;
         background: radial-gradient(circle, rgba(47,183,179,0.25) 0%, transparent 70%);
         border-radius: 50%; pointer-events: none;
     }
+    @media(min-width:580px){ .bwp-glow { width: 220px; height: 220px; } }
+
     .bwp-free-tag {
-        position: absolute; top: 16px; left: 16px;
+        position: absolute; top: 12px; left: 12px;
         background: #2FB7B3; color: #fff;
         font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
         letter-spacing: .14em; text-transform: uppercase;
         padding: 4px 10px; border-radius: 100px;
     }
     .bwp-vial-img {
-        width: 100%; height: auto; max-width: none;
+        height: 140px; width: auto; max-width: 100%;
         object-fit: contain;
         animation: bwpFloat 4s ease-in-out infinite;
         position: relative; z-index: 1;
-        filter: drop-shadow(0 8px 32px rgba(47,183,179,0.35));
+        filter: drop-shadow(0 6px 20px rgba(47,183,179,0.35));
+    }
+    @media(min-width:580px){
+        .bwp-vial-img { width: 100%; height: auto; max-height: 340px; }
     }
     @keyframes bwpFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-11px)} }
 
