@@ -29,7 +29,7 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           </div>
           <div>
             <div class="hero__stat-label">Compounds</div>
-            <div class="hero__stat-value"><?php echo str_pad( count( $products ) ?: wp_count_posts('product')->publish, 2, '0', STR_PAD_LEFT ); ?></div>
+            <div class="hero__stat-value"><?php echo str_pad( wp_count_posts('product')->publish, 2, '0', STR_PAD_LEFT ); ?></div>
           </div>
           <div>
             <div class="hero__stat-label">Validation</div>
