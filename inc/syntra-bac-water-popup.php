@@ -117,7 +117,7 @@ function syntra_bac_water_popup() {
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         padding: 40px 28px; gap: 16px; position: relative; flex-shrink: 0;
     }
-    @media(min-width:580px){ .bwp-visual { width: 240px; } }
+    @media(min-width:580px){ .bwp-visual { width: 320px; } }
 
     .bwp-glow {
         position: absolute; width: 130px; height: 130px;
@@ -132,7 +132,7 @@ function syntra_bac_water_popup() {
         padding: 4px 10px; border-radius: 100px;
     }
     .bwp-vial-img {
-        width: 100%; max-width: 220px; height: auto;
+        width: 100%; max-width: 320px; height: auto;
         object-fit: contain;
         animation: bwpFloat 4s ease-in-out infinite;
         position: relative; z-index: 1;
