@@ -44,7 +44,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.7.0' );
+        [ 'syntra-fonts' ], '1.7.1' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
