@@ -44,7 +44,7 @@ function syntra_enqueue() {
     // Theme stylesheet
     wp_enqueue_style( 'syntra-style',
         get_template_directory_uri() . '/assets/css/syntra.css',
-        [ 'syntra-fonts' ], '1.7.2' );
+        [ 'syntra-fonts' ], '1.7.3' );
 
     // Theme JS
     wp_enqueue_script( 'syntra-js',
@@ -794,3 +794,25 @@ function syntra_free_shipping_tracker() {
     <?php
 }
 add_action( 'wp_footer', 'syntra_free_shipping_tracker' );
+
+/* ─────────────────────────────────────────────────────────
+   ONE-TIME PRODUCT ORDER FIX
+   GHK-Cu → top, Thymosin Alpha-1 → bottom
+───────────────────────────────────────────────────────── */
+add_action( 'admin_init', 'syntra_fix_product_order' );
+function syntra_fix_product_order() {
+    if ( get_transient( 'syntra_product_order_v1' ) ) return;
+    if ( ! class_exists( 'WooCommerce' ) ) return;
+
+    $products = wc_get_products( [ 'status' => 'publish', 'limit' => -1 ] );
+    foreach ( $products as $p ) {
+        $title = strtolower( $p->get_name() );
+        $slug  = $p->get_slug();
+        if ( strpos( $slug, 'ghk' ) !== false || strpos( $title, 'ghk-cu' ) !== false || strpos( $title, 'copper peptide' ) !== false ) {
+            wp_update_post( [ 'ID' => $p->get_id(), 'menu_order' => 2 ] );
+        } elseif ( strpos( $title, 'thymosin alpha' ) !== false || strpos( $slug, 'thymosin-alpha' ) !== false ) {
+            wp_update_post( [ 'ID' => $p->get_id(), 'menu_order' => 90 ] );
+        }
+    }
+    set_transient( 'syntra_product_order_v1', true );
+}

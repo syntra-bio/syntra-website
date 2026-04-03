@@ -44,8 +44,8 @@ $count    = count( $products );
 <div class="filter-bar" id="filterBar">
   <div class="filter-bar__inner container">
     <div class="filter-pills" role="group" aria-label="Filter by category">
-      <button class="filter-pill" data-filter="bestsellers" id="pillBestsellers">Best Sellers</button>
-      <button class="filter-pill active" data-filter="all" id="pillAll">All (<?php echo $count; ?>)</button>
+      <button class="filter-pill active" data-filter="bestsellers" id="pillBestsellers">Best Sellers</button>
+      <button class="filter-pill" data-filter="all" id="pillAll">All (<?php echo $count; ?>)</button>
       <button class="filter-pill" data-filter="peptide">Peptides</button>
       <button class="filter-pill" data-filter="neuropeptide">Neuropeptides</button>
       <button class="filter-pill" data-filter="small molecule">Small Molecules</button>
@@ -189,13 +189,9 @@ $count    = count( $products );
     sortCards(this.value);
   });
 
-  // Auto-activate from URL param ?sort=bestsellers
-  var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('sort') === 'bestsellers') {
-    pills.forEach(function (p) { p.classList.remove('active'); });
-    document.getElementById('pillBestsellers').classList.add('active');
-    applyFilter('bestsellers');
-  }
+  // Default: apply best sellers on load
+  applyFilter('bestsellers');
+  sortCards('bestsellers');
 })();
 </script>
 

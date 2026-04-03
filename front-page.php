@@ -2,7 +2,7 @@
 
 <?php
 $shop_url = class_exists( 'WooCommerce' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '#';
-$products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publish', 'limit' => 6 ] ) : [];
+$products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publish', 'limit' => 6, 'orderby' => 'popularity', 'order' => 'DESC' ] ) : [];
 ?>
 
 <!-- HERO -->
@@ -100,9 +100,9 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
 <section class="collection" id="products">
   <div class="container">
     <div class="collection__header">
-      <p class="mono-label">01 / Compound Library</p>
-      <h2>CURRENT RESEARCH CATALOGUE</h2>
-      <p style="margin-top:12px; max-width:560px;">All compounds are independently verified for purity, potency, and stability. Batch-specific certificates of analysis available for every order.</p>
+      <p class="mono-label">01 / Top Compounds</p>
+      <h2>BEST SELLERS</h2>
+      <p style="margin-top:12px; max-width:560px;">Our most ordered research compounds. Every batch independently verified for purity, potency, and stability.</p>
     </div>
 
     <div class="collection__grid">
@@ -186,7 +186,7 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
     </div>
 
     <div class="collection__cta">
-      <a href="<?php echo esc_url( $shop_url ); ?>" class="btn btn-secondary">View All 9 Compounds →</a>
+      <a href="<?php echo esc_url( $shop_url . '?sort=bestsellers' ); ?>" class="btn btn-secondary">View All Compounds →</a>
     </div>
   </div>
 </section>
