@@ -26,14 +26,9 @@ function syntra_bac_water_popup() {
             <div class="bwp-visual">
                 <div class="bwp-glow"></div>
                 <div class="bwp-free-tag">FREE</div>
-                <div class="bwp-vial">
-                    <div class="bwp-vial__cap"></div>
-                    <div class="bwp-vial__body">
-                        <div class="bwp-vial__brand">SYNTRA</div>
-                        <div class="bwp-vial__name">BACTERIO&shy;STATIC WATER</div>
-                        <div class="bwp-vial__vol">10ml &bull; Sterile &bull; Free</div>
-                    </div>
-                </div>
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/bac-water.png' ); ?>"
+                     alt="Bacteriostatic Water 10ml"
+                     class="bwp-vial-img">
                 <div class="bwp-price-wrap">
                     <span class="bwp-price-was" id="bwpPriceWas"></span>
                     <span class="bwp-price-free" id="bwpPriceFree" style="display:none;">FREE</span>
@@ -136,24 +131,14 @@ function syntra_bac_water_popup() {
         letter-spacing: .14em; text-transform: uppercase;
         padding: 4px 10px; border-radius: 100px;
     }
-    .bwp-vial {
-        width: 76px; height: 160px;
-        background: linear-gradient(160deg, rgba(151,174,200,0.12) 0%, rgba(20,42,68,0.85) 100%);
-        border: 1px solid rgba(151,174,200,0.22);
-        border-radius: 7px 7px 12px 12px;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        position: relative; animation: bwpFloat 4s ease-in-out infinite;
+    .bwp-vial-img {
+        width: 140px; height: auto;
+        object-fit: contain;
+        animation: bwpFloat 4s ease-in-out infinite;
+        position: relative; z-index: 1;
+        filter: drop-shadow(0 8px 24px rgba(47,183,179,0.25));
     }
     @keyframes bwpFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-11px)} }
-    .bwp-vial__cap {
-        width: 34px; height: 9px;
-        background: #0f1e30; border: 1px solid rgba(151,174,200,0.25);
-        border-radius: 3px; position: absolute; top: -6px;
-    }
-    .bwp-vial__body { text-align: center; padding: 0 6px; }
-    .bwp-vial__brand { font-family: 'IBM Plex Mono', monospace; font-size: 6px; letter-spacing: .2em; text-transform: uppercase; color: #2FB7B3; margin-bottom: 3px; }
-    .bwp-vial__name { font-family: 'IBM Plex Mono', monospace; font-size: 7px; font-weight: 500; color: #fff; letter-spacing: .05em; line-height: 1.4; }
-    .bwp-vial__vol { font-family: 'IBM Plex Mono', monospace; font-size: 6px; color: #97AEC8; margin-top: 5px; }
 
     .bwp-price-wrap { display: flex; align-items: center; gap: 8px; }
     .bwp-price-was { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: rgba(151,174,200,0.5); text-decoration: line-through; }
