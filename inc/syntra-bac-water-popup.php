@@ -31,7 +31,7 @@ function syntra_bac_water_popup() {
                     <div class="bwp-vial__body">
                         <div class="bwp-vial__brand">SYNTRA</div>
                         <div class="bwp-vial__name">BACTERIO&shy;STATIC WATER</div>
-                        <div class="bwp-vial__vol">10ml &bull; Sterile</div>
+                        <div class="bwp-vial__vol">10ml &bull; Sterile &bull; Free</div>
                     </div>
                 </div>
                 <div class="bwp-price-wrap">
@@ -46,7 +46,7 @@ function syntra_bac_water_popup() {
                 <!-- STATE 1: email form -->
                 <div id="bwpStateForm">
                     <div class="bwp-eyebrow">Limited Offer</div>
-                    <h2 class="bwp-title">Free Bacteriostatic<br>Water</h2>
+                    <h2 class="bwp-title">Free Bacteriostatic<br>Water (10ml)</h2>
                     <p class="bwp-sub">Enter your email. We send the code. You pay postage. That&rsquo;s it.</p>
                     <div class="bwp-input-row">
                         <input type="email" id="bwpEmail" class="bwp-input" placeholder="your@email.com" autocomplete="email">
@@ -378,7 +378,17 @@ function syntra_ajax_claim_bac_water() {
         wp_send_json_error( array( 'message' => 'Please enter a valid email.' ) );
     }
 
-    // ── 1. Add to FluentCRM ──────────────────────────────────────────────────
+    // ── 1. Check if email has already claimed ────────────────────────────────
+    $existing_orders = wc_get_orders( array(
+        'billing_email' => $email,
+        'limit'         => 1,
+        'coupon_code'   => 'freebacwater',
+    ) );
+    if ( ! empty( $existing_orders ) ) {
+        wp_send_json_error( array( 'message' => 'This email has already claimed a free vial.' ) );
+    }
+
+    // ── 2. Add to FluentCRM ──────────────────────────────────────────────────
     if ( function_exists( 'FluentCrmApi' ) ) {
         $contact_api = FluentCrmApi( 'contacts' );
 
@@ -406,7 +416,7 @@ function syntra_ajax_claim_bac_water() {
         $contact_api->createOrUpdate( $contact_data );
     }
 
-    // ── 2. Find bac water product ────────────────────────────────────────────
+    // ── 3. Find bac water product ────────────────────────────────────────────
     if ( ! class_exists( 'WooCommerce' ) ) {
         wp_send_json_error( array( 'message' => 'Store unavailable.' ) );
     }
@@ -427,7 +437,7 @@ function syntra_ajax_claim_bac_water() {
         wp_send_json_error( array( 'message' => 'Product not found.' ) );
     }
 
-    // ── 3. Add to cart + apply coupon ────────────────────────────────────────
+    // ── 4. Add to cart + apply coupon ────────────────────────────────────────
     WC()->cart->add_to_cart( $product_id, 1 );
     if ( ! WC()->cart->has_discount( 'FREEBACWATER' ) ) {
         WC()->cart->apply_coupon( 'FREEBACWATER' );
