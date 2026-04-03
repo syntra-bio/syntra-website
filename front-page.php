@@ -41,17 +41,30 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           </div>
         </div>
       </div>
-      <div class="hero__image-wrap fade-up">
-        <div class="hero__image-placeholder">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <rect x="30" y="8" width="20" height="35" rx="3" fill="#1F3552"/>
-            <rect x="20" y="43" width="40" height="30" rx="3" fill="#1F3552"/>
-            <line x1="30" y1="20" x2="50" y2="20" stroke="#2FB7B3" stroke-width="2"/>
-            <line x1="30" y1="28" x2="50" y2="28" stroke="#97AEC8" stroke-width="1.5"/>
-            <circle cx="40" cy="60" r="8" fill="none" stroke="#2FB7B3" stroke-width="1.5"/>
-          </svg>
-          <span>Research Compound</span>
-        </div>
+      <?php
+      $hero_img_path = get_template_directory() . '/assets/images/hero-shot.jpg';
+      $hero_img_url  = get_template_directory_uri() . '/assets/images/hero-shot.jpg';
+      $has_hero_img  = file_exists( $hero_img_path );
+      ?>
+      <div class="hero__image-wrap fade-up<?php echo $has_hero_img ? ' hero__image-wrap--ready' : ' hero__image-wrap--placeholder'; ?>">
+        <?php if ( $has_hero_img ) : ?>
+          <img src="<?php echo esc_url( $hero_img_url ); ?>"
+               alt="Syntra Research Compounds — Hero Shot"
+               class="hero__photo"
+               loading="eager"
+               width="600">
+        <?php else : ?>
+          <div class="hero__image-placeholder">
+            <svg width="64" height="64" viewBox="0 0 80 80" fill="none">
+              <rect x="30" y="8" width="20" height="35" rx="3" fill="#1F3552"/>
+              <rect x="20" y="43" width="40" height="30" rx="3" fill="#1F3552"/>
+              <line x1="30" y1="20" x2="50" y2="20" stroke="#2FB7B3" stroke-width="2"/>
+              <line x1="30" y1="28" x2="50" y2="28" stroke="#97AEC8" stroke-width="1.5"/>
+              <circle cx="40" cy="60" r="8" fill="none" stroke="#2FB7B3" stroke-width="1.5"/>
+            </svg>
+            <span>Hero Shot Coming Soon</span>
+          </div>
+        <?php endif; ?>
         <div class="hero__verified-badge">
           <span class="verified-badge">99%+ Purity · HPLC Verified</span>
         </div>
@@ -68,9 +81,11 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
         <svg class="trust-bar__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <path d="M14 3v8l4 4M14 3A11 11 0 1 0 25 14"/><circle cx="14" cy="14" r="2" fill="currentColor" stroke="none"/>
         </svg>
-        <div class="trust-bar__label">Purity Standard</div>
-        <div class="trust-bar__value">99%+ Guaranteed</div>
-        <a href="#coa" class="trust-bar__link">View COA Library</a>
+        <div class="trust-bar__text">
+          <div class="trust-bar__label">Purity Standard</div>
+          <div class="trust-bar__value">99%+ Guaranteed</div>
+          <a href="#coa" class="trust-bar__link">View COA Library</a>
+        </div>
       </div>
       <div class="trust-bar__item">
         <svg class="trust-bar__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
@@ -78,9 +93,11 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           <path d="M14 8v6l3 3M9 4l2 2M19 4l-2 2"/>
           <path d="M5 20c0-2 2-3 4-2s3 1 5 0 3-1 5 0 4 0 4 2"/>
         </svg>
-        <div class="trust-bar__label">Cold-Chain Optimised</div>
-        <div class="trust-bar__value">2–8°C Validated Shipping</div>
-        <div class="trust-bar__sub">Lyophilised &amp; sealed</div>
+        <div class="trust-bar__text">
+          <div class="trust-bar__label">Cold-Chain Optimised</div>
+          <div class="trust-bar__value">2–8°C Validated Shipping</div>
+          <div class="trust-bar__sub">Lyophilised &amp; sealed</div>
+        </div>
       </div>
       <div class="trust-bar__item">
         <svg class="trust-bar__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
@@ -88,9 +105,11 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           <path d="M11 8v5l-5 9h16l-5-9V8"/>
           <circle cx="14" cy="18" r="2" fill="currentColor" stroke="none"/>
         </svg>
-        <div class="trust-bar__label">Third-Party Validated</div>
-        <div class="trust-bar__value">HPLC + Mass Spectrometry</div>
-        <div class="trust-bar__sub">Independent laboratory testing</div>
+        <div class="trust-bar__text">
+          <div class="trust-bar__label">Third-Party Validated</div>
+          <div class="trust-bar__value">HPLC + Mass Spectrometry</div>
+          <div class="trust-bar__sub">Independent laboratory testing</div>
+        </div>
       </div>
     </div>
   </div>
