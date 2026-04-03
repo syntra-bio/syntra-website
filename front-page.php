@@ -41,30 +41,19 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
           </div>
         </div>
       </div>
-      <?php
-      $hero_img_path = get_template_directory() . '/assets/images/hero-shot.jpg';
-      $hero_img_url  = get_template_directory_uri() . '/assets/images/hero-shot.jpg';
-      $has_hero_img  = file_exists( $hero_img_path );
-      ?>
-      <div class="hero__image-wrap fade-up<?php echo $has_hero_img ? ' hero__image-wrap--ready' : ' hero__image-wrap--placeholder'; ?>">
-        <?php if ( $has_hero_img ) : ?>
-          <img src="<?php echo esc_url( $hero_img_url ); ?>"
-               alt="Syntra Research Compounds — Hero Shot"
-               class="hero__photo"
-               loading="eager"
-               width="600">
-        <?php else : ?>
-          <div class="hero__image-placeholder">
-            <svg width="64" height="64" viewBox="0 0 80 80" fill="none">
-              <rect x="30" y="8" width="20" height="35" rx="3" fill="#1F3552"/>
-              <rect x="20" y="43" width="40" height="30" rx="3" fill="#1F3552"/>
-              <line x1="30" y1="20" x2="50" y2="20" stroke="#2FB7B3" stroke-width="2"/>
-              <line x1="30" y1="28" x2="50" y2="28" stroke="#97AEC8" stroke-width="1.5"/>
-              <circle cx="40" cy="60" r="8" fill="none" stroke="#2FB7B3" stroke-width="1.5"/>
-            </svg>
-            <span>Hero Shot Coming Soon</span>
+      <?php $vials_uri = get_template_directory_uri() . '/assets/images/'; ?>
+      <div class="hero__image-wrap hero__image-wrap--ready fade-up">
+        <div class="hero-vials">
+          <div class="hero-vial hero-vial--ghk">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-ghk.png' ); ?>" alt="GHK-CU 50mg" loading="eager">
           </div>
-        <?php endif; ?>
+          <div class="hero-vial hero-vial--nad">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-nad.png' ); ?>" alt="NAD+ 500mg" loading="eager">
+          </div>
+          <div class="hero-vial hero-vial--bac">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-bac.png' ); ?>" alt="Bacteriostatic Water 10ml" loading="eager">
+          </div>
+        </div>
         <div class="hero__verified-badge">
           <span class="verified-badge">99%+ Purity · HPLC Verified</span>
         </div>
