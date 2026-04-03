@@ -379,12 +379,8 @@ function syntra_ajax_claim_bac_water() {
     }
 
     // ── 1. Check if email has already claimed ────────────────────────────────
-    $existing_orders = wc_get_orders( array(
-        'billing_email' => $email,
-        'limit'         => 1,
-        'coupon_code'   => 'freebacwater',
-    ) );
-    if ( ! empty( $existing_orders ) ) {
+    $claimed = get_option( 'syntra_bac_claimed_emails', array() );
+    if ( in_array( strtolower( $email ), array_map( 'strtolower', $claimed ), true ) ) {
         wp_send_json_error( array( 'message' => 'This email has already claimed a free vial.' ) );
     }
 
@@ -443,6 +439,10 @@ function syntra_ajax_claim_bac_water() {
         WC()->cart->apply_coupon( 'FREEBACWATER' );
     }
     WC()->cart->calculate_totals();
+
+    // Record email as claimed
+    $claimed[] = strtolower( $email );
+    update_option( 'syntra_bac_claimed_emails', $claimed );
 
     wp_send_json_success( array(
         'price'    => number_format( (float) $price, 2 ),

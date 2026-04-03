@@ -19,7 +19,7 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
         </h1>
         <p class="hero__subline fade-up">Clinically aligned. Rigorously verified.</p>
         <div class="hero__ctas fade-up">
-          <a href="<?php echo esc_url( $shop_url ); ?>" class="btn btn-primary btn-lg">Explore Compounds</a>
+          <a href="<?php echo esc_url( $shop_url . '?sort=bestsellers' ); ?>" class="btn btn-primary btn-lg">Top Compounds</a>
           <a href="#coa" class="btn btn-secondary btn-lg" style="border-color:rgba(151,174,200,0.4); color:var(--pkg-blue);">View Batch COAs</a>
         </div>
         <div class="hero__stats fade-up">

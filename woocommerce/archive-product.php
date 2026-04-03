@@ -2,6 +2,10 @@
 
 <?php
 $products = wc_get_products( [ 'status' => 'publish', 'limit' => -1, 'orderby' => 'menu_order', 'order' => 'ASC' ] );
+// Attach total_sales to each product for JS sorting
+foreach ( $products as $p ) {
+    $p->syntra_sales = (int) get_post_meta( $p->get_id(), 'total_sales', true );
+}
 $count    = count( $products );
 ?>
 
@@ -40,17 +44,21 @@ $count    = count( $products );
 <div class="filter-bar" id="filterBar">
   <div class="filter-bar__inner container">
     <div class="filter-pills" role="group" aria-label="Filter by category">
-      <button class="filter-pill active" data-filter="all">All (<?php echo $count; ?>)</button>
+      <button class="filter-pill" data-filter="bestsellers" id="pillBestsellers">Best Sellers</button>
+      <button class="filter-pill active" data-filter="all" id="pillAll">All (<?php echo $count; ?>)</button>
       <button class="filter-pill" data-filter="peptide">Peptides</button>
-      <button class="filter-pill" data-filter="nootropic">Nootropics</button>
-      <button class="filter-pill" data-filter="longevity">Longevity</button>
+      <button class="filter-pill" data-filter="neuropeptide">Neuropeptides</button>
+      <button class="filter-pill" data-filter="small molecule">Small Molecules</button>
+      <button class="filter-pill" data-filter="stack">Stacks</button>
+      <button class="filter-pill" data-filter="coenzyme">Coenzymes</button>
     </div>
     <select class="sort-select" id="sortSelect" aria-label="Sort products">
-      <option value="purity-desc">Sort: Purity ↓</option>
-      <option value="purity-asc">Sort: Purity ↑</option>
+      <option value="default">Sort: Default</option>
+      <option value="bestsellers">Sort: Best Sellers</option>
       <option value="price-asc">Sort: Price ↑</option>
       <option value="price-desc">Sort: Price ↓</option>
       <option value="name-asc">Sort: Name A–Z</option>
+      <option value="purity-desc">Sort: Purity ↓</option>
     </select>
   </div>
 </div>
@@ -85,7 +93,8 @@ $count    = count( $products );
          data-category="<?php echo esc_attr( $category ); ?>"
          data-purity="<?php echo esc_attr( $purity ); ?>"
          data-price="<?php echo esc_attr( $price ); ?>"
-         data-name="<?php echo esc_attr( $product->get_name() ); ?>">
+         data-name="<?php echo esc_attr( $product->get_name() ); ?>"
+         data-sales="<?php echo esc_attr( isset($product->syntra_sales) ? $product->syntra_sales : 0 ); ?>">
         <div class="product-card__img">
           <?php if ( $product->get_image_id() ) : ?>
             <?php echo $product->get_image( 'woocommerce_thumbnail' ); ?>
@@ -127,21 +136,45 @@ $count    = count( $products );
 
 <script>
 (function () {
-  var pills   = document.querySelectorAll('.filter-pill');
-  var cards   = document.querySelectorAll('.product-card[data-category]');
-  var countEl = document.getElementById('catalogueCount');
-  var emptyEl = document.getElementById('emptyState');
-  var grid    = document.getElementById('productGrid');
+  var pills      = document.querySelectorAll('.filter-pill');
+  var cards      = document.querySelectorAll('.product-card[data-category]');
+  var countEl    = document.getElementById('catalogueCount');
+  var emptyEl    = document.getElementById('emptyState');
+  var grid       = document.getElementById('productGrid');
+  var sortSelect = document.getElementById('sortSelect');
+
+  // Store original DOM order
+  var originalOrder = Array.from(cards);
+
+  function sortCards(val) {
+    var cardArray = Array.from(cards);
+    cardArray.sort(function (a, b) {
+      if (val === 'bestsellers') return parseInt(b.dataset.sales||0) - parseInt(a.dataset.sales||0);
+      if (val === 'price-asc')   return parseFloat(a.dataset.price)  - parseFloat(b.dataset.price);
+      if (val === 'price-desc')  return parseFloat(b.dataset.price)  - parseFloat(a.dataset.price);
+      if (val === 'name-asc')    return a.dataset.name.localeCompare(b.dataset.name);
+      if (val === 'purity-desc') return parseFloat(b.dataset.purity||0) - parseFloat(a.dataset.purity||0);
+      // default: restore original order
+      return originalOrder.indexOf(a) - originalOrder.indexOf(b);
+    });
+    cardArray.forEach(function (card) { grid.appendChild(card); });
+    grid.appendChild(emptyEl);
+  }
 
   function applyFilter(filter) {
     var visible = 0;
     cards.forEach(function (card) {
-      var match = filter === 'all' || card.dataset.category === filter;
+      var match = filter === 'all' || filter === 'bestsellers' || card.dataset.category === filter;
       card.style.display = match ? '' : 'none';
       if (match) visible++;
     });
     countEl.textContent = 'Showing ' + visible + ' compound' + (visible !== 1 ? 's' : '');
     emptyEl.classList.toggle('visible', visible === 0);
+    // Best sellers pill also triggers sort
+    if (filter === 'bestsellers') {
+      sortSelect.value = 'bestsellers';
+      sortCards('bestsellers');
+    }
   }
 
   pills.forEach(function (pill) {
@@ -152,20 +185,17 @@ $count    = count( $products );
     });
   });
 
-  document.getElementById('sortSelect').addEventListener('change', function () {
-    var val       = this.value;
-    var cardArray = Array.from(cards);
-    cardArray.sort(function (a, b) {
-      if (val === 'purity-desc') return parseFloat(b.dataset.purity) - parseFloat(a.dataset.purity);
-      if (val === 'purity-asc')  return parseFloat(a.dataset.purity) - parseFloat(b.dataset.purity);
-      if (val === 'price-asc')   return parseFloat(a.dataset.price)  - parseFloat(b.dataset.price);
-      if (val === 'price-desc')  return parseFloat(b.dataset.price)  - parseFloat(a.dataset.price);
-      if (val === 'name-asc')    return a.dataset.name.localeCompare(b.dataset.name);
-      return 0;
-    });
-    cardArray.forEach(function (card) { grid.appendChild(card); });
-    grid.appendChild(emptyEl);
+  sortSelect.addEventListener('change', function () {
+    sortCards(this.value);
   });
+
+  // Auto-activate from URL param ?sort=bestsellers
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('sort') === 'bestsellers') {
+    pills.forEach(function (p) { p.classList.remove('active'); });
+    document.getElementById('pillBestsellers').classList.add('active');
+    applyFilter('bestsellers');
+  }
 })();
 </script>
 
