@@ -96,7 +96,7 @@ function syntra_bac_water_popup() {
         background: #162840;
         border: 1px solid rgba(151,174,200,0.18);
         border-radius: 18px;
-        width: 100%; max-width: 640px;
+        width: 100%; max-width: 800px;
         display: flex; flex-direction: column;
         overflow: hidden; position: relative;
         animation: bwpIn 0.38s cubic-bezier(0.22,1,0.36,1);
@@ -115,12 +115,12 @@ function syntra_bac_water_popup() {
     .bwp-visual {
         background: linear-gradient(150deg, #111e2e 0%, #1F3552 100%);
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        padding: 40px 28px; gap: 16px; position: relative; flex-shrink: 0;
+        padding: 40px 20px; gap: 16px; position: relative; flex-shrink: 0;
     }
-    @media(min-width:580px){ .bwp-visual { width: 320px; } }
+    @media(min-width:580px){ .bwp-visual { width: 340px; } }
 
     .bwp-glow {
-        position: absolute; width: 130px; height: 130px;
+        position: absolute; width: 200px; height: 200px;
         background: radial-gradient(circle, rgba(47,183,179,0.22) 0%, transparent 70%);
         border-radius: 50%; pointer-events: none;
     }
@@ -132,11 +132,11 @@ function syntra_bac_water_popup() {
         padding: 4px 10px; border-radius: 100px;
     }
     .bwp-vial-img {
-        width: 100%; max-width: 320px; height: auto;
+        width: 100%; max-width: 300px; height: auto;
         object-fit: contain;
         animation: bwpFloat 4s ease-in-out infinite;
         position: relative; z-index: 1;
-        filter: drop-shadow(0 8px 24px rgba(47,183,179,0.25));
+        filter: drop-shadow(0 8px 32px rgba(47,183,179,0.35));
     }
     @keyframes bwpFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-11px)} }
 
