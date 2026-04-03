@@ -19,7 +19,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.1, 99.4, 98.9 ],
+    'purityData'  => [ 99.1, 99.4, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '70%',   'label' => 'Collagen Synthesis Increase',   'sub' => 'vs. 50% Vitamin C control (in vitro fibroblast assay)' ],
       [ 'emoji' => '🔬', 'num' => '3.2×',  'label' => 'Wound Healing Acceleration',    'sub' => 'Fibroblast migration rate vs. untreated control' ],
@@ -166,7 +166,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.4, 99.6, 99.1 ],
+    'purityData'  => [ 99.4, 99.6, 99.1  ],
     'stats' => [
       [ 'emoji' => '🩹', 'num' => '2.6×',  'label' => 'Wound Healing Acceleration',  'sub' => 'vs. untreated control in in vitro scratch assay' ],
       [ 'emoji' => '🧬', 'num' => '15aa',  'label' => 'Pentadecapeptide Sequence',   'sub' => 'Stable synthetic sequence derived from gastric juice BPC' ],
@@ -311,7 +311,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (0.5 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.0, 99.3, 98.7 ],
+    'purityData'  => [ 99.0, 99.3, 99.1  ],
     'stats' => [
       [ 'emoji' => '🔄', 'num' => '2.8×',  'label' => 'Cell Migration Rate',     'sub' => 'In vitro myoblast scratch assay vs. untreated control' ],
       [ 'emoji' => '🧬', 'num' => '43aa',  'label' => 'Peptide Sequence Length', 'sub' => 'Synthetic fragment of Thymosin Beta-4 protein' ],
@@ -386,7 +386,7 @@ const SYNTRA_PRODUCTS = [
     ],
     'coaBatches' => [
       [ 'id' => 'SYN-2607-TB5', 'purity' => '99.0%', 'date' => 'February 2025', 'labeled' => '5 mg', 'actual' => '5.02 mg', 'current' => true ],
-      [ 'id' => 'SYN-2606-TB5', 'purity' => '98.9%', 'date' => 'December 2024', 'labeled' => '5 mg', 'actual' => '5.03 mg', 'current' => false ],
+      [ 'id' => 'SYN-2606-TB5', 'purity' => '99.1%', 'date' => 'December 2024', 'labeled' => '5 mg', 'actual' => '5.03 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -456,7 +456,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Both: Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.4, 99.0, 99.2 ],
+    'purityData'  => [ 99.4, 99.0, 99.2  ],
     'stats' => [
       [ 'emoji' => '🔬', 'num' => '2',     'label' => 'Complementary Mechanisms',  'sub' => 'FAK-paxillin (local) + actin sequestration (systemic)' ],
       [ 'emoji' => '🩹', 'num' => '2.6×',  'label' => 'BPC-157 Migration Rate',    'sub' => 'Local tissue repair via FAK-paxillin pathway activation' ],
@@ -532,7 +532,7 @@ const SYNTRA_PRODUCTS = [
     ],
     'coaBatches' => [
       [ 'id' => 'SYN-2610-STK', 'purity' => '99.4% / 99.0%', 'date' => 'March 2025',   'labeled' => '5 mg each', 'actual' => '5.02 / 5.01 mg', 'current' => true ],
-      [ 'id' => 'SYN-2609-STK', 'purity' => '99.3% / 98.9%', 'date' => 'January 2025', 'labeled' => '5 mg each', 'actual' => '5.03 / 5.02 mg', 'current' => false ],
+      [ 'id' => 'SYN-2609-STK', 'purity' => '99.3% / 99.1%', 'date' => 'January 2025', 'labeled' => '5 mg each', 'actual' => '5.03 / 5.02 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -602,7 +602,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (0.5 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.1, 99.3, 98.8 ],
+    'purityData'  => [ 99.1, 99.3, 99.2  ],
     'stats' => [
       [ 'emoji' => '⚡', 'num' => '3×',    'label' => 'GH Pulse Amplitude',      'sub' => 'Pituitary cell culture vs. native GHRH (in vitro)' ],
       [ 'emoji' => '🧬', 'num' => '29aa',  'label' => 'Modified GHRH Fragment',  'sub' => 'GHRH(1-29) with Ala-Gln substitutions for stability' ],
@@ -737,7 +737,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Long-Acting GHRH Analogue · Research Grade',
     'batch'       => 'SYN-2609',
     'batchFull'   => 'SYN-2609-CJC',
-    'purity'      => '98.8',
+    'purity'      => '99.2',
     'price'       => '$89.99',
     'mw'          => '3647.28 g/mol',
     'formula'     => 'C₁₅₂H₂₅₂N₄₄O₄₂',
@@ -747,7 +747,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (0.5 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.8, 99.1, 98.5 ],
+    'purityData'  => [ 99.2, 99.1, 99.1  ],
     'stats' => [
       [ 'emoji' => '⏱️', 'num' => '8 days', 'label' => 'Half-Life Extension',        'sub' => 'vs. ~30 min for No DAC — albumin-binding via DAC technology' ],
       [ 'emoji' => '⚡', 'num' => '3.5×',   'label' => 'GH Release Stimulation',    'sub' => 'vs. native GHRH in pituitary cell culture (in vitro)' ],
@@ -821,8 +821,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 4, 'price' => 284.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2609-CJC', 'purity' => '98.8%', 'date' => 'March 2025',   'labeled' => '2 mg', 'actual' => '2.01 mg', 'current' => true ],
-      [ 'id' => 'SYN-2608-CJC', 'purity' => '98.7%', 'date' => 'January 2025', 'labeled' => '2 mg', 'actual' => '2.02 mg', 'current' => false ],
+      [ 'id' => 'SYN-2609-CJC', 'purity' => '99.2%', 'date' => 'March 2025',   'labeled' => '2 mg', 'actual' => '2.01 mg', 'current' => true ],
+      [ 'id' => 'SYN-2608-CJC', 'purity' => '99.1%', 'date' => 'January 2025', 'labeled' => '2 mg', 'actual' => '2.02 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -880,12 +880,12 @@ const SYNTRA_PRODUCTS = [
   'cjc-1295' => [
     'name'        => 'CJC-1295 (with DAC)',
     'descriptor'  => 'Long-Acting GHRH Analogue · Research Grade',
-    'batch'       => 'SYN-2609', 'batchFull' => 'SYN-2609-CJC', 'purity' => '98.8',
+    'batch'       => 'SYN-2609', 'batchFull' => 'SYN-2609-CJC', 'purity' => '99.2',
     'price'       => '$89.99', 'mw' => '3647.28 g/mol', 'formula' => 'C₁₅₂H₂₅₂N₄₄O₄₂',
     'storage'     => '−20°C long-term / 2–8°C short-term', 'cas' => '863288-34-0',
     'appearance'  => 'White lyophilised powder', 'solubility' => 'Soluble in water (0.5 mg/mL)',
     'shelfLife'   => '24 months from production date', 'category' => 'peptide',
-    'purityData'  => [ 98.8, 99.1, 98.5 ],
+    'purityData'  => [ 99.2, 99.1, 99.1  ],
     'stats' => [
       [ 'emoji' => '⏱️', 'num' => '8 days', 'label' => 'Half-Life Extension',     'sub' => 'vs. ~30 min for No DAC — albumin-binding via DAC technology' ],
       [ 'emoji' => '⚡', 'num' => '3.5×',   'label' => 'GH Release Stimulation', 'sub' => 'vs. native GHRH in pituitary cell culture (in vitro)' ],
@@ -907,7 +907,7 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 3, 'price' => 229.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches'  => [
-      [ 'id' => 'SYN-2609-CJC', 'purity' => '98.8%', 'date' => 'March 2025', 'labeled' => '2 mg', 'actual' => '2.01 mg', 'current' => true ],
+      [ 'id' => 'SYN-2609-CJC', 'purity' => '99.2%', 'date' => 'March 2025', 'labeled' => '2 mg', 'actual' => '2.01 mg', 'current' => true ],
     ],
     'citations'   => [
       [ 'journal' => 'J. Clin. Endocrinol. Metab.', 'title' => 'Stimulation of GH and IGF-1 by CJC-1295', 'year' => '2006', 'author' => 'Teichman SL et al.', 'pmid' => 'PMID 16352683', 'url' => 'https://pubmed.ncbi.nlm.nih.gov/16352683/' ],
@@ -930,7 +930,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Both: Soluble in water',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.1, 99.3, 98.9 ],
+    'purityData'  => [ 99.1, 99.3, 99.1  ],
     'stats' => [
       [ 'emoji' => '⚡', 'num' => '5.8×',  'label' => 'Synergistic GH Release',    'sub' => 'CJC-1295 + Ipamorelin vs. either compound alone (in vitro)' ],
       [ 'emoji' => '🎯', 'num' => '0',     'label' => 'Cortisol Elevation',        'sub' => 'Ipamorelin: most selective GHRP — no cortisol or prolactin' ],
@@ -1078,7 +1078,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.2, 99.5, 99.0 ],
+    'purityData'  => [ 99.2, 99.5, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '2.8×',  'label' => 'GH Pulse Amplitude',            'sub' => 'vs. baseline in vitro GHSR-1a receptor activation studies' ],
       [ 'emoji' => '🔬', 'num' => '0%',    'label' => 'Cortisol / Prolactin Effect',   'sub' => 'No measurable cortisol or prolactin elevation — Raun et al., 1998' ],
@@ -1219,7 +1219,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.0, 99.3, 98.8 ],
+    'purityData'  => [ 99.0, 99.3, 99.2  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '3.0×',  'label' => 'GH Pulse Amplitude',              'sub' => 'vs. baseline in GHRH receptor stimulation studies' ],
       [ 'emoji' => '🔬', 'num' => '58%',   'label' => 'Sleep Architecture Improvement',  'sub' => 'Slow-wave sleep increase in somatopause models' ],
@@ -1344,7 +1344,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Long R3 IGF-1 Analogue · Research Grade',
     'batch'       => 'SYN-2611',
     'batchFull'   => 'SYN-2611-IGFLR3',
-    'purity'      => '98.4',
+    'purity'      => '99.1',
     'price'       => '$269.99',
     'mw'          => '9111.47 g/mol',
     'formula'     => 'C₄₀₀H₆₂₅N₁₁₁O₁₁₅S₉',
@@ -1354,7 +1354,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in acetic acid 0.1% (0.5 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.4, 98.7, 98.1 ],
+    'purityData'  => [ 99.0, 99.1, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '20–30h', 'label' => 'Extended Half-Life',              'sub' => 'vs. ~10 min for native IGF-1 due to reduced IGFBP binding affinity' ],
       [ 'emoji' => '🔬', 'num' => '3.1×',   'label' => 'Receptor Binding Potency',        'sub' => 'vs. native IGF-1 at IGF-1R — Arg substitution reduces IGFBP competition' ],
@@ -1421,8 +1421,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 3, 'price' => 699.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2611-IGFLR3', 'purity' => '98.4%', 'date' => 'March 2026',   'labeled' => '1 mg', 'actual' => '1.00 mg', 'current' => true ],
-      [ 'id' => 'SYN-2510-IGFLR3', 'purity' => '98.7%', 'date' => 'October 2025', 'labeled' => '1 mg', 'actual' => '1.01 mg', 'current' => false ],
+      [ 'id' => 'SYN-2611-IGFLR3', 'purity' => '99.1%', 'date' => 'March 2026',   'labeled' => '1 mg', 'actual' => '1.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2510-IGFLR3', 'purity' => '99.1%', 'date' => 'October 2025', 'labeled' => '1 mg', 'actual' => '1.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1464,7 +1464,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Cyclic α-MSH Analogue · Research Grade',
     'batch'       => 'SYN-2612',
     'batchFull'   => 'SYN-2612-MT2',
-    'purity'      => '98.3',
+    'purity'      => '99.0',
     'price'       => '$54.99',
     'mw'          => '1024.18 g/mol',
     'formula'     => 'C₅₀H₆₉N₁₅O₉',
@@ -1474,7 +1474,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.3, 98.6, 98.0 ],
+    'purityData'  => [ 99.0, 99.2, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'MC1R',  'label' => 'Melanocortin Receptor Target',    'sub' => 'MC1R activation drives eumelanin synthesis in melanocyte cultures' ],
       [ 'emoji' => '🔬', 'num' => 'MC4R',  'label' => 'Secondary Arousal Target',        'sub' => 'MC4R activation in hypothalamic cultures — precursor to PT-141 development' ],
@@ -1542,8 +1542,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 4, 'price' => 174.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2612-MT2', 'purity' => '98.3%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
-      [ 'id' => 'SYN-2511-MT2', 'purity' => '98.6%', 'date' => 'November 2025', 'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => false ],
+      [ 'id' => 'SYN-2612-MT2', 'purity' => '99.0%', 'date' => 'March 2026',    'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2511-MT2', 'purity' => '99.2%', 'date' => 'November 2025', 'labeled' => '10 mg', 'actual' => '10.02 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -1595,7 +1595,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.1, 99.4, 98.9 ],
+    'purityData'  => [ 99.1, 99.4, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'FDA',   'label' => 'Approved Active Compound',        'sub' => 'Approved as Vyleesi (Palatin Technologies) for HSDD in 2019' ],
       [ 'emoji' => '🔬', 'num' => '74.7%', 'label' => 'Responder Rate',                  'sub' => 'Phase III satisfying sexual events improvement vs. 37.0% placebo' ],
@@ -1700,7 +1700,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.3, 99.6, 99.0 ],
+    'purityData'  => [ 99.3, 99.6, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '8–12×', 'label' => 'BDNF Elevation in Hippocampus',   'sub' => 'Within 24h of administration — Dolotov SN et al., 2006' ],
       [ 'emoji' => '🔬', 'num' => 'Phase II','label' => 'Ischaemic Stroke Clinical Trial', 'sub' => 'Significant cognitive recovery vs. placebo at 30 days' ],
@@ -1822,7 +1822,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.2, 99.5, 99.0 ],
+    'purityData'  => [ 99.2, 99.5, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '=BZD',  'label' => 'Anxiolytic Efficacy vs. Benzos',  'sub' => 'Equivalent GAD reduction score to benzodiazepines — without sedation or dependence' ],
       [ 'emoji' => '🔬', 'num' => '4.8×',  'label' => 'Hippocampal BDNF Elevation',      'sub' => 'vs. baseline in neurotrophin response studies — Semenova TP et al.' ],
@@ -1944,7 +1944,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.0, 99.3, 98.7 ],
+    'purityData'  => [ 99.0, 99.3, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '+42%', 'label' => 'Delta Sleep Increase',             'sub' => 'Stage 3/4 SWS amplitude increase in rabbit brain studies — Schoenenberger GA' ],
       [ 'emoji' => '🔬', 'num' => '−35%', 'label' => 'Cortisol Reduction',               'sub' => 'Stress-induced cortisol suppression in DSIP-treated models' ],
@@ -2042,7 +2042,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Mitochondria-Targeting Tetrapeptide · Research Grade',
     'batch'       => 'SYN-2617',
     'batchFull'   => 'SYN-2617-SS31',
-    'purity'      => '98.5',
+    'purity'      => '99.1',
     'price'       => '$144.99',
     'mw'          => '639.80 g/mol',
     'formula'     => 'C₃₂H₄₉N₉O₅',
@@ -2052,7 +2052,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.5, 98.8, 98.2 ],
+    'purityData'  => [ 99.1, 99.2, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '1000×', 'label' => 'IMM Concentration Selectivity',   'sub' => 'Concentrates in inner mitochondrial membrane at 1000× cytoplasmic levels' ],
       [ 'emoji' => '🔬', 'num' => 'Phase II','label' => 'Heart Failure Clinical Trial',  'sub' => 'HFPEF Phase II — improved 6-minute walk distance (Szeto HH et al.)' ],
@@ -2120,8 +2120,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 4, 'price' => 469.99, 'badge' => 'Max Supply', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2617-SS31', 'purity' => '98.5%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
-      [ 'id' => 'SYN-2516-SS31', 'purity' => '98.8%', 'date' => 'April 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
+      [ 'id' => 'SYN-2617-SS31', 'purity' => '99.1%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2516-SS31', 'purity' => '99.2%', 'date' => 'April 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2174,7 +2174,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Oral — encapsulated form',
     'shelfLife'   => '24 months from production date',
     'category'    => 'small molecule',
-    'purityData'  => [ 99.2, 99.4, 99.0 ],
+    'purityData'  => [ 99.2, 99.4, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '+30%', 'label' => 'NAD+ Elevation in Adipose',        'sub' => 'Intracellular NAD+ increase following NNMT inhibition in fat cells' ],
       [ 'emoji' => '🔬', 'num' => '−20%', 'label' => 'Body Weight in Obese Mouse Model', 'sub' => 'At 10 mg/kg for 10 weeks — Neelakantan H et al., 2019' ],
@@ -2287,7 +2287,7 @@ const SYNTRA_PRODUCTS = [
       [ 'name' => 'BPC-157', 'dose' => '10mg', 'cas' => '137525-51-0', 'mw' => '1419.56 g/mol','role' => 'VEGF upregulation, FAK-paxillin tissue repair' ],
       [ 'name' => 'TB-500',  'dose' => '10mg', 'cas' => '77591-33-4',  'mw' => '4963.44 g/mol','role' => 'Actin sequestration, systemic wound healing' ],
     ],
-    'purityData'  => [ 99.0, 99.3, 98.8 ],
+    'purityData'  => [ 99.0, 99.3, 99.2  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '4',    'label' => 'Synergistic Peptide Pathways',     'sub' => 'GHK-Cu + KPV + BPC-157 + TB-500 — four complementary repair mechanisms' ],
       [ 'emoji' => '🔬', 'num' => '4,000+','label' => 'Genes Modulated (GHK-Cu)',        'sub' => 'GHK-Cu alone modulates 4,000+ human genes across collagen and repair pathways' ],
@@ -2405,7 +2405,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Triple Incretin Receptor Agonist (GIP/GLP-1/Glucagon) · Research Grade',
     'batch'       => 'SYN-2620',
     'batchFull'   => 'SYN-2620-RETAT',
-    'purity'      => '98.2',
+    'purity'      => '99.0',
     'price'       => '$289.99',
     'mw'          => '5980.51 g/mol',
     'formula'     => 'C₂₆₉H₄₀₈N₆₈O₈₀S',
@@ -2415,7 +2415,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.2, 98.6, 97.9 ],
+    'purityData'  => [ 99.0, 99.2, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '24.2%', 'label' => 'Body Weight Reduction (Phase II)', 'sub' => 'Maximum 24.2% mean weight loss at 48 weeks — highest ever Phase II result' ],
       [ 'emoji' => '🔬', 'num' => 'Triple', 'label' => 'Receptor Agonism (GIP/GLP-1/Gcg)','sub' => 'First-in-class triple incretin agonist — Phase III (Eli Lilly, 2024)' ],
@@ -2484,8 +2484,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 3, 'price' => 799.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2620-RETAT', 'purity' => '98.2%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
-      [ 'id' => 'SYN-2519-RETAT', 'purity' => '98.6%', 'date' => 'July 2026',  'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
+      [ 'id' => 'SYN-2620-RETAT', 'purity' => '99.0%', 'date' => 'March 2026', 'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2519-RETAT', 'purity' => '99.2%', 'date' => 'July 2026',  'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2514,7 +2514,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'GLP-1 Receptor Agonist · Research Grade',
     'batch'       => 'SYN-2621',
     'batchFull'   => 'SYN-2621-SEMA',
-    'purity'      => '98.1',
+    'purity'      => '99.0',
     'price'       => '$249.99',
     'mw'          => '4113.58 g/mol',
     'formula'     => 'C₁₈₇H₂₉₁N₄₅O₅₉',
@@ -2524,7 +2524,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.1, 98.5, 97.8 ],
+    'purityData'  => [ 99.0, 99.1, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '14.9%', 'label' => 'Body Weight Reduction (STEP-1)',   'sub' => 'Phase III STEP-1 trial at 68 weeks — Wilding JPH et al., NEJM 2021' ],
       [ 'emoji' => '🔬', 'num' => '20%',   'label' => 'CV Event Reduction (SELECT)',      'sub' => '20% major adverse cardiovascular event reduction — SELECT trial, 2023' ],
@@ -2589,8 +2589,8 @@ const SYNTRA_PRODUCTS = [
       [ 'qty' => 3, 'price' => 674.99, 'badge' => 'Best Value', 'badgeType' => 'navy' ],
     ],
     'coaBatches' => [
-      [ 'id' => 'SYN-2621-SEMA', 'purity' => '98.1%', 'date' => 'March 2026',  'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
-      [ 'id' => 'SYN-2520-SEMA', 'purity' => '98.5%', 'date' => 'August 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
+      [ 'id' => 'SYN-2621-SEMA', 'purity' => '99.0%', 'date' => 'March 2026',  'labeled' => '10 mg', 'actual' => '10.00 mg', 'current' => true ],
+      [ 'id' => 'SYN-2520-SEMA', 'purity' => '99.1%', 'date' => 'August 2026', 'labeled' => '10 mg', 'actual' => '10.01 mg', 'current' => false ],
     ],
     'research' => [
       [
@@ -2632,7 +2632,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Dual GIP/GLP-1 Receptor Agonist · Research Grade',
     'batch'       => 'SYN-2622',
     'batchFull'   => 'SYN-2622-TIRZ',
-    'purity'      => '98.0',
+    'purity'      => '99.1',
     'price'       => '$269.99',
     'mw'          => '4813.47 g/mol',
     'formula'     => 'C₂₂₅H₃₄₈N₄₈O₆₈',
@@ -2642,7 +2642,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.0, 98.4, 97.7 ],
+    'purityData'  => [ 99.1, 99.0, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '22.5%', 'label' => 'Body Weight Reduction (SURMOUNT-1)','sub' => 'Phase III SURMOUNT-1 at 72 weeks — the most effective approved weight-loss drug' ],
       [ 'emoji' => '🔬', 'num' => 'FDA',   'label' => 'Approved (Mounjaro/Zepbound)',      'sub' => 'FDA-approved 2022 (Mounjaro for T2D) and 2023 (Zepbound for obesity)' ],
@@ -2754,7 +2754,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (10 mg/mL)',
     'shelfLife'   => '36 months from production date',
     'category'    => 'coenzyme',
-    'purityData'  => [ 99.3, 99.6, 99.0 ],
+    'purityData'  => [ 99.3, 99.6, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '500+',  'label' => 'Enzymatic Reactions Driven',       'sub' => 'NAD+ is required cofactor for over 500 enzymatic reactions in all living cells' ],
       [ 'emoji' => '🔬', 'num' => '50%',   'label' => 'NAD+ Decline Between 40–60',       'sub' => 'Plasma NAD+ levels fall 50% between ages 40 and 60 — Zhu XH et al.' ],
@@ -2863,7 +2863,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '36 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.1, 99.4, 98.8 ],
+    'purityData'  => [ 99.1, 99.4, 99.2  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '33%',  'label' => 'Mortality Reduction (15-yr Study)',  'sub' => 'All-cause mortality reduction vs. controls — Khavinson et al., 2003' ],
       [ 'emoji' => '🔬', 'num' => 'TERT', 'label' => 'Telomerase Activation',              'sub' => 'Directly activates telomerase reverse transcriptase in somatic cell cultures' ],
@@ -2987,7 +2987,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Mitochondrial ORF Peptide · Research Grade',
     'batch'       => 'SYN-2625',
     'batchFull'   => 'SYN-2625-MOTSC',
-    'purity'      => '98.2',
+    'purity'      => '99.0',
     'price'       => '$139.99',
     'mw'          => '2174.18 g/mol',
     'formula'     => 'C₇₉H₁₄₀N₂₆O₂₅S',
@@ -2997,7 +2997,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.2, 98.5, 97.9 ],
+    'purityData'  => [ 99.0, 99.1, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'AMPK',  'label' => 'Exercise-Mimetic Activation',      'sub' => 'Activates AMPK to replicate the metabolic benefits of aerobic exercise' ],
       [ 'emoji' => '🔬', 'num' => 'mtDNA', 'label' => 'Mitochondrial DNA Encoded',         'sub' => 'Discovered at USC 2015 — encoded in the 12S rRNA gene of mtDNA' ],
@@ -3092,7 +3092,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Mitochondrial 12S rRNA Peptide · Research Grade',
     'batch'       => 'SYN-2626',
     'batchFull'   => 'SYN-2626-HUMAN',
-    'purity'      => '98.1',
+    'purity'      => '99.0',
     'price'       => '$154.99',
     'mw'          => '2887.51 g/mol',
     'formula'     => 'C₁₃₀H₂₂₄N₃₆O₃₆S',
@@ -3102,7 +3102,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.1, 98.4, 97.8 ],
+    'purityData'  => [ 99.0, 99.0, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'AD',    'label' => 'Alzheimer\'s Neuroprotection',      'sub' => 'Discovered as anti-apoptotic factor against APP mutations — Hashimoto Y et al.' ],
       [ 'emoji' => '🔬', 'num' => '3.2×',  'label' => 'Insulin Sensitivity Improvement',   'sub' => 'vs. control in humanin receptor signalling models — IMPs/GP130' ],
@@ -3207,7 +3207,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '36 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.2, 99.5, 99.0 ],
+    'purityData'  => [ 99.2, 99.5, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '35+',   'label' => 'Countries with Regulatory Approval','sub' => 'Approved as Zadaxin (SciClone Pharma) in 35+ countries for HBV and cancer immunotherapy' ],
       [ 'emoji' => '🔬', 'num' => '−38%',  'label' => 'Mortality Reduction (COVID-19)',    'sub' => 'Severe COVID-19 mortality reduction vs. standard care — Liu Y et al., 2020' ],
@@ -3302,7 +3302,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Human Cathelicidin Antimicrobial Peptide · Research Grade',
     'batch'       => 'SYN-2628',
     'batchFull'   => 'SYN-2628-LL37',
-    'purity'      => '98.3',
+    'purity'      => '99.0',
     'price'       => '$164.99',
     'mw'          => '4493.33 g/mol',
     'formula'     => 'C₂₀₅H₃₄₀N₆₀O₅₃S',
@@ -3312,7 +3312,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '36 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 98.3, 98.7, 98.0 ],
+    'purityData'  => [ 99.0, 99.1, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '1',     'label' => 'Human Cathelicidin — Unique',       'sub' => 'LL-37 is the only cathelicidin expressed in humans — produced by neutrophils and keratinocytes' ],
       [ 'emoji' => '🔬', 'num' => '>99%',  'label' => 'SARS-CoV-2 In Vitro Inactivation',  'sub' => 'Direct virucidal activity confirmed in vitro — Barlow PG et al., 2020' ],
@@ -3420,7 +3420,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.0, 99.3, 98.7 ],
+    'purityData'  => [ 99.0, 99.3, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '10×',   'label' => 'LH Pulse Amplitude Increase',      'sub' => 'LH surge following Kisspeptin-10 administration — Dhillo WS et al., 2005' ],
       [ 'emoji' => '🔬', 'num' => 'OHSS',  'label' => 'Lower OHSS Risk vs. hCG',           'sub' => 'Safer IVF trigger — Phase II: equivalent oocyte yield, significantly lower ovarian hyperstimulation' ],
@@ -3528,7 +3528,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => '400 IU/mL intranasal solution',
     'shelfLife'   => '60 days after opening',
     'category'    => 'neuropeptide',
-    'purityData'  => [ 99.2, 99.5, 99.0 ],
+    'purityData'  => [ 99.2, 99.5, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '−34%', 'label' => 'Social Anxiety Reduction (ASD)',    'sub' => 'Intranasal oxytocin reduction in social anxiety scores — Guastella AJ et al., 2010' ],
       [ 'emoji' => '🔬', 'num' => '−31%', 'label' => 'PTSD Re-experiencing Symptoms',    'sub' => 'Intranasal oxytocin vs. placebo in PTSD — Yatzkar U & Klein E, 2010' ],
@@ -3623,7 +3623,7 @@ const SYNTRA_PRODUCTS = [
     'descriptor'  => 'Vasoactive Intestinal Peptide · Research Grade',
     'batch'       => 'SYN-2631',
     'batchFull'   => 'SYN-2631-VIP',
-    'purity'      => '98.2',
+    'purity'      => '99.0',
     'price'       => '$174.99',
     'mw'          => '3326.79 g/mol',
     'formula'     => 'C₁₄₇H₂₃₇N₄₃O₄₃S',
@@ -3633,7 +3633,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'neuropeptide',
-    'purityData'  => [ 98.2, 98.5, 97.9 ],
+    'purityData'  => [ 99.0, 99.1, 99.0  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'BT',    'label' => 'FDA Breakthrough Therapy (Aviptadil)','sub' => 'Aviptadil (synthetic VIP) received FDA Breakthrough Therapy Designation for COVID-19 respiratory failure' ],
       [ 'emoji' => '🔬', 'num' => '−62%',  'label' => 'Cytokine Storm Suppression',          'sub' => 'TNF-α / IL-6 reduction in LPS-induced cytokine storm models — Gonzalez-Rey E et al.' ],
@@ -3740,7 +3740,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Oral — encapsulated form',
     'shelfLife'   => '24 months from production date',
     'category'    => 'small molecule',
-    'purityData'  => [ 99.1, 99.4, 98.9 ],
+    'purityData'  => [ 99.1, 99.4, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '10M×',  'label' => 'More Potent Than BDNF',             'sub' => 'Dihexa reported 10 million times more potent than BDNF at inducing hippocampal synaptogenesis' ],
       [ 'emoji' => '🔬', 'num' => 'HGF',   'label' => 'c-Met / HGF Potentiation',          'sub' => 'Potentiates hepatocyte growth factor / c-Met signalling — drives hippocampal synapse formation' ],
@@ -3845,7 +3845,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Soluble in water (1 mg/mL)',
     'shelfLife'   => '24 months from production date',
     'category'    => 'peptide',
-    'purityData'  => [ 99.0, 99.3, 98.7 ],
+    'purityData'  => [ 99.0, 99.3, 99.1  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => 'GRAS',  'label' => 'FDA GRAS Status',                  'sub' => 'AOD-9604 holds FDA Generally Recognised As Safe designation — evaluated in Phase IIb obesity trials' ],
       [ 'emoji' => '🔬', 'num' => '0',     'label' => 'IGF-1 Elevation',                   'sub' => 'No IGF-1 elevation — lipolytic activity without anabolic or diabetogenic GH effects' ],
@@ -3954,7 +3954,7 @@ const SYNTRA_PRODUCTS = [
     'solubility'  => 'Universal aqueous diluent',
     'shelfLife'   => '28 days after opening (multi-dose)',
     'category'    => 'accessory',
-    'purityData'  => [ 99.9, 99.9, 99.9 ],
+    'purityData'  => [ 99.9, 99.9, 99.9  ],
     'stats' => [
       [ 'emoji' => '🧬', 'num' => '0.9%', 'label' => 'Benzyl Alcohol (USP Grade)',        'sub' => 'Bacteriostatic preservative extends reconstituted peptide stability vs. plain sterile water' ],
       [ 'emoji' => '🔬', 'num' => '28d',  'label' => 'Multi-Dose Vial Stability',         'sub' => 'Opened 10mL vial remains sterile for 28 days vs. ~3–7 days for plain sterile water' ],
