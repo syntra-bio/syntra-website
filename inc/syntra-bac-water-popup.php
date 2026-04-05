@@ -374,33 +374,44 @@ function syntra_ajax_claim_bac_water() {
         wp_send_json_error( array( 'message' => 'This email has already claimed a free vial.' ) );
     }
 
-    // ── 2. Add to FluentCRM ──────────────────────────────────────────────────
+    // ── 2. Always log lead to WP options as reliable backup ─────────────────
+    $leads = get_option( 'syntra_bac_leads_log', array() );
+    $leads[] = array(
+        'email' => $email,
+        'time'  => current_time( 'mysql' ),
+        'ip'    => $_SERVER['REMOTE_ADDR'] ?? '',
+    );
+    update_option( 'syntra_bac_leads_log', $leads );
+
+    // ── 3. Add to FluentCRM ──────────────────────────────────────────────────
+    $fluentcrm_added = false;
     if ( function_exists( 'FluentCrmApi' ) ) {
-        $contact_api = FluentCrmApi( 'contacts' );
+        try {
+            $contact_api = FluentCrmApi( 'contacts' );
 
-        // Resolve list ID by slug
-        $list_id = null;
-        if ( class_exists( '\FluentCrm\App\Models\Lists' ) ) {
-            $list = \FluentCrm\App\Models\Lists::where( 'slug', 'newsletter' )->first();
-            if ( $list ) $list_id = $list->id;
+            // Build contact — just email + status, no slug lookups that can fail
+            $contact_data = array(
+                'email'  => $email,
+                'status' => 'subscribed',
+            );
+
+            // Try to attach first available list
+            if ( class_exists( '\FluentCrm\App\Models\Lists' ) ) {
+                $list = \FluentCrm\App\Models\Lists::first();
+                if ( $list ) $contact_data['lists'] = array( $list->id );
+            }
+
+            $result = $contact_api->createOrUpdate( $contact_data );
+            $fluentcrm_added = ! empty( $result );
+        } catch ( \Exception $e ) {
+            // Log but don't block the user
+            error_log( 'Syntra FluentCRM error: ' . $e->getMessage() );
         }
-
-        // Resolve tag IDs by slug
-        $tag_ids = array();
-        if ( class_exists( '\FluentCrm\App\Models\Tag' ) ) {
-            $tags = \FluentCrm\App\Models\Tag::whereIn( 'slug', array( 'bac-water-lead', 'ad-traffic' ) )->get();
-            foreach ( $tags as $tag ) $tag_ids[] = $tag->id;
-        }
-
-        $contact_data = array(
-            'email'  => $email,
-            'status' => 'subscribed',
-        );
-        if ( $list_id )      $contact_data['lists'] = array( $list_id );
-        if ( ! empty( $tag_ids ) ) $contact_data['tags'] = $tag_ids;
-
-        $contact_api->createOrUpdate( $contact_data );
     }
+
+    // Log FluentCRM status alongside lead
+    $leads[ count($leads) - 1 ]['fluentcrm'] = $fluentcrm_added ? 'yes' : 'no (skipped or error)';
+    update_option( 'syntra_bac_leads_log', $leads );
 
     // ── 3. Find bac water product ────────────────────────────────────────────
     if ( ! class_exists( 'WooCommerce' ) ) {
@@ -423,12 +434,18 @@ function syntra_ajax_claim_bac_water() {
         wp_send_json_error( array( 'message' => 'Product not found.' ) );
     }
 
-    // ── 4. Add to cart + apply coupon ────────────────────────────────────────
+    // ── 5. Add to cart + apply coupon (with session persistence) ─────────────
+    if ( WC()->session && ! WC()->session->has_session() ) {
+        WC()->session->set_customer_session_cookie( true );
+    }
     WC()->cart->add_to_cart( $product_id, 1 );
     if ( ! WC()->cart->has_discount( 'FREEBACWATER' ) ) {
         WC()->cart->apply_coupon( 'FREEBACWATER' );
     }
     WC()->cart->calculate_totals();
+    if ( WC()->session ) {
+        WC()->session->save_data();
+    }
 
     // Record email as claimed
     $claimed[] = strtolower( $email );
