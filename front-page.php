@@ -9,6 +9,23 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
 <section class="hero grid-overlay" id="home">
   <div class="container">
     <div class="hero__inner">
+      <?php $vials_uri = get_template_directory_uri() . '/assets/images/'; ?>
+      <div class="hero__image-wrap hero__image-wrap--ready fade-up">
+        <div class="hero-vials">
+          <div class="hero-vial hero-vial--ghk">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-ghk.png' ); ?>" alt="GHK-CU 50mg" loading="eager">
+          </div>
+          <div class="hero-vial hero-vial--nad">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-nad.png' ); ?>" alt="NAD+ 500mg" loading="eager">
+          </div>
+          <div class="hero-vial hero-vial--bac">
+            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-bac.png' ); ?>" alt="Bacteriostatic Water 10ml" loading="eager">
+          </div>
+        </div>
+        <div class="hero__verified-badge">
+          <span class="verified-badge">99%+ Purity · HPLC Verified</span>
+        </div>
+      </div>
       <div class="hero__content">
         <div class="hero-label fade-up">— SYNTRA RESEARCH COMPOUNDS</div>
         <h1 class="hero__headline fade-up">
@@ -39,23 +56,6 @@ $products = class_exists( 'WooCommerce' ) ? wc_get_products( [ 'status' => 'publ
             <div class="hero__stat-label">Storage</div>
             <div class="hero__stat-value">−20°C</div>
           </div>
-        </div>
-      </div>
-      <?php $vials_uri = get_template_directory_uri() . '/assets/images/'; ?>
-      <div class="hero__image-wrap hero__image-wrap--ready fade-up">
-        <div class="hero-vials">
-          <div class="hero-vial hero-vial--ghk">
-            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-ghk.png' ); ?>" alt="GHK-CU 50mg" loading="eager">
-          </div>
-          <div class="hero-vial hero-vial--nad">
-            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-nad.png' ); ?>" alt="NAD+ 500mg" loading="eager">
-          </div>
-          <div class="hero-vial hero-vial--bac">
-            <img src="<?php echo esc_url( $vials_uri . 'hero-vial-bac.png' ); ?>" alt="Bacteriostatic Water 10ml" loading="eager">
-          </div>
-        </div>
-        <div class="hero__verified-badge">
-          <span class="verified-badge">99%+ Purity · HPLC Verified</span>
         </div>
       </div>
     </div>
