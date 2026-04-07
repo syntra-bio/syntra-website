@@ -359,9 +359,6 @@ add_action( 'wp_ajax_syntra_claim_bac_water',        'syntra_ajax_claim_bac_wate
 add_action( 'wp_ajax_nopriv_syntra_claim_bac_water', 'syntra_ajax_claim_bac_water' );
 
 function syntra_ajax_claim_bac_water() {
-    if ( ! check_ajax_referer( 'syntra_bac_water_nonce', 'nonce', false ) ) {
-        wp_send_json_error( array( 'message' => 'Security check failed.' ) );
-    }
 
     $email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
     if ( ! is_email( $email ) ) {
